@@ -7,6 +7,7 @@ using Automapper.Messages;
 using Automapper.Repositories;
 using AutoMapper;
 
+// test commit 1
 namespace Automapper
 {
     class Program
