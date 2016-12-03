@@ -12,6 +12,7 @@ function Join-ArrayPath
      $CombinedPath = $PathElements[0]
      for($i=1; $i -lt $PathElements.Length; $i++)
      {
+       $CombinedPath = Join-Path $CombinedPath $PathElements[$i]
      }
   }
   return $CombinedPath
