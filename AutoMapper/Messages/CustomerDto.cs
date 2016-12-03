@@ -9,8 +9,6 @@ namespace Automapper.Messages
         public string Name { get; set; }
         public DateTime DateOfBirth { get; set; }
         public AddressDto Address { get; set; }
-        //public AddressDto BusinessAddress { get; set; }
-
         
         public override string ToString()
         {

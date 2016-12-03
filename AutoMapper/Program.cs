@@ -73,7 +73,7 @@ namespace Automapper
                     ;
             });
 
-            //..validate mappings
+            //..validate mappings   
             Mapper.AssertConfigurationIsValid();
 
             var customerDtos = Mapper.Map<List<CustomerDto>>(customers);

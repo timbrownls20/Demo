@@ -9,14 +9,7 @@ namespace Automapper.Entities
         public string HouseName { get; set; }
         public string StreetName { get; set; }
         public string Town { get; set; }
-        //public AddressType AddressType { get; set; }
-
- 
     }
 
-    //public enum AddressType
-    //{
-    //    Home = 0,
-    //    Business
-    //}
+    
 }
