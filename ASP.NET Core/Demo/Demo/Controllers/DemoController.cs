@@ -15,5 +15,18 @@ namespace Demo.Controllers
         {
             return View();
         }
+
+        public IActionResult DisplayStatusCode(int id=200)
+        {
+            //.. none core way
+            //return new HttpStatusCodeResult(200);
+
+            //.. with view
+            //Response.StatusCode = id;
+            //return View(id);
+
+            return base.StatusCode(id);
+            
+        }
     }
 }
