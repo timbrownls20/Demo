@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Numeric Dropdrown Demo";
+}
+
+<div class="row jumbotron ">
+    <div class="col-md-12">
+        <h3>Numeric Dropdrown Demo</h3>
+    </div>
+
+</div>
+<div class="row m-standard">
+    <div class="col-md-3">
+        <h4>Enumerable.Range</h4>
+        @Html.DropDownList("ddlClockHours", Enumerable.Range(1, 12).Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }))
+    </div>
+</div>
+<hr />
+<div class="row m-standard">
+    <div class="col-md-3">
+        <h4>HTML5</h4>
+        <input id="clockHours" type="range" min="1" max="12" />
+    </div>
+</div>
+<div class="row m-standard">
+    <div class="col-md-3">
+        <h4>JQuery UI</h4>
+        <div id="clockHoursJQuery"></div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+      $(function() {
+        $("#clockHoursJQuery").slider({
+		    min: 1,
+		    max: 12
+	    });
+      });
+    </script>
+}
