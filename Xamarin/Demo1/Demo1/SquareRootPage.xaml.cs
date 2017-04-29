@@ -17,11 +17,11 @@ namespace Demo1
         public void OnCalculate(object sender, EventArgs e)
         {
             //this.lblOutput.Text = "Button clicked";
-            int numberIn;
+            double numberIn;
 
-            if (Int32.TryParse(this.txtNumber.Text, out numberIn))
+            if (Double.TryParse(this.txtNumber.Text, out numberIn))
             {
-
+                lblOutput.Text = Math.Sqrt(numberIn).ToString();
             }
         }
     }
