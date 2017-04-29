@@ -7,8 +7,11 @@
         <StackLayout Padding="10">
             <Label Text="Ticks" FontSize="40" HorizontalTextAlignment="Center"/>
             <Label Text="{Binding Ticks}" FontSize="20" HorizontalTextAlignment="Center"/>
-            <Button Text="Start" Command="{Binding StartCommand}"/>
-            <Button Text="Stop" Command="{Binding StopCommand}"/>
+            <Button Text="{Binding ActionButtonText}" Command="{Binding ToggleCommand}"/>
+            <Button Text="Reset" Command="{Binding ResetCommand}"/>
+            
+            <!--<Button Text="Start" Command="{Binding StartCommand}"/>
+            <Button Text="Stop" Command="{Binding StopCommand}"/>-->
         </StackLayout>
     </ScrollView>
 </ContentPage>
