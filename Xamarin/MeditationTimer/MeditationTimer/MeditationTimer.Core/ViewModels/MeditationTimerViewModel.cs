@@ -8,26 +8,15 @@ namespace MeditationTimer.Core.ViewModels
     public class MeditationTimerViewModel : MvxViewModel
     {   
         private Timer _timer;
-        private int _ticks { get; set; }
         private MeditationSession _model;
 
         public ICommand ToggleCommand { get { return new MvxCommand(() => Toggle());  } }
 
         public ICommand ResetCommand { get { return new MvxCommand(() => Reset()); } }
 
-        public bool CanReset => Ticks > 0;
+        public bool CanReset => _model.InProgress;
 
         public string ActionButtonText => _timer.IsOn ? "Stop" : "Start";
-
-        public int Ticks
-        {
-            get { return _ticks; }
-            set
-            {
-                _ticks = value;
-                RaisePropertyChanged(() => Ticks);
-            }
-        }
 
         public string TimeRemaining
         {
@@ -41,7 +30,7 @@ namespace MeditationTimer.Core.ViewModels
         //..TB TODO timer by DO so can swap implementations
         public MeditationTimerViewModel()
         {
-            _timer = new Timer(AddTick, null, 1000, 1000);
+            _timer = new Timer(DecreaseTime, null, 1000, 1000);
             _model = new MeditationSession(new TimeSpan(0, 20, 0));
         }
 
@@ -61,21 +50,23 @@ namespace MeditationTimer.Core.ViewModels
 
         public void Reset()
         {
-            Ticks = 0;
+            _model.Reset();
             Stop();
+            RaisePropertyChanged(() => TimeRemaining);
         }
 
 
-        public void AddTick(object state)
+        public void DecreaseTime(object state)
         {
+            bool starting = false;
+            if(!_model.InProgress)
+                starting = true;
+
             _model.Decrement();
             RaisePropertyChanged(() => TimeRemaining);
 
-            Ticks++;
-            if (_ticks == 1)
-            {
+            if(starting)
                 RaisePropertyChanged(() => CanReset);
-            }
         }
 
     }

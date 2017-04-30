@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MeditationTimer.Core
 {
@@ -12,6 +8,8 @@ namespace MeditationTimer.Core
 
         public TimeSpan TimeRemaining { get; set; }
 
+        public bool InProgress => TimeRemaining < TargetTime;
+      
         public MeditationSession(TimeSpan targetTime)
         {
             TargetTime = TimeRemaining = targetTime;
@@ -22,5 +20,11 @@ namespace MeditationTimer.Core
             TimeRemaining = TimeRemaining.Subtract(TimeSpan.FromSeconds(1));
         }
 
+        public void Reset()
+        {
+            TimeRemaining = TargetTime;
+        }
+
+       
     }
 }
