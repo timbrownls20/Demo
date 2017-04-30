@@ -1,5 +1,6 @@
 ﻿using MeditationTimer.Core.Utils;
 using MvvmCross.Core.ViewModels;
+using System;
 using System.Windows.Input;
 
 namespace MeditationTimer.Core.ViewModels
@@ -8,6 +9,7 @@ namespace MeditationTimer.Core.ViewModels
     {   
         private Timer _timer;
         private int _ticks { get; set; }
+        private MeditationSession _model;
 
         public ICommand ToggleCommand { get { return new MvxCommand(() => Toggle());  } }
 
@@ -27,9 +29,20 @@ namespace MeditationTimer.Core.ViewModels
             }
         }
 
+        public string TimeRemaining
+        {
+            get
+            {
+                return _model.TimeRemaining.ToString();
+            }
+
+        }
+
+        //..TB TODO timer by DO so can swap implementations
         public MeditationTimerViewModel()
         {
             _timer = new Timer(AddTick, null, 1000, 1000);
+            _model = new MeditationSession(new TimeSpan(0, 20, 0));
         }
 
         public void Toggle()
@@ -55,6 +68,9 @@ namespace MeditationTimer.Core.ViewModels
 
         public void AddTick(object state)
         {
+            _model.Decrement();
+            RaisePropertyChanged(() => TimeRemaining);
+
             Ticks++;
             if (_ticks == 1)
             {
