@@ -1,18 +1,16 @@
 ﻿using MeditationTimer.Core.Utils;
 using MvvmCross.Core.ViewModels;
+using System.Windows.Input;
 
 namespace MeditationTimer.Core.ViewModels
 {
     public class MeditationTimerViewModel : MvxViewModel
     {   
         private Timer _timer;
-       
+        private int _ticks { get; set; }
 
-        public int _ticks { get; set; }
-        //public IMvxCommand StartCommand { get; }
-        //public IMvxCommand StopCommand { get; }
-        public IMvxCommand ToggleCommand { get; }
-        public IMvxCommand ResetCommand { get; }
+        public ICommand ToggleCommand { get { return new MvxCommand(() => Toggle(), () => true);  } }
+        public ICommand ResetCommand { get { return new MvxCommand(() => Reset(), () => true); } }
 
         public int Ticks
         {
@@ -21,51 +19,29 @@ namespace MeditationTimer.Core.ViewModels
             {
                 _ticks = value;
                 RaisePropertyChanged(() => Ticks);
-                //OnPropertyChanged("Ticks");
             }
         }
+
+        public bool ButtonEnabled => true;
 
         public MeditationTimerViewModel()
         {
             _timer = new Timer(thisCallback, null, 1000, 1000);
-            _timer.Start();
-
-            //StartCommand = new Command(Start);
-            //StopCommand = new Command(Stop);
-            ToggleCommand = new MvxCommand(() => Toggle(), () => true);
-            ResetCommand = new MvxCommand(() => Reset(), () => true);
-
-           S
         }
 
-        //void Start() => _timer.Start();
-
-        //void Stop() => _timer.Stop();
-
-        void Toggle()
+        public void Toggle()
         {
-            //OnPropertyChanged("ActionButtonText");
-            RaisePropertyChanged(() => ActionButtonText);
             _timer.Toggle();
+            RaisePropertyChanged(() => ActionButtonText);
         }
 
-        void Reset()
+        public void Reset()
         {
             Ticks = 0;
             _timer.Stop();
-
-
         }
 
-
-        public string ActionButtonText
-        {
-            get
-            {
-                return _timer.IsOn ? "Stop" : "Start";
-            }
-            
-        }
+        public string ActionButtonText => _timer.IsOn ? "Stop" : "Start";
 
         public void thisCallback(object state)
         {

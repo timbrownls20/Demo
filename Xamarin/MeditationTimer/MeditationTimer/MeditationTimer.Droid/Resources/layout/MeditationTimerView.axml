@@ -34,13 +34,13 @@
       <Button android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            local:MvxBind="Text ActionButtonText; Click Toggle"
+            local:MvxBind="Text ActionButtonText; Click ToggleCommand"
             />
       <Button android:id="@+id/button"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="Reset" 
-          local:MvxBind="Click Reset"/>
+          local:MvxBind="Click ResetCommand"/>
     </LinearLayout>
   </FrameLayout>
 </RelativeLayout>
