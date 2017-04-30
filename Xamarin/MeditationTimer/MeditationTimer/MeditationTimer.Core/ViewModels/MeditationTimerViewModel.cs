@@ -9,8 +9,13 @@ namespace MeditationTimer.Core.ViewModels
         private Timer _timer;
         private int _ticks { get; set; }
 
-        public ICommand ToggleCommand { get { return new MvxCommand(() => Toggle(), () => true);  } }
-        public ICommand ResetCommand { get { return new MvxCommand(() => Reset(), () => true); } }
+        public ICommand ToggleCommand { get { return new MvxCommand(() => Toggle());  } }
+
+        public ICommand ResetCommand { get { return new MvxCommand(() => Reset()); } }
+
+        public bool CanReset => Ticks > 0;
+
+        public string ActionButtonText => _timer.IsOn ? "Stop" : "Start";
 
         public int Ticks
         {
@@ -22,11 +27,9 @@ namespace MeditationTimer.Core.ViewModels
             }
         }
 
-        public bool ButtonEnabled => true;
-
         public MeditationTimerViewModel()
         {
-            _timer = new Timer(thisCallback, null, 1000, 1000);
+            _timer = new Timer(AddTick, null, 1000, 1000);
         }
 
         public void Toggle()
@@ -35,17 +38,28 @@ namespace MeditationTimer.Core.ViewModels
             RaisePropertyChanged(() => ActionButtonText);
         }
 
+        public void Stop()
+        {
+            _timer.Stop();
+            RaisePropertyChanged(() => ActionButtonText);
+            RaisePropertyChanged(() => CanReset);
+
+        }
+
         public void Reset()
         {
             Ticks = 0;
-            _timer.Stop();
+            Stop();
         }
 
-        public string ActionButtonText => _timer.IsOn ? "Stop" : "Start";
 
-        public void thisCallback(object state)
+        public void AddTick(object state)
         {
             Ticks++;
+            if (_ticks == 1)
+            {
+                RaisePropertyChanged(() => CanReset);
+            }
         }
 
     }

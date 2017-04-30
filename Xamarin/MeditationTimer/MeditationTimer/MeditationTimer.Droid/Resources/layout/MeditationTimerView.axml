@@ -40,7 +40,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="Reset" 
-          local:MvxBind="Click ResetCommand"/>
+          local:MvxBind="Click ResetCommand; Enabled CanReset"/>
     </LinearLayout>
   </FrameLayout>
 </RelativeLayout>
