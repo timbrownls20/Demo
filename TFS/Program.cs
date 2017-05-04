@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using Microsoft.TeamFoundation.Client;
 using Microsoft.TeamFoundation.Framework.Client;
 using Microsoft.TeamFoundation.VersionControl.Client;
 using Microsoft.TeamFoundation.WorkItemTracking.Client;
+using TFSTools.Actions;
 
 namespace TFSTools
 {
@@ -18,19 +20,38 @@ namespace TFSTools
             //int workItemId = 9320;
             //string textToDelete = "Test 1";
 
-            // querying workitems
-            Uri collectionUri = new Uri("http://lds-tfs-01.medisoft.local:8080/tfs/DefaultCollection");
+            string tpcUrl = ConfigurationManager.AppSettings["TeamProjectCollection"];
+            Uri collectionUri = new Uri(tpcUrl);
             TfsTeamProjectCollection tpc = new TfsTeamProjectCollection(collectionUri);
-            
-            QueryWorkItems(tpc);
 
-            QuerySubscriptions(tpc);
 
-            QueryBuilds(tpc);
+            var input = GetMenu();
 
-            QueryShelfSets(tpc);
+            while (input.Key != ConsoleKey.Q)
+            {
+                input = GetMenu();
 
-            QueryVersionControl(tpc);
+                if (input.Key == ConsoleKey.NumPad1)
+                {
+                    DoAction(new WorkItemAction(), tpc);    
+                }
+                else if (input.Key == ConsoleKey.NumPad2)
+                {
+                    DoAction(new BuildAction(), tpc);    
+                }
+                else if (input.Key == ConsoleKey.NumPad3)
+                {
+                    DoAction(new VersionControlAction(), tpc);        
+                }
+                else if (input.Key == ConsoleKey.NumPad4)
+                {
+                    DoAction(new ShelfsetAction(), tpc);        
+                }
+                else if (input.Key == ConsoleKey.NumPad5)
+                {
+                    DoAction(new SubscriptionAction(), tpc);                    
+                }
+            }
 
             #region work item history
 
@@ -70,96 +91,24 @@ namespace TFSTools
 
         }
 
-        
-        private static void QueryVersionControl(TfsTeamProjectCollection tpc)
+        private static ConsoleKeyInfo GetMenu()
         {
-            //.. email people about with work item override
-            //https://msdn.microsoft.com/en-gb/magazine/jj883959.aspx
-            var versionControl = tpc.GetService<VersionControlServer>();
-            var changesets = versionControl.QueryHistory(@"$/MedisoftEMR", RecursionType.Full).ToList();
-            var changesetsWithOverride = changesets.Where(x => !string.IsNullOrEmpty(x.PolicyOverride.Comment));
-
-            foreach (var changeset in changesetsWithOverride)
-            {
-                var commitedBy = changeset.Committer;
-            }
-
-        }
-
-        private static void QueryShelfSets(TfsTeamProjectCollection tpc)
-        {
-            //.. clean up shelvesets
-            var versionControl = tpc.GetService<VersionControlServer>();
-            var shelveSets = versionControl.QueryShelvesets(null, null);
-            var oldShelves = shelveSets.Where(x => x.CreationDate < DateTime.Today.AddYears(-1));
-            foreach (var oldShelve in oldShelves)
-            {
-                versionControl.DeleteShelveset(oldShelve);
-            }
-
-            //.. email people about with work item override
-            //https://msdn.microsoft.com/en-gb/magazine/jj883959.aspx
-            //versionControl.QueryHistory()
-            
-        }
-
-        private static void QueryBuilds(TfsTeamProjectCollection tpc)
-        {
-            //.. querying builds
-            IBuildServer buildServer = tpc.GetService<IBuildServer>();
-            string apiTemplate = "REL{0}.Build_API";
-            string uiTemplate = "REL{0}.Build_UI";
-
-            string apiBuildName = string.Format(apiTemplate, "1");
-            string uiBuildName = string.Format(uiTemplate, "1");
-
-            var apiBuilds = buildServer.QueryBuilds("MedisoftEMR", apiBuildName);
-        }
-
-        private static void QuerySubscriptions(TfsTeamProjectCollection tpc)
-        {
-            //querying subscriptions
-            //list current subscriptions
-            IEventService eventService = tpc.GetService<IEventService>();
-            Subscription[] subscriptions = eventService.GetAllEventSubscriptions();
-
-            Console.WriteLine("There are {0} subscriptions:", subscriptions.Length);
-            foreach (Subscription s in subscriptions)
-            {
-                Console.WriteLine();
-                PrintSubscription(s);
-                Console.WriteLine();
-            }
-        }
-
-        private static void QueryWorkItems(TfsTeamProjectCollection tpc)
-        {
-            //..TODO move ready for test items
-            //..Email people about test on hold
-            WorkItemStore workItemStore = tpc.GetService<WorkItemStore>();
-
-            //string query = @"SELECT * from workitem WHERE ID = " + workItemId +
-            //                " and [Iteration Path] Under 'MEDISOFT_DEMO'";
-
-            string query = @"SELECT System.ID, System.Title from workitems" +
-                           @" WHERE State = 'Ready to Test'" +
-                           @" and [Work Item Type] In Group 'Microsoft.BugCategory'" +
-                           @" and [Iteration Path] Under 'MedisoftEMR\Release 1'";
-
-            var workItem = workItemStore.Query(query).Cast<WorkItem>().SingleOrDefault();
+            Console.WriteLine("***********************");
+            Console.WriteLine("1. WorkItemAction");
+            Console.WriteLine("2. BuildAction");
+            Console.WriteLine("3. VersionControlAction");
+            Console.WriteLine("4. ShelfsetAction");
+            Console.WriteLine("5. SubscriptionAction");
+            Console.WriteLine("Q. Quit");
+            Console.WriteLine("***********************");
+            Console.WriteLine("Select an option");
+            return Console.ReadKey();
         }
 
 
-        private static void PrintSubscription(Subscription s)
+        private static void DoAction(IAction action, TfsTeamProjectCollection tpc)
         {
-            Console.WriteLine("Subscription Id:    {0}", s.ID);
-            Console.WriteLine("EventType:          {0}", s.EventType);
-            Console.WriteLine("Subscriber:         {0}", s.Subscriber);
-            Console.WriteLine("Delivery Address:   {0}", s.DeliveryPreference.Address);
-            Console.WriteLine("Delivery Schedule:  {0}", s.DeliveryPreference.Schedule);
-            Console.WriteLine("Delivery Type:      {0}", s.DeliveryPreference.Type);
-            Console.WriteLine("Tag:                {0}", s.Tag);
-            Console.WriteLine("Filter:             {0}", s.ConditionString);
+            action.Execute(tpc);
         }
     }
 }

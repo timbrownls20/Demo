@@ -204,6 +204,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\System.IdentityModel.Tokens.Jwt.4.0.0\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
@@ -227,7 +228,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\BuildAction.cs" />
     <Compile Include="Actions\IAction.cs" />
+    <Compile Include="Actions\ShelfsetAction.cs" />
+    <Compile Include="Actions\SubscriptionAction.cs" />
+    <Compile Include="Actions\VersionControlAction.cs" />
     <Compile Include="Actions\WorkItemAction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
