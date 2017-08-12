@@ -37,6 +37,7 @@
     <Compile Include="App.cs" />
     <Compile Include="MeditationSession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IAudioService.cs" />
     <Compile Include="Utils\Timer.cs" />
     <Compile Include="ViewModels\FirstViewModel.cs" />
     <Compile Include="ViewModels\MeditationTimerViewModel.cs" />

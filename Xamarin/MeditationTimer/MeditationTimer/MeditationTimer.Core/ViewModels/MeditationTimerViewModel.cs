@@ -1,4 +1,5 @@
-﻿using MeditationTimer.Core.Utils;
+﻿using MeditationTimer.Core.Services;
+using MeditationTimer.Core.Utils;
 using MvvmCross.Core.ViewModels;
 using System;
 using System.Windows.Input;
@@ -9,6 +10,7 @@ namespace MeditationTimer.Core.ViewModels
     {   
         private Timer _timer;
         private MeditationSession _model;
+        IAudioService _audioService;
 
         public ICommand ToggleCommand { get { return new MvxCommand(() => Toggle());  } }
 
@@ -28,15 +30,17 @@ namespace MeditationTimer.Core.ViewModels
         }
 
         //..TB TODO timer by DO so can swap implementations
-        public MeditationTimerViewModel()
+        public MeditationTimerViewModel(IAudioService audioService)
         {
             _timer = new Timer(DecreaseTime, null, 1000, 1000);
             _model = new MeditationSession(new TimeSpan(0, 20, 0));
+            _audioService = audioService;
         }
 
         public void Toggle()
         {
             _timer.Toggle();
+            _audioService.Play("chime_glissando");
             RaisePropertyChanged(() => ActionButtonText);
         }
 
