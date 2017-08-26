@@ -21162,12 +21162,99 @@ module.exports = require('./lib/React');
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-var reactElement = React.createElement(
-                     'h1',
-                     { className: 'header' },
-                     'This is a JSX element'
-);
+// example 1
+// var reactElement = <h1 className="header">
+//                      This is a JSX element
+//                    </h1>;
 
-ReactDOM.render(reactElement, document.getElementById('react-application'));
+//.. example 2
+// var Header = React.createClass({
+
+//   handleClick:function(){
+//     alert('button clicked');
+//   },
+
+//   render:function(){
+
+//     var header = <h1 className="header">
+//                      This is a JSX element
+//                    </h1>;
+
+//     var button = <button onClick={this.handleClick}>Click Me</button> 
+
+//     return React.createElement('div', null, [header, button]);
+
+//   }
+
+// });
+
+//.. example three
+class Counter extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.props = props;
+    this.state = { active: true };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+
+    this.setState(prevState => ({
+      active: !prevState.active
+      //active:false
+    }));
+    alert('state: ' + this.state.active);
+  }
+
+  render() {
+    return React.createElement(
+      'div',
+      null,
+      React.createElement(Header, { label: this.props.label }),
+      React.createElement(Button, { label: 'Press Here', handleClick: this.handleClick }),
+      React.createElement(Label, { label: this.state.active })
+    );
+  }
+
+};
+
+function Header(props) {
+
+  return React.createElement(
+    'h1',
+    { className: 'header' },
+    props.label
+  );
+}
+
+function Label(props) {
+  return React.createElement(
+    'div',
+    { className: 'alert alert-info' },
+    props.label
+  );
+}
+
+class Button extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.props = props;
+  }
+
+  render() {
+    return React.createElement(
+      'button',
+      { onClick: this.props.handleClick },
+      this.props.label
+    );
+  }
+
+}
+
+//var reactComponentElement = React.createElement(Header);
+
+ReactDOM.render(React.createElement(Counter, { label: 'TB Test 1' }), document.getElementById('react-application'));
 
 },{"react":185,"react-dom":31}]},{},[186]);
