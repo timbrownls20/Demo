@@ -21161,6 +21161,9 @@ module.exports = require('./lib/React');
 },{"./lib/React":161}],186:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
+var Header = require('./components/header.react.js');
+var Button = require('./components/button.react.js');
+var DebugLabel = require('./components/debugLabel.react.js');
 
 class Counter extends React.Component {
 
@@ -21175,14 +21178,13 @@ class Counter extends React.Component {
 
     this.setState(prevState => ({
       active: !prevState.active
-      //active:false
     }));
     console.log('state: ' + this.state.active);
   }
 
   render() {
 
-    console.log('[Counter] render');
+    console.log(' \n\r[Counter] render');
 
     return React.createElement(
       'div',
@@ -21205,58 +21207,17 @@ class Counter extends React.Component {
           React.createElement(Button, { label: 'Press Here', handleClick: this.handleClick })
         )
       ),
-      React.createElement(
-        'div',
-        { className: 'row' },
-        React.createElement(
-          'div',
-          { className: 'col-lg-12' },
-          React.createElement(Label, { label: this.state.active })
-        )
-      )
+      React.createElement(DebugLabel, { label: this.state.active })
     );
   }
 
 };
 
-class Header extends React.Component {
+ReactDOM.render(React.createElement(Counter, { label: 'Simple Timer' }), document.getElementById('react-application'));
 
-  constructor(props) {
-    super(props);
-    this.props = props;
-  }
-
-  render() {
-
-    console.log('[Header] render');
-    return React.createElement(
-      'h1',
-      { className: 'header' },
-      this.props.label
-    );
-  }
-
-};
-
-class Label extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.props = props;
-  }
-
-  render() {
-
-    console.log('[Label] render');
-    console.log('[Label] render:props: ' + JSON.stringify(this.props));
-
-    return React.createElement(
-      'div',
-      { className: 'alert alert-info' },
-      JSON.stringify(this.props)
-    );
-  }
-};
+},{"./components/button.react.js":187,"./components/debugLabel.react.js":188,"./components/header.react.js":189,"react":185,"react-dom":31}],187:[function(require,module,exports){
+var React = require('react');
+var ReactDOM = require('react-dom');
 
 class Button extends React.Component {
 
@@ -21278,6 +21239,65 @@ class Button extends React.Component {
 
 };
 
-ReactDOM.render(React.createElement(Counter, { label: 'TB Test 1' }), document.getElementById('react-application'));
+module.exports = Button;
+
+},{"react":185,"react-dom":31}],188:[function(require,module,exports){
+var React = require('react');
+var ReactDOM = require('react-dom');
+
+class DebugLabel extends React.Component {
+
+   constructor(props) {
+      super(props);
+      this.props = props;
+   }
+
+   render() {
+
+      console.log('[Label] render');
+      console.log('[Label] render:props: ' + JSON.stringify(this.props));
+
+      return React.createElement(
+         'div',
+         { className: 'row' },
+         React.createElement(
+            'div',
+            { className: 'col-lg-12' },
+            React.createElement(
+               'div',
+               { className: 'alert alert-info' },
+               JSON.stringify(this.props)
+            )
+         )
+      );
+   }
+};
+
+module.exports = DebugLabel;
+
+},{"react":185,"react-dom":31}],189:[function(require,module,exports){
+var React = require('react');
+var ReactDOM = require('react-dom');
+
+class Header extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.props = props;
+    }
+
+    render() {
+
+        console.log('[Header] render');
+        return React.createElement(
+            'h1',
+            { className: 'header' },
+            this.props.label
+        );
+    }
+
+};
+
+module.exports = Header;
 
 },{"react":185,"react-dom":31}]},{},[186]);
