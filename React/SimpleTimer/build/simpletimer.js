@@ -21205,7 +21205,6 @@ class Header extends React.Component {
   render() {
 
     console.log('[Header] render');
-
     return React.createElement(
       'h1',
       { className: 'header' },
@@ -21225,10 +21224,12 @@ class Label extends React.Component {
   render() {
 
     console.log('[Label] render');
+    console.log('[Label] render:props: ' + JSON.stringify(this.props));
+
     return React.createElement(
       'div',
       { className: 'alert alert-info' },
-      this.props.label
+      JSON.stringify(this.props)
     );
   }
 };
@@ -21243,7 +21244,6 @@ class Button extends React.Component {
   render() {
 
     console.log('[Button] render');
-    //console.log('props: ' + this.props.label)
 
     return React.createElement(
       'button',

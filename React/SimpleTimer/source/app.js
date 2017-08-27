@@ -60,7 +60,9 @@ class Label extends React.Component{
    render(){ 
 
      console.log('[Label] render');
-     return <div className="alert alert-info">{this.props.label}</div>;
+     console.log('[Label] render:props: ' + JSON.stringify(this.props));
+
+     return <div className="alert alert-info">{JSON.stringify(this.props)}</div>;
    }
 };
 
@@ -75,7 +77,7 @@ class Button extends React.Component{
   render() {
 
       console.log('[Button] render');
-      //console.log('props: ' + this.props.label)
+      
 
       return <button onClick={this.props.handleClick}>{this.props.label}</button> 
   }
