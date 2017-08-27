@@ -21163,28 +21163,51 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Header = require('./components/header.react.js');
 var Button = require('./components/button.react.js');
-var DebugLabel = require('./components/debugLabel.react.js');
+var Label = require('./components/label.react.js');
 
 class Counter extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.props = props;
-    this.state = { active: true };
-    this.handleClick = this.handleClick.bind(this);
-  }
 
   handleClick() {
 
     this.setState(prevState => ({
       active: !prevState.active
     }));
-    console.log('state: ' + this.state.active);
+  }
+
+  doCount() {
+
+    if (this.state.active) {
+
+      this.setState(prevState => ({
+        counter: prevState.counter + 1
+      }));
+    }
+  }
+
+  //.. life cycle events
+  constructor(props) {
+
+    console.log('\n\r[Counter] constructor');
+
+    super(props);
+    this.props = props;
+    this.state = {
+      active: false,
+      counter: 0
+    };
+    this.handleClick = this.handleClick.bind(this);
+    this.doCount = this.doCount.bind(this);
+  }
+
+  componentDidMount() {
+
+    console.log('[Counter] componentDidMount');
+    setInterval(this.doCount, 1000);
   }
 
   render() {
 
-    console.log(' \n\r[Counter] render');
+    console.log('[Counter] render');
 
     return React.createElement(
       'div',
@@ -21207,7 +21230,8 @@ class Counter extends React.Component {
           React.createElement(Button, { label: 'Press Here', handleClick: this.handleClick })
         )
       ),
-      React.createElement(DebugLabel, { label: this.state.active })
+      React.createElement(Label, { label: this.state.counter }),
+      React.createElement(Label, { label: JSON.stringify(this.state) })
     );
   }
 
@@ -21215,7 +21239,7 @@ class Counter extends React.Component {
 
 ReactDOM.render(React.createElement(Counter, { label: 'Simple Timer' }), document.getElementById('react-application'));
 
-},{"./components/button.react.js":187,"./components/debugLabel.react.js":188,"./components/header.react.js":189,"react":185,"react-dom":31}],187:[function(require,module,exports){
+},{"./components/button.react.js":187,"./components/header.react.js":188,"./components/label.react.js":189,"react":185,"react-dom":31}],187:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 
@@ -21245,40 +21269,6 @@ module.exports = Button;
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-class DebugLabel extends React.Component {
-
-   constructor(props) {
-      super(props);
-      this.props = props;
-   }
-
-   render() {
-
-      console.log('[Label] render');
-      console.log('[Label] render:props: ' + JSON.stringify(this.props));
-
-      return React.createElement(
-         'div',
-         { className: 'row' },
-         React.createElement(
-            'div',
-            { className: 'col-lg-12' },
-            React.createElement(
-               'div',
-               { className: 'alert alert-info' },
-               JSON.stringify(this.props)
-            )
-         )
-      );
-   }
-};
-
-module.exports = DebugLabel;
-
-},{"react":185,"react-dom":31}],189:[function(require,module,exports){
-var React = require('react');
-var ReactDOM = require('react-dom');
-
 class Header extends React.Component {
 
     constructor(props) {
@@ -21299,5 +21289,37 @@ class Header extends React.Component {
 };
 
 module.exports = Header;
+
+},{"react":185,"react-dom":31}],189:[function(require,module,exports){
+var React = require('react');
+var ReactDOM = require('react-dom');
+
+class Label extends React.Component {
+
+   constructor(props) {
+      super(props);
+      this.props = props;
+   }
+
+   render() {
+
+      console.log('[Label] render');
+      return React.createElement(
+         'div',
+         { className: 'row' },
+         React.createElement(
+            'div',
+            { className: 'col-lg-12' },
+            React.createElement(
+               'div',
+               { className: 'alert alert-info' },
+               this.props.label
+            )
+         )
+      );
+   }
+};
+
+module.exports = Label;
 
 },{"react":185,"react-dom":31}]},{},[186]);

@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-class DebugLabel extends React.Component{
+class Label extends React.Component{
 
    constructor(props) {
       super(props);
@@ -12,14 +12,12 @@ class DebugLabel extends React.Component{
    render(){ 
 
      console.log('[Label] render');
-     console.log('[Label] render:props: ' + JSON.stringify(this.props));
-
      return <div className="row">
               <div className="col-lg-12">
-                <div className="alert alert-info">{JSON.stringify(this.props)}</div>
+                <div className="alert alert-info">{this.props.label}</div>
                 </div>
             </div>;
    }
 };
 
-module.exports = DebugLabel;
+module.exports = Label;
