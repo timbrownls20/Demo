@@ -24,11 +24,23 @@ class Counter extends React.Component{
 
     console.log('[Counter] render');
 
-    return <div>
-            <Header label={this.props.label}/>
-            <Button label="Press Here" handleClick={this.handleClick}/>
-            <Label label={this.state.active} />
-         </div>; 
+    return <div className="container-fluid">
+              <div className="row">
+                <div className="col-lg-12">
+                  <Header label={this.props.label}/>
+                </div>
+            </div>
+            <div className="row">
+              <div className="col-lg-12">
+                <Button label="Press Here" handleClick={this.handleClick}/>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg-12">
+                <Label label={this.state.active} />
+              </div>
+            </div>
+          </div>; 
   } 
 
 };

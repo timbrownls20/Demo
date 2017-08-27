@@ -21186,10 +21186,34 @@ class Counter extends React.Component {
 
     return React.createElement(
       'div',
-      null,
-      React.createElement(Header, { label: this.props.label }),
-      React.createElement(Button, { label: 'Press Here', handleClick: this.handleClick }),
-      React.createElement(Label, { label: this.state.active })
+      { className: 'container-fluid' },
+      React.createElement(
+        'div',
+        { className: 'row' },
+        React.createElement(
+          'div',
+          { className: 'col-lg-12' },
+          React.createElement(Header, { label: this.props.label })
+        )
+      ),
+      React.createElement(
+        'div',
+        { className: 'row' },
+        React.createElement(
+          'div',
+          { className: 'col-lg-12' },
+          React.createElement(Button, { label: 'Press Here', handleClick: this.handleClick })
+        )
+      ),
+      React.createElement(
+        'div',
+        { className: 'row' },
+        React.createElement(
+          'div',
+          { className: 'col-lg-12' },
+          React.createElement(Label, { label: this.state.active })
+        )
+      )
     );
   }
 
