@@ -7,11 +7,21 @@ var Label = require('./components/label.react.js');
 class Counter extends React.Component{
 
 
-  handleClick (){
+  toggleCounter (){
       
       this.setState((prevState) =>
       ({
         active: !prevState.active
+      }));
+
+  }
+
+  resetCounter (){
+      
+      this.setState((prevState) =>
+      ({
+        active: false,
+        counter: 0
       }));
 
   }
@@ -39,8 +49,9 @@ class Counter extends React.Component{
       active:false,
       counter:0 
     };
-    this.handleClick = this.handleClick.bind(this);
+    this.toggleCounter = this.toggleCounter.bind(this);
     this.doCount = this.doCount.bind(this);
+    this.resetCounter = this.resetCounter.bind(this);
   }
 
   componentDidMount() {
@@ -54,6 +65,8 @@ class Counter extends React.Component{
 
     console.log('[Counter] render');
 
+    var buttonLabel = this.state.active ? "Stop" : "Start";
+
     return <div className="container-fluid">
               <div className="row">
                 <div className="col-lg-12">
@@ -62,11 +75,12 @@ class Counter extends React.Component{
             </div>
             <div className="row">
               <div className="col-lg-12">
-                <Button label="Press Here" handleClick={this.handleClick}/>
+                <Button label={buttonLabel} handleClick={this.toggleCounter}/>
+                <Button label="Reset" handleClick={this.resetCounter}/>
               </div>
             </div>
             <Label label={this.state.counter} /> 
-            <Label label={JSON.stringify(this.state)} />             
+            <Label label={JSON.stringify(this.state)} visible="false" />             
           </div>; 
   } 
 
