@@ -21162,33 +21162,6 @@ module.exports = require('./lib/React');
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-// example 1
-// var reactElement = <h1 className="header">
-//                      This is a JSX element
-//                    </h1>;
-
-//.. example 2
-// var Header = React.createClass({
-
-//   handleClick:function(){
-//     alert('button clicked');
-//   },
-
-//   render:function(){
-
-//     var header = <h1 className="header">
-//                      This is a JSX element
-//                    </h1>;
-
-//     var button = <button onClick={this.handleClick}>Click Me</button> 
-
-//     return React.createElement('div', null, [header, button]);
-
-//   }
-
-// });
-
-//.. example three
 class Counter extends React.Component {
 
   constructor(props) {
@@ -21204,10 +21177,13 @@ class Counter extends React.Component {
       active: !prevState.active
       //active:false
     }));
-    alert('state: ' + this.state.active);
+    console.log('state: ' + this.state.active);
   }
 
   render() {
+
+    console.log('[Counter] render');
+
     return React.createElement(
       'div',
       null,
@@ -21219,22 +21195,43 @@ class Counter extends React.Component {
 
 };
 
-function Header(props) {
+class Header extends React.Component {
 
-  return React.createElement(
-    'h1',
-    { className: 'header' },
-    props.label
-  );
-}
+  constructor(props) {
+    super(props);
+    this.props = props;
+  }
 
-function Label(props) {
-  return React.createElement(
-    'div',
-    { className: 'alert alert-info' },
-    props.label
-  );
-}
+  render() {
+
+    console.log('[Header] render');
+
+    return React.createElement(
+      'h1',
+      { className: 'header' },
+      this.props.label
+    );
+  }
+
+};
+
+class Label extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.props = props;
+  }
+
+  render() {
+
+    console.log('[Label] render');
+    return React.createElement(
+      'div',
+      { className: 'alert alert-info' },
+      this.props.label
+    );
+  }
+};
 
 class Button extends React.Component {
 
@@ -21244,6 +21241,10 @@ class Button extends React.Component {
   }
 
   render() {
+
+    console.log('[Button] render');
+    //console.log('props: ' + this.props.label)
+
     return React.createElement(
       'button',
       { onClick: this.props.handleClick },
@@ -21251,9 +21252,7 @@ class Button extends React.Component {
     );
   }
 
-}
-
-//var reactComponentElement = React.createElement(Header);
+};
 
 ReactDOM.render(React.createElement(Counter, { label: 'TB Test 1' }), document.getElementById('react-application'));
 
