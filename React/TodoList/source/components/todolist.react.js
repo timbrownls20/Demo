@@ -22,11 +22,7 @@ class TodoList extends React.Component{
        return  <Label key={item.key} label={item.task} />
       })
     }
-    </div>;
-
-   
-
-           
+    </div>;           
   } 
 
 }

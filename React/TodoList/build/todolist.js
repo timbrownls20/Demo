@@ -21791,7 +21791,17 @@ class Application extends React.Component {
   addTask(input) {
 
     //console.log("[Application] addTask e:" + util.inspect(this.refs));
-    console.log("[Application] addTask debug:" + input);
+    console.log("[Application] addTask input:" + input);
+
+    var newTask = {
+      key: this.state.todoitems.length + 1,
+      task: input
+    };
+    var todoitems = this.state.todoitems;
+    todoitems.push(newTask);
+    this.setState({
+      todoitems: todoitems
+    });
   }
 
   //.. life cycle events
@@ -21799,22 +21809,26 @@ class Application extends React.Component {
     super(props);
     this.props = props;
     this.state = {
-      todoitems: {}
+      todoitems: []
     };
 
     this.addTask = this.addTask.bind(this);
   }
 
-  componentWillMount() {
+  // componentWillMount(){
 
-    console.log('[Application] componentWillMount');
+  //   console.log('[Application] componentWillMount');
 
-    var demoList = [{ key: 1, task: "Item1" }, { key: 2, task: "Item2" }];
+  //   var demoList = [
+  //                   {key:1, task:"Item1"}, 
+  //                   {key:2, task:"Item2"}
+  //                  ];
 
-    this.setState({
-      todoitems: demoList
-    });
-  }
+  //   this.setState({
+  //     todoitems: demoList
+  //   });
+
+  // }
 
   render() {
 
@@ -21852,8 +21866,6 @@ class TodoInsert extends React.Component {
   //handleClick = () => {
   handleClick() {
 
-    //console.log(util.inspect(this.textInput.value));
-
     this.props.addTask(this.textInput.value);
   }
 
@@ -21883,9 +21895,7 @@ class TodoInsert extends React.Component {
         React.createElement(
           'div',
           { className: 'col-lg-10' },
-          React.createElement('input', { ref: input => {
-              this.textInput = input;console.log('inserting ref');
-            }, className: 'form-control', type: 'text', defaultValue: 'New Task', id: 'newTask' })
+          React.createElement('input', { ref: input => this.textInput = input, className: 'form-control', type: 'text', defaultValue: 'New Task', id: 'newTask' })
         ),
         React.createElement(
           'div',

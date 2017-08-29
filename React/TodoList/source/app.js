@@ -13,9 +13,18 @@ class Application extends React.Component{
   addTask(input){
 
     //console.log("[Application] addTask e:" + util.inspect(this.refs));
-    console.log("[Application] addTask debug:" + input);
+    console.log("[Application] addTask input:" + input);
     
-
+    var newTask = { 
+        key: this.state.todoitems.length + 1, 
+        task: input
+    }
+    var todoitems = this.state.todoitems;
+    todoitems.push(newTask);
+    this.setState({  
+      todoitems:todoitems
+    });
+    
 
   }
 
@@ -26,26 +35,26 @@ class Application extends React.Component{
     this.props = props;
     this.state = 
     {
-       todoitems :{}
+       todoitems :[]
     };
 
     this.addTask = this.addTask.bind(this);
   }
 
-  componentWillMount(){
+  // componentWillMount(){
 
-    console.log('[Application] componentWillMount');
+  //   console.log('[Application] componentWillMount');
 
-    var demoList = [
-                    {key:1, task:"Item1"}, 
-                    {key:2, task:"Item2"}
-                   ];
+  //   var demoList = [
+  //                   {key:1, task:"Item1"}, 
+  //                   {key:2, task:"Item2"}
+  //                  ];
 
-    this.setState({
-      todoitems: demoList
-    });
+  //   this.setState({
+  //     todoitems: demoList
+  //   });
     
-  }
+  // }
 
   render(){
 
@@ -78,8 +87,6 @@ class TodoInsert extends React.Component{
   //handleClick = () => {
   handleClick(){
 
-    //console.log(util.inspect(this.textInput.value));
-
     this.props.addTask(this.textInput.value);
   }
 
@@ -96,7 +103,7 @@ class TodoInsert extends React.Component{
               </div>
               <div className="row">
                 <div className="col-lg-10">
-                  <input ref={(input) => { this.textInput = input; console.log('inserting ref')}} className="form-control" type="text" defaultValue="New Task" id="newTask"  />
+                  <input ref={input =>  this.textInput = input} className="form-control" type="text" defaultValue="New Task" id="newTask"  />
                 </div>
                 <div className="col-lg-2">
                   <button onClick={this.handleClick} className="btn btn-primary">Add Task</button>
