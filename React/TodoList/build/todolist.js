@@ -21158,18 +21158,33 @@ module.exports = require('./lib/React');
 var React = require('react');
 var ReactDOM = require('react-dom');
 var FullRow = require('./components/fullrow.react.js');
+var Label = require('./components/label.react.js');
 
-class TodoList extends React.Component {
+class Application extends React.Component {
 
   //.. life cycle events
   constructor(props) {
     super(props);
     this.props = props;
+    this.state = {
+      todoitems: {}
+    };
+  }
+
+  componentWillMount() {
+
+    console.log('[Application] componentWillMount');
+
+    var demoList = ["Item1", "Item2"];
+
+    this.setState({
+      todoitems: demoList
+    });
   }
 
   render() {
 
-    console.log('[TodoList] render');
+    console.log('[Application] render');
 
     return React.createElement(
       'div',
@@ -21182,15 +21197,39 @@ class TodoList extends React.Component {
           null,
           this.props.label
         )
-      )
+      ),
+      React.createElement(TodoList, { todoitems: this.state.todoitems }),
+      React.createElement(Label, { label: JSON.stringify(this.state), visible: 'false' })
     );
   }
 
 };
 
-ReactDOM.render(React.createElement(TodoList, { label: 'TB Test' }), document.getElementById('react-application'));
+class TodoList extends React.Component {
 
-},{"./components/fullrow.react.js":185,"react":183,"react-dom":31}],185:[function(require,module,exports){
+  constructor(props) {
+    super(props);
+    this.props = props;
+  }
+
+  render() {
+
+    console.log('[TodoList] render');
+
+    return React.createElement(
+      'div',
+      null,
+      this.props.todoitems.map(function (item, index) {
+        return React.createElement(Label, { label: item });
+      })
+    );
+  }
+
+}
+
+ReactDOM.render(React.createElement(Application, { label: 'TODO' }), document.getElementById('react-application'));
+
+},{"./components/fullrow.react.js":185,"./components/label.react.js":186,"react":183,"react-dom":31}],185:[function(require,module,exports){
 var React = require('react');
 
 class FullRow extends React.Component {
@@ -21219,4 +21258,39 @@ class FullRow extends React.Component {
 
 module.exports = FullRow;
 
-},{"react":183}]},{},[184]);
+},{"react":183}],186:[function(require,module,exports){
+var React = require('react');
+var ReactDOM = require('react-dom');
+var FullRow = require('./fullrow.react.js');
+
+class Label extends React.Component {
+
+   constructor(props) {
+      super(props);
+      this.props = props;
+   }
+
+   render() {
+
+      console.log('[Label] render');
+
+      if (this.props.visible != "false") {
+
+         return React.createElement(
+            FullRow,
+            null,
+            React.createElement(
+               'div',
+               { className: 'alert alert-info' },
+               this.props.label
+            )
+         );
+      } else {
+         return null;
+      }
+   }
+};
+
+module.exports = Label;
+
+},{"./fullrow.react.js":185,"react":183,"react-dom":31}]},{},[184]);
