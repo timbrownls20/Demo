@@ -21781,16 +21781,14 @@ var util = require('util');
 var React = require('react');
 var ReactDOM = require('react-dom');
 var TodoList = require('./components/todolist.react.js');
+var TodoInsert = require('./components/todoinsert.react.js');
 var FullRow = require('./components/fullrow.react.js');
 var Label = require('./components/label.react.js');
-// var $ = require("jquery")(window);
-
 
 class Application extends React.Component {
 
   addTask(input) {
 
-    //console.log("[Application] addTask e:" + util.inspect(this.refs));
     console.log("[Application] addTask input:" + input);
 
     var newTask = {
@@ -21814,21 +21812,6 @@ class Application extends React.Component {
 
     this.addTask = this.addTask.bind(this);
   }
-
-  // componentWillMount(){
-
-  //   console.log('[Application] componentWillMount');
-
-  //   var demoList = [
-  //                   {key:1, task:"Item1"}, 
-  //                   {key:2, task:"Item2"}
-  //                  ];
-
-  //   this.setState({
-  //     todoitems: demoList
-  //   });
-
-  // }
 
   render() {
 
@@ -21854,67 +21837,9 @@ class Application extends React.Component {
 
 };
 
-class TodoInsert extends React.Component {
+ReactDOM.render(React.createElement(Application, { label: 'TODO List' }), document.getElementById('react-application'));
 
-  //.. life cycle events
-  constructor(props) {
-    super(props);
-    this.props = props;
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  //handleClick = () => {
-  handleClick() {
-
-    this.props.addTask(this.textInput.value);
-  }
-
-  render() {
-
-    console.log('[TodoInsert] render');
-
-    return React.createElement(
-      'fieldset',
-      { className: 'form-group' },
-      React.createElement(
-        'div',
-        { className: 'row' },
-        React.createElement(
-          'div',
-          { className: 'col-lg-12' },
-          React.createElement(
-            'small',
-            { htmlFor: 'addItem', className: 'col-form-label text-muted' },
-            'Add Task'
-          )
-        )
-      ),
-      React.createElement(
-        'div',
-        { className: 'row' },
-        React.createElement(
-          'div',
-          { className: 'col-lg-10' },
-          React.createElement('input', { ref: input => this.textInput = input, className: 'form-control', type: 'text', defaultValue: 'New Task', id: 'newTask' })
-        ),
-        React.createElement(
-          'div',
-          { className: 'col-lg-2' },
-          React.createElement(
-            'button',
-            { onClick: this.handleClick, className: 'btn btn-primary' },
-            'Add Task'
-          )
-        )
-      )
-    );
-  }
-
-}
-
-ReactDOM.render(React.createElement(Application, { label: 'TODO' }), document.getElementById('react-application'));
-
-},{"./components/fullrow.react.js":188,"./components/label.react.js":189,"./components/todolist.react.js":190,"react":183,"react-dom":31,"util":186}],188:[function(require,module,exports){
+},{"./components/fullrow.react.js":188,"./components/label.react.js":189,"./components/todoinsert.react.js":190,"./components/todolist.react.js":191,"react":183,"react-dom":31,"util":186}],188:[function(require,module,exports){
 var React = require('react');
 
 class FullRow extends React.Component {
@@ -21979,6 +21904,70 @@ class Label extends React.Component {
 module.exports = Label;
 
 },{"./fullrow.react.js":188,"react":183,"react-dom":31}],190:[function(require,module,exports){
+var React = require('react');
+var ReactDOM = require('react-dom');
+
+class TodoInsert extends React.Component {
+
+  //.. life cycle events
+  constructor(props) {
+    super(props);
+    this.props = props;
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  //handleClick = () => {
+  handleClick() {
+
+    this.props.addTask(this.textInput.value);
+  }
+
+  render() {
+
+    console.log('[TodoInsert] render');
+
+    return React.createElement(
+      'fieldset',
+      { className: 'form-group' },
+      React.createElement(
+        'div',
+        { className: 'row' },
+        React.createElement(
+          'div',
+          { className: 'col-lg-12' },
+          React.createElement(
+            'small',
+            { htmlFor: 'addItem', className: 'col-form-label text-muted' },
+            'Add Task'
+          )
+        )
+      ),
+      React.createElement(
+        'div',
+        { className: 'row' },
+        React.createElement(
+          'div',
+          { className: 'col-lg-10' },
+          React.createElement('input', { ref: input => this.textInput = input, className: 'form-control', type: 'text', defaultValue: 'New Task', id: 'newTask' })
+        ),
+        React.createElement(
+          'div',
+          { className: 'col-lg-2' },
+          React.createElement(
+            'button',
+            { onClick: this.handleClick, className: 'btn btn-primary' },
+            'Add Task'
+          )
+        )
+      )
+    );
+  }
+
+}
+
+module.exports = TodoInsert;
+
+},{"react":183,"react-dom":31}],191:[function(require,module,exports){
 var React = require('react');
 var Label = require('./label.react.js');
 
