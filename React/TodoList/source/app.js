@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var TodoList = require('./components/todolist.react.js');
 var FullRow = require('./components/fullrow.react.js');
 var Label = require('./components/label.react.js');
 
@@ -20,7 +21,10 @@ class Application extends React.Component{
 
     console.log('[Application] componentWillMount');
 
-    var demoList = ["Item1", "Item2"];
+    var demoList = [
+                    {key:1, task:"Item1"}, 
+                    {key:2, task:"Item2"}
+                   ];
 
     this.setState({
       todoitems: demoList
@@ -45,34 +49,6 @@ class Application extends React.Component{
 };
 
 
-class TodoList extends React.Component{
-
-   constructor(props) {
-    super(props);
-    this.props = props;
-    
-  }
-
-  
-
-  render(){
-
-    console.log('[TodoList] render');
-
-    return <div>
-    {
-      this.props.todoitems.map(function(item, index){
-       return  <Label label={item} />
-      })
-    }
-    </div>;
-
-   
-
-           
-  } 
-
-}
 
 
 ReactDOM.render(<Application label="TODO"/>, document.getElementById('react-application'));

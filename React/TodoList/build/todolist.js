@@ -21157,6 +21157,7 @@ module.exports = require('./lib/React');
 },{"./lib/React":160}],184:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
+var TodoList = require('./components/todolist.react.js');
 var FullRow = require('./components/fullrow.react.js');
 var Label = require('./components/label.react.js');
 
@@ -21175,7 +21176,7 @@ class Application extends React.Component {
 
     console.log('[Application] componentWillMount');
 
-    var demoList = ["Item1", "Item2"];
+    var demoList = [{ key: 1, task: "Item1" }, { key: 2, task: "Item2" }];
 
     this.setState({
       todoitems: demoList
@@ -21205,31 +21206,9 @@ class Application extends React.Component {
 
 };
 
-class TodoList extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.props = props;
-  }
-
-  render() {
-
-    console.log('[TodoList] render');
-
-    return React.createElement(
-      'div',
-      null,
-      this.props.todoitems.map(function (item, index) {
-        return React.createElement(Label, { label: item });
-      })
-    );
-  }
-
-}
-
 ReactDOM.render(React.createElement(Application, { label: 'TODO' }), document.getElementById('react-application'));
 
-},{"./components/fullrow.react.js":185,"./components/label.react.js":186,"react":183,"react-dom":31}],185:[function(require,module,exports){
+},{"./components/fullrow.react.js":185,"./components/label.react.js":186,"./components/todolist.react.js":187,"react":183,"react-dom":31}],185:[function(require,module,exports){
 var React = require('react');
 
 class FullRow extends React.Component {
@@ -21293,4 +21272,32 @@ class Label extends React.Component {
 
 module.exports = Label;
 
-},{"./fullrow.react.js":185,"react":183,"react-dom":31}]},{},[184]);
+},{"./fullrow.react.js":185,"react":183,"react-dom":31}],187:[function(require,module,exports){
+var React = require('react');
+var Label = require('./label.react.js');
+
+class TodoList extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.props = props;
+  }
+
+  render() {
+
+    console.log('[TodoList] render');
+
+    return React.createElement(
+      'div',
+      null,
+      this.props.todoitems.map(function (item, index) {
+        return React.createElement(Label, { key: item.key, label: item.task });
+      })
+    );
+  }
+
+}
+
+module.exports = TodoList;
+
+},{"./label.react.js":186,"react":183}]},{},[184]);
