@@ -8,23 +8,39 @@ class TodoItem extends React.Component{
    constructor(props) {
     super(props);
     this.props = props;
-    this.handleClick = this.handleClick.bind(this);
+    this.state = 
+    {
+        important: false
+    }
     
+    this.removeTask = this.removeTask.bind(this);
+    this.toggleImportance = this.toggleImportance.bind(this);
+    
+
   }
 
-  handleClick(){
+  removeTask(){
   
     this.props.removeTask(this.props.id);
   }
 
+  toggleImportance(){
+  
+     this.setState((prevState) => ({
+         important: !prevState.important
+     }));
+  }
   
   render(){
 
     console.log('[TodoItem] render');
 
+       var alertClass = this.state.important ? "alert alert-danger" : "alert alert-info"; 
+
        return <FullRow>
-                  <div className="alert alert-info" >{this.props.task}
-                   <span className="glyphicon glyphicon-remove pull-right deletetask" onClick={this.handleClick}></span>
+                  <div className={alertClass} >{this.props.task}
+                   <span className="glyphicon glyphicon-remove pull-right taskaction" onClick={this.removeTask}></span>
+                   <span className="glyphicon glyphicon-alert pull-right taskaction" onClick={this.toggleImportance}></span>
                   </div>
              </FullRow>;
               
