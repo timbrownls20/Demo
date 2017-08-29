@@ -17,9 +17,10 @@ class FullRow extends React.Component{
     console.log('[FullRow] render');
 
     return <div className="row">
-                <div className="col-lg-12">
+                <div className="col-lg-10">
                   {this.props.children}
                 </div>
+               
               </div>;
            
   } 

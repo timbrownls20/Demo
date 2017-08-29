@@ -21792,11 +21792,27 @@ class Application extends React.Component {
     console.log("[Application] addTask input:" + input);
 
     var newTask = {
-      key: this.state.todoitems.length + 1,
+      id: this.state.todoitems.length + 1,
       task: input
     };
     var todoitems = this.state.todoitems;
     todoitems.push(newTask);
+    this.setState({
+      todoitems: todoitems
+    });
+  }
+
+  removeTask(taskId) {
+    console.log("[Application] removeTask id:" + taskId);
+
+    var todoitems = this.state.todoitems;
+    todoitems.map(function (item, index) {
+
+      if (item.id == taskId) {
+        delete todoitems[index];
+      }
+    });
+
     this.setState({
       todoitems: todoitems
     });
@@ -21811,6 +21827,7 @@ class Application extends React.Component {
     };
 
     this.addTask = this.addTask.bind(this);
+    this.removeTask = this.removeTask.bind(this);
   }
 
   render() {
@@ -21824,12 +21841,12 @@ class Application extends React.Component {
         FullRow,
         null,
         React.createElement(
-          'h1',
+          'h2',
           null,
           this.props.label
         )
       ),
-      React.createElement(TodoList, { todoitems: this.state.todoitems }),
+      React.createElement(TodoList, { todoitems: this.state.todoitems, removeTask: this.removeTask }),
       React.createElement(TodoInsert, { addTask: this.addTask }),
       React.createElement(Label, { label: JSON.stringify(this.state), visible: 'false' })
     );
@@ -21837,9 +21854,9 @@ class Application extends React.Component {
 
 };
 
-ReactDOM.render(React.createElement(Application, { label: 'TODO List' }), document.getElementById('react-application'));
+ReactDOM.render(React.createElement(Application, { label: 'Todo List' }), document.getElementById('react-application'));
 
-},{"./components/fullrow.react.js":188,"./components/label.react.js":189,"./components/todoinsert.react.js":190,"./components/todolist.react.js":191,"react":183,"react-dom":31,"util":186}],188:[function(require,module,exports){
+},{"./components/fullrow.react.js":188,"./components/label.react.js":189,"./components/todoinsert.react.js":190,"./components/todolist.react.js":192,"react":183,"react-dom":31,"util":186}],188:[function(require,module,exports){
 var React = require('react');
 
 class FullRow extends React.Component {
@@ -21858,7 +21875,7 @@ class FullRow extends React.Component {
       { className: 'row' },
       React.createElement(
         'div',
-        { className: 'col-lg-12' },
+        { className: 'col-lg-10' },
         this.props.children
       )
     );
@@ -21970,6 +21987,45 @@ module.exports = TodoInsert;
 },{"react":183,"react-dom":31}],191:[function(require,module,exports){
 var React = require('react');
 var Label = require('./label.react.js');
+var FullRow = require('./fullrow.react.js');
+
+class TodoItem extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.props = props;
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+
+    this.props.removeTask(this.props.id);
+  }
+
+  render() {
+
+    console.log('[TodoItem] render');
+
+    return React.createElement(
+      FullRow,
+      null,
+      React.createElement(
+        'div',
+        { className: 'alert alert-info' },
+        this.props.task,
+        React.createElement('span', { className: 'glyphicon glyphicon-remove pull-right deletetask', onClick: this.handleClick })
+      )
+    );
+  }
+
+}
+
+module.exports = TodoItem;
+
+},{"./fullrow.react.js":188,"./label.react.js":189,"react":183}],192:[function(require,module,exports){
+var React = require('react');
+var Label = require('./label.react.js');
+var TodoItem = require('./todoitem.react.js');
 
 class TodoList extends React.Component {
 
@@ -21980,13 +22036,14 @@ class TodoList extends React.Component {
 
   render() {
 
-    console.log('[TodoList] render');
+    console.log('[TodoList] render item: ' + JSON.stringify(this.props.todoitems));
+    var handleClick = this.props.removeTask;
 
     return React.createElement(
       'div',
       null,
       this.props.todoitems.map(function (item, index) {
-        return React.createElement(Label, { key: item.key, label: item.task });
+        return React.createElement(TodoItem, { key: item.id, id: item.id, task: item.task, removeTask: handleClick });
       })
     );
   }
@@ -21995,4 +22052,4 @@ class TodoList extends React.Component {
 
 module.exports = TodoList;
 
-},{"./label.react.js":189,"react":183}]},{},[187]);
+},{"./label.react.js":189,"./todoitem.react.js":191,"react":183}]},{},[187]);

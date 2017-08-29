@@ -1,5 +1,6 @@
 var React = require('react');
 var Label = require('./label.react.js');
+var TodoItem = require('./todoitem.react.js');
 
 
 class TodoList extends React.Component{
@@ -14,12 +15,14 @@ class TodoList extends React.Component{
 
   render(){
 
-    console.log('[TodoList] render');
+    console.log('[TodoList] render item: ' + JSON.stringify(this.props.todoitems));
+    var handleClick = this.props.removeTask;
 
     return <div>
     {
+     
       this.props.todoitems.map(function(item, index){
-       return  <Label key={item.key} label={item.task} />
+       return <TodoItem key={item.id} id={item.id} task={item.task} removeTask={handleClick} />
       })
     }
     </div>;           

@@ -12,9 +12,10 @@ class Application extends React.Component{
   addTask(input){
 
     console.log("[Application] addTask input:" + input);
-    
+
+
     var newTask = { 
-        key: this.state.todoitems.length + 1, 
+        id: this.state.todoitems.length + 1, 
         task: input
     }
     var todoitems = this.state.todoitems;
@@ -26,6 +27,24 @@ class Application extends React.Component{
 
   }
 
+  removeTask(taskId)
+  {
+      console.log("[Application] removeTask id:" + taskId);
+
+      var todoitems = this.state.todoitems;
+      todoitems.map(function(item, index){
+
+       if(item.id == taskId)
+       {
+          delete todoitems[index];
+       }
+     });
+
+      this.setState({  
+        todoitems:todoitems
+      });
+
+  }
 
   //.. life cycle events
   constructor(props) {
@@ -37,6 +56,7 @@ class Application extends React.Component{
     };
 
     this.addTask = this.addTask.bind(this);
+    this.removeTask = this.removeTask.bind(this);
   }
 
 
@@ -46,9 +66,9 @@ class Application extends React.Component{
    
     return <div className="container-fluid">
               <FullRow>
-                  <h1>{this.props.label}</h1>
+                  <h2>{this.props.label}</h2>
               </FullRow>
-              <TodoList todoitems={this.state.todoitems} />
+              <TodoList todoitems={this.state.todoitems} removeTask={this.removeTask} />
               <TodoInsert addTask={this.addTask}/>
               <Label label={JSON.stringify(this.state)} visible="false"/>
             </div>;
@@ -59,4 +79,4 @@ class Application extends React.Component{
 
 
 
-ReactDOM.render(<Application label="TODO List"/>, document.getElementById('react-application'));
+ReactDOM.render(<Application label="Todo List"/>, document.getElementById('react-application'));
