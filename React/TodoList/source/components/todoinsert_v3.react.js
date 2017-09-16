@@ -8,15 +8,26 @@ class TodoInsert extends React.Component{
   constructor(props) {
     super(props);
     this.props = props;
+    this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+  
+    this.state = 
+    {
+      todoText :"New Task"
+    };
   }
 
-  //handleClick = () => {
+  handleChange(e){
+
+    this.setState({  
+      todoText: e.target.value
+    });
+
+  }
+
   handleClick(){
-
-    this.props.addTask(this.textInput.value);
+    this.props.addTask();
   }
-
 
    render(){
 
@@ -30,7 +41,7 @@ class TodoInsert extends React.Component{
               </div>
               <div className="row">
                 <div className="col-lg-10">
-                  <input ref={input =>  this.textInput = input} className="form-control" type="text" defaultValue="New Task" id="newTask"  />
+                  <input onChange={this.handleChange} className="form-control" type="text" value={this.state.todoText} id="newTask"  />
                 </div>
                 <div className="col-lg-2">
                   <button onClick={this.handleClick} className="btn btn-primary">Add Task</button>

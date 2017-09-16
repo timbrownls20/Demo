@@ -21781,19 +21781,17 @@ var util = require('util');
 var React = require('react');
 var ReactDOM = require('react-dom');
 var TodoList = require('./components/todolist.react.js');
-var TodoInsert = require('./components/todoinsert.react.js');
+var TodoInsert = require('./components/todoinsert_v3.react.js');
 var FullRow = require('./components/fullrow.react.js');
 var Label = require('./components/label.react.js');
 
 class Application extends React.Component {
 
-  addTask(input) {
-
-    console.log("[Application] addTask input:" + input);
+  addTask() {
 
     var newTask = {
       id: this.state.todoitems.length + 1,
-      task: input
+      task: this.todoInsert.state.todoText
     };
     var todoitems = this.state.todoitems;
     todoitems.push(newTask);
@@ -21847,16 +21845,16 @@ class Application extends React.Component {
         )
       ),
       React.createElement(TodoList, { todoitems: this.state.todoitems, removeTask: this.removeTask }),
-      React.createElement(TodoInsert, { addTask: this.addTask }),
+      React.createElement(TodoInsert, { addTask: this.addTask, ref: input => this.todoInsert = input }),
       React.createElement(Label, { label: JSON.stringify(this.state), visible: 'false' })
     );
   }
 
 };
 
-ReactDOM.render(React.createElement(Application, { label: 'Todo List' }), document.getElementById('react-application'));
+ReactDOM.render(React.createElement(Application, { label: 'Todo List V3' }), document.getElementById('react-application'));
 
-},{"./components/fullrow.react.js":188,"./components/label.react.js":189,"./components/todoinsert.react.js":190,"./components/todolist.react.js":192,"react":183,"react-dom":31,"util":186}],188:[function(require,module,exports){
+},{"./components/fullrow.react.js":188,"./components/label.react.js":189,"./components/todoinsert_v3.react.js":190,"./components/todolist.react.js":192,"react":183,"react-dom":31,"util":186}],188:[function(require,module,exports){
 var React = require('react');
 
 class FullRow extends React.Component {
@@ -21930,13 +21928,23 @@ class TodoInsert extends React.Component {
   constructor(props) {
     super(props);
     this.props = props;
+    this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+
+    this.state = {
+      todoText: "New Task"
+    };
   }
 
-  //handleClick = () => {
-  handleClick() {
+  handleChange(e) {
 
-    this.props.addTask(this.textInput.value);
+    this.setState({
+      todoText: e.target.value
+    });
+  }
+
+  handleClick() {
+    this.props.addTask();
   }
 
   render() {
@@ -21965,7 +21973,7 @@ class TodoInsert extends React.Component {
         React.createElement(
           'div',
           { className: 'col-lg-10' },
-          React.createElement('input', { ref: input => this.textInput = input, className: 'form-control', type: 'text', defaultValue: 'New Task', id: 'newTask' })
+          React.createElement('input', { onChange: this.handleChange, className: 'form-control', type: 'text', value: this.state.todoText, id: 'newTask' })
         ),
         React.createElement(
           'div',

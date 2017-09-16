@@ -80,7 +80,7 @@ class Counter extends React.Component{
               </div>
             </div>
             <Label label={this.state.counter} /> 
-            <Label label={JSON.stringify(this.state)} visible="false" />             
+            <Label label={JSON.stringify(this.state)} visible="true" />             
           </div>; 
   } 
 

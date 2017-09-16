@@ -2,7 +2,7 @@ var util = require('util')
 var React = require('react');
 var ReactDOM = require('react-dom');
 var TodoList = require('./components/todolist.react.js');
-var TodoInsert = require('./components/todoinsert.react.js');
+var TodoInsert = require('./components/todoinsert_v2.react.js');
 var FullRow = require('./components/fullrow.react.js');
 var Label = require('./components/label.react.js');
 
@@ -79,4 +79,4 @@ class Application extends React.Component{
 
 
 
-ReactDOM.render(<Application label="Todo List"/>, document.getElementById('react-application'));
+ReactDOM.render(<Application label="Todo List V2"/>, document.getElementById('react-application'));
