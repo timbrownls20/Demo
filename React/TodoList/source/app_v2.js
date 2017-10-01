@@ -79,4 +79,4 @@ class Application extends React.Component{
 
 
 
-ReactDOM.render(<Application label="Todo List V2"/>, document.getElementById('react-application'));
+ReactDOM.render(<Application label="Todo List"/>, document.getElementById('react-application'));
