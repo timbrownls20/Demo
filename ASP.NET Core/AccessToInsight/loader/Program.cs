@@ -10,9 +10,8 @@ namespace Tripitaka.Loader
     class Program
     {
         public const string MONGODB_CONNECTION = "mongodb://localhost:27017";
-        //public const string WEBPAGE = "http://www.accesstoinsight.org/tipitaka/kn/dhp/index.html";
-        public const string WEBPAGE = "http://www.accesstoinsight.org/tipitaka/kn/dhp/dhp.01.budd.html";
-
+        public const string SITEBASE = "http://www.accesstoinsight.org/tipitaka/kn/dhp";
+    
         public static void Main(string[] args)
         {
             Console.WriteLine("Loader on");
@@ -20,21 +19,33 @@ namespace Tripitaka.Loader
 
 
             HtmlWeb web = new HtmlWeb();  
-            HtmlDocument document = web.Load(WEBPAGE);  
+            HtmlDocument index = web.Load(SITEBASE + "/index.html");  
+            
+            var links = index.DocumentNode.SelectNodes("//span[contains(@class, 'sutta_trans')]").Descendants("a");
+            foreach(var link in links)
+            {
+                var chapterHref = SITEBASE + "/" + link.Attributes["href"].Value;
+                var author = link.InnerText;
+                var chapterPage = web.Load(chapterHref);
+
+                GetChapter(chapterPage, author, database);
+            }
+
+        }
+
+        public static void GetChapter(HtmlDocument document, string author, IMongoDatabase database){
+                
             var titleNode = document.DocumentNode.SelectNodes("//title").FirstOrDefault();  
             
-
             if(titleNode != null)
             {
                 var chapter = new Chapter();
                 chapter.Title = titleNode.InnerText;
+                chapter.Author = author;
 
                 var repository = new ChapterRepository(database);
                 repository.Insert(chapter);
             }
-
-
-            //ListDatabases();
         }
 
         public static IMongoDatabase DBConnect()
@@ -49,16 +60,6 @@ namespace Tripitaka.Loader
 
 
 
-        // public static async void ListDatabases()
-        // {
-        //     var client = new MongoClient(MONGODB_CONNECTION);
-        //     client.DropDatabase("BookShelf");
-        //     //client.GetDatabase()
 
-        //     using (var cursor = await client.ListDatabasesAsync())
-        //     {
-        //         await cursor.ForEachAsync(d => Console.WriteLine(d.ToString()));
-        //     }
-        // }
     }
 }
