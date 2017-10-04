@@ -8,6 +8,8 @@
     "start": "webpack-dev-server"
   },
   "author": "",
-  "license": "ISC"
-  
+  "license": "ISC",
+  "dependencies": {
+    "react-bootstrap": "^0.31.3"
+  }
 }
