@@ -25,7 +25,7 @@ namespace Tripitaka.Loader
             var links = index.DocumentNode.SelectNodes("//span[contains(@class, 'sutta_trans')]").Descendants("a");
 
             //.. only do first few for now
-            links = links.Take(6);
+            //links = links.Take(6);
 
             foreach(var link in links)
             {
