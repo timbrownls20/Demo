@@ -14,12 +14,12 @@ var Page1 = class extends React.Component {
   render() {
     return <MasterPage>
         <Jumbotron>
-            <h1>Home Page</h1>
+            <h1>Page 2</h1>
         </Jumbotron>
          <Row>
           <Col lgOffset={1}>
-            <Button bsStyle="primary" onClick={() => this.showMessage('Danger, danger: high voltage')}>Panic</Button>
-            <Button bsStyle="primary" onClick={() => this.showMessage('Calm down, calm down')}>No Panic</Button>
+            <Button bsStyle="primary">Next</Button>
+            <Button bsStyle="primary">Back</Button>
           </Col>
         </Row>
     </MasterPage>;
