@@ -7,7 +7,7 @@ import {Alert} from 'react-bootstrap'
 
 export default class App extends React.Component {
   render() {
-    return <div className="container"> 
+    return <div className="container" style={{width:600}}> 
       <Page1 />
     </div>
   }

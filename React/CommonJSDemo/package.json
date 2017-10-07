@@ -17,7 +17,9 @@
     "html-webpack-plugin": "^2.30.1",
     "react": "^16.0.0",
     "react-bootstrap": "^0.31.3",
-    "react-dom": "^16.0.0"
+    "react-dom": "^16.0.0",
+    "react-redux": "^5.0.6",
+    "react-router": "^4.2.0"
   },
   "devDependencies": {
     "link": "^0.1.5",

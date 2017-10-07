@@ -10,6 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "react-bootstrap": "^0.31.3"
+    "react-bootstrap": "^0.31.3",
+    "react-json-pretty": "^1.7.4",
+    "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "redux": "^3.7.2"
   }
 }

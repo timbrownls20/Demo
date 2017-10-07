@@ -1,22 +1,46 @@
 import React from 'react';
-//import {Jumbotron, Button, Row, Col} from 'react-bootstrap'
-//var {Jumbotron, Button, Row, Col} = require ('react-bootstrap');
-
-var Jumbotron = require ('react-bootstrap').Jumbotron;
-var Button = require ('react-bootstrap').Button;
-var Row = require ('react-bootstrap').Row;
-var Col = require ('react-bootstrap').Col;
+import { connect } from 'react-redux';
+import {Jumbotron, Button, Row, Col} from 'react-bootstrap'
+import * as reduxActions from './redux/actions.redux.js';
 
 
-export default class Page1 extends React.Component {
+
+var Page1 = class extends React.Component {
+
+  showMessage(message){
+    this.props.showMessage(message);
+  }
+
+
   render() {
     return <div>
         <Jumbotron>
-            <h1>Page 1 amended 6</h1>
+            <h1>Demo Page</h1>
         </Jumbotron>
          <Row>
-          <Col lgOffset={1}><Button bsStyle="primary">Click Me</Button></Col>
+          <Col lgOffset={1}>
+            <Button bsStyle="primary" onClick={() => this.showMessage('Button Clicked!!!')}>Click Me</Button>
+          </Col>
         </Row>
     </div>;
   }
 }
+
+// Maps state from store to props
+const mapStateToProps = (state, ownProps) => {
+  return {
+    // You can now say this.props.books
+    message: state.message
+  }
+};
+
+// Maps actions to props
+const mapDispatchToProps = (dispatch) => {
+  return {
+  // You can now say this.props.createBook
+    showMessage: message => dispatch(reduxActions.showMessage(message))
+  }
+};
+
+// Use connect to put them together
+export default connect(mapStateToProps, mapDispatchToProps)(Page1);
