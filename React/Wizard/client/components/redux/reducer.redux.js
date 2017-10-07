@@ -1,8 +1,6 @@
 
 export default (state = [], action) => {
 
-    debugger;
-
     switch (action.type){
       case 'SHOW_MESSAGE':
 

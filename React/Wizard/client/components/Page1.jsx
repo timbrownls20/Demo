@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import {Jumbotron, Button, Row, Col} from 'react-bootstrap'
 import * as reduxActions from './redux/actions.redux.js';
 
-
-
 var Page1 = class extends React.Component {
 
   showMessage(message){
@@ -19,7 +17,8 @@ var Page1 = class extends React.Component {
         </Jumbotron>
          <Row>
           <Col lgOffset={1}>
-            <Button bsStyle="primary" onClick={() => this.showMessage('Button Clicked!!!')}>Click Me</Button>
+            <Button bsStyle="primary" onClick={() => this.showMessage('Danger, danger: high voltage')}>Panic</Button>
+            <Button bsStyle="primary" onClick={() => this.showMessage('Calm down, calm down')}>No Panic</Button>
           </Col>
         </Row>
     </div>;
