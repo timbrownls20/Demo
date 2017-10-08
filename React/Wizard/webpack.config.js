@@ -26,8 +26,8 @@ module.exports = {
       { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ }
     ]
   },
+  plugins: [HtmlWebpackPluginConfig],
   devServer: {
     historyApiFallback: true
-  },
-  plugins: [HtmlWebpackPluginConfig]
+  }
 }
