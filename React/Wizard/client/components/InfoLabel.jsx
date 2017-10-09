@@ -5,12 +5,17 @@ import { connect } from 'react-redux';
 
 var InfoLabel = class extends React.Component {
   render() {
-    return <Alert bsStyle="danger">
-        {this.props.message}
-    </Alert>;
-   
-  }
 
+    if(this.props.message){
+
+      return <Alert bsStyle="danger">
+        {this.props.message}
+      </Alert>;
+    }
+    else {
+      return null;
+    }
+  }
 }
 
 const mapStateToProps = (state, ownProps) => {

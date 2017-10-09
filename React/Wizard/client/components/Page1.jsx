@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {Jumbotron, Button, Row, Col} from 'react-bootstrap'
 import * as reduxActions from './redux/actions.redux.js';
 import MasterPage from './MasterPage.jsx'
+import { Link  } from 'react-router-dom'
 
 var Page1 = class extends React.Component {
 
@@ -13,9 +14,15 @@ var Page1 = class extends React.Component {
 
   render() {
     return <MasterPage>
+      <Row>
+          <Col lgOffset={1}>
+          <Link to="/Page2">Page2</Link>
+          </Col>
+         </Row>
         <Jumbotron>
             <h1>Home Page</h1>
         </Jumbotron>
+        
          <Row>
           <Col lgOffset={1}>
             <Button bsStyle="primary" onClick={() => this.showMessage('Danger, danger: high voltage')}>Panic</Button>
@@ -41,3 +48,4 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Page1);
+//export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Page1));

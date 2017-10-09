@@ -3,8 +3,11 @@ import { connect } from 'react-redux';
 import {Jumbotron, Button, Row, Col} from 'react-bootstrap'
 import * as reduxActions from './redux/actions.redux.js';
 import MasterPage from './MasterPage.jsx'
+import { Link } from 'react-router-dom'
 
-var Page1 = class extends React.Component {
+
+
+var Page2 = class extends React.Component {
 
   showMessage(message){
     this.props.showMessage(message);
@@ -40,4 +43,6 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Page1);
+//export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Page2));
+export default connect(mapStateToProps, mapDispatchToProps)(Page2);
+//export default Page2;
