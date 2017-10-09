@@ -5,26 +5,19 @@ import * as reduxActions from './redux/actions.redux.js';
 import MasterPage from './MasterPage.jsx'
 import { Link  } from 'react-router-dom'
 
-var Page1 = class extends React.Component {
+var Page3 = class extends React.Component {
 
-  showMessage(message){
-    this.props.showMessage(message);
-  }
+
 
 
   render() {
     return <MasterPage>
       
         <Jumbotron>
-            <h1>Home Page</h1>
+            <h1>Page 3</h1>
         </Jumbotron>
         
-         <Row>
-          <Col lgOffset={1}>
-            <Button bsStyle="primary" onClick={() => this.showMessage('Danger, danger: high voltage')}>Panic</Button>
-            <Button bsStyle="primary" onClick={() => this.showMessage('Calm down, calm down')}>No Panic</Button>
-          </Col>
-        </Row>
+        
     </MasterPage>;
   }
 }
@@ -43,5 +36,5 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Page1);
+export default connect(mapStateToProps, mapDispatchToProps)(Page3);
 //export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Page1));

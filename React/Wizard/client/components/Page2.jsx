@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 import {Jumbotron, Button, Row, Col} from 'react-bootstrap'
 import * as reduxActions from './redux/actions.redux.js';
 import MasterPage from './MasterPage.jsx'
-import { Link } from 'react-router-dom'
-
-
 
 var Page2 = class extends React.Component {
 
