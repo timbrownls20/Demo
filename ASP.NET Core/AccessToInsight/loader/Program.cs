@@ -3,41 +3,45 @@ using HtmlAgilityPack;
 using MongoDB.Driver;
 using System.Linq;
 using System.Threading.Tasks;
-using Tripitaka.Loader.Model;
+using System.IO;
 using System.Text.RegularExpressions;
+using Tripitaka.Loader.Model;
+using Tripitaka.Loader.Extensions;
 
 namespace Tripitaka.Loader
 {
     class Program
     {
         public const string MONGODB_CONNECTION = "mongodb://localhost:27017";
-        public const string SITEBASE = "http://www.accesstoinsight.org/tipitaka/kn/dhp";
+        public const string SITEBASE = @"source\tipitaka\kn\dhp";
     
         public static void Main(string[] args)
         {
+
+
             Console.WriteLine("Loader on");
             var database = DBConnect();
-
-
-            HtmlWeb web = new HtmlWeb();  
-            HtmlDocument index = web.Load(SITEBASE + "/index.html");  
+            
+            HtmlDocument index = new HtmlDocument(); 
+            index.Load(Path.Combine(SITEBASE, "index.html").ToApplicationPath());  
             
             var links = index.DocumentNode.SelectNodes("//span[contains(@class, 'sutta_trans')]").Descendants("a");
 
-            //.. only do first few for now
-            //links = links.Take(6);
+            // .. only do first few for now
+            // links = links.Take(6);
 
             foreach(var link in links)
             {
-                var chapterHref = SITEBASE + "/" + link.Attributes["href"].Value;
+                var chapterHref = Path.Combine(SITEBASE, link.Attributes["href"].Value).ToApplicationPath();
                 var author = link.InnerText;
 
                 //Acharya Buddharakkhita
                 if(Regex.IsMatch(chapterHref, @"[\S\s]*\d[\S\s]budd[\S\s]*"))
                 { 
                     Console.WriteLine( $"loading {chapterHref}");
-
-                    var chapterPage = web.Load(chapterHref);
+                    
+                    HtmlDocument chapterPage = new HtmlDocument(); 
+                    chapterPage.Load(chapterHref);
                     GetChapter(chapterPage, author, database);
                 }
             }
@@ -77,10 +81,9 @@ namespace Tripitaka.Loader
              var client = new MongoClient(MONGODB_CONNECTION);
              client.DropDatabase("Tripitaka");   //.. temp measure to always start from fresh for now
              return client.GetDatabase("Tripitaka");        
-
-           
-             
         }
+
+
 
 
 
