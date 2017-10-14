@@ -1,6 +1,5 @@
 ﻿using System;
 using HtmlAgilityPack;
-using MongoDB.Driver;
 using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
@@ -8,19 +7,21 @@ using System.Text.RegularExpressions;
 using Tripitaka.Loader.Model;
 using Tripitaka.Loader.Extensions;
 
+using MongoDB.Driver;
+
 namespace Tripitaka.Loader
 {
     class Program
     {
-        public const string MONGODB_CONNECTION = "mongodb://localhost:27017";
+
         public const string SITEBASE = @"source\tipitaka\kn\dhp";
     
         public static void Main(string[] args)
-        {
-
+        {   
+            var dbConnnect = new DBConnect();
 
             Console.WriteLine("Loader on");
-            var database = DBConnect();
+            var database = dbConnnect.Connect();
             
             HtmlDocument index = new HtmlDocument(); 
             index.Load(Path.Combine(SITEBASE, "index.html").ToApplicationPath());  
@@ -75,17 +76,6 @@ namespace Tripitaka.Loader
                 repository.Insert(chapter);
             }
         }
-
-        public static IMongoDatabase DBConnect()
-        {
-             var client = new MongoClient(MONGODB_CONNECTION);
-             client.DropDatabase("Tripitaka");   //.. temp measure to always start from fresh for now
-             return client.GetDatabase("Tripitaka");        
-        }
-
-
-
-
 
 
     }
