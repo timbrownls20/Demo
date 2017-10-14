@@ -67,11 +67,12 @@ namespace Tripitaka.Loader.Provider
                 var verses = document.DocumentNode.SelectNodes("//div[contains(@class, 'verse')]").Descendants("p");
                 foreach(var verse in verses)
                 {
-                    string text = verse.InnerText;
+                    //string text = verse.InnerText;
                     var verseNumberString = verse.Descendants("b").FirstOrDefault().InnerText;
                     if (int.TryParse(Regex.Match(verseNumberString, @"\d+").Value, out var verseNumber))
                     {
-                         chapter.Verses.Add(new Verse{ VerseNumber = verseNumber, Text = text});
+                        var verseText = verse.ChildNodes.Last().InnerText?.Trim();
+                        chapter.Verses.Add(new Verse{ VerseNumber = verseNumber, Text = verseText});
                     }
         
                 }
