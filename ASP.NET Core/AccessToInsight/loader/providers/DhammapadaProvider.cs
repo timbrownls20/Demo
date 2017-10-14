@@ -6,22 +6,27 @@ using Tripitaka.Loader.Model;
 using System.IO;
 using Tripitaka.Loader.Extensions;
 using System;
+using Tripitaka.Loader.Repository;
 
 namespace Tripitaka.Loader.Provider
 {
-    //.. TB TODO break dependencies for Database providers
 
     internal class DhammapadaProvider: IProvider
     {
-        
-        public event EventHandler<NotifyEventArgs> OnNotify;
-
 
         private const string SITEBASE = @"source\tipitaka\kn\dhp";
+        private IRepository<Chapter> chapterRepository;
+      
+        public event EventHandler<NotifyEventArgs> OnNotify;
+
+        public DhammapadaProvider(IRepository<Chapter> chapterRepository)
+        {
+            this.chapterRepository = chapterRepository;
+        }
+
 
         public void Load()
         {
-            var database = new DBConnect().Connect();
             
             HtmlDocument index = new HtmlDocument(); 
             index.Load(Path.Combine(SITEBASE, "index.html").ToApplicationPath());  
@@ -43,12 +48,12 @@ namespace Tripitaka.Loader.Provider
 
                     HtmlDocument chapterPage = new HtmlDocument(); 
                     chapterPage.Load(chapterHref);
-                    GetChapter(chapterPage, author, database);
+                    GetChapter(chapterPage, author);
                 }
             }
         }
 
-         public void GetChapter(HtmlDocument document, string author, IMongoDatabase database){
+         public void GetChapter(HtmlDocument document, string author){
                 
             
             var titleNode = document.DocumentNode.SelectNodes("//title").FirstOrDefault();  
@@ -71,8 +76,7 @@ namespace Tripitaka.Loader.Provider
         
                 }
 
-                var repository = new ChapterRepository(database);
-                repository.Insert(chapter);
+                chapterRepository.Insert(chapter);
             }
         }
     }

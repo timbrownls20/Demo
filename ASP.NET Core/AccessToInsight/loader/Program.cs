@@ -1,5 +1,7 @@
 ﻿using System;
+using Tripitaka.Loader.Model;
 using Tripitaka.Loader.Provider;
+using Tripitaka.Loader.Repository;
 
 namespace Tripitaka.Loader
 {
@@ -8,7 +10,9 @@ namespace Tripitaka.Loader
 
         public static void Main(string[] args)
         {   
-            IProvider provider = new DhammapadaProvider();
+
+            var database = new DBConnect().Connect();
+            IProvider provider = new DhammapadaProvider(new ChapterRepository(database));
             provider.OnNotify += ConsoleNotify;
 
             provider.Load();

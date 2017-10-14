@@ -1,6 +1,6 @@
 
 
-namespace Tripitaka.Loader.Model
+namespace Tripitaka.Loader.Repository
 {
     public interface IRepository<T>
     {

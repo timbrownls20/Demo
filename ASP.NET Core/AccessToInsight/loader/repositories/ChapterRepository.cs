@@ -1,6 +1,6 @@
 using MongoDB.Driver;
 
-namespace Tripitaka.Loader.Model
+namespace Tripitaka.Loader.Repository
 {
     public class ChapterRepository: IRepository<Chapter>
     {
