@@ -5,13 +5,19 @@ using MongoDB.Driver;
 using Tripitaka.Loader.Model;
 using System.IO;
 using Tripitaka.Loader.Extensions;
+using System;
 
 namespace Tripitaka.Loader.Provider
 {
+    //.. TB TODO break dependencies for Database providers
+
     internal class DhammapadaProvider: IProvider
     {
+        
+        public event EventHandler<NotifyEventArgs> OnNotify;
 
-        public const string SITEBASE = @"source\tipitaka\kn\dhp";
+
+        private const string SITEBASE = @"source\tipitaka\kn\dhp";
 
         public void Load()
         {
@@ -30,8 +36,11 @@ namespace Tripitaka.Loader.Provider
                 //Acharya Buddharakkhita
                 if(Regex.IsMatch(chapterHref, @"[\S\s]*\d[\S\s]budd[\S\s]*"))
                 { 
-                    //Console.WriteLine( $"loading {chapterHref}");
+
                     
+                    var message = $"loading {chapterHref}";
+                    if(OnNotify != null) OnNotify(this, new NotifyEventArgs(message));
+
                     HtmlDocument chapterPage = new HtmlDocument(); 
                     chapterPage.Load(chapterHref);
                     GetChapter(chapterPage, author, database);
