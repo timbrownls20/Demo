@@ -63,6 +63,8 @@ namespace Tripitaka.Loader.Provider
                 var chapter = new Chapter();
                 chapter.Title = titleNode.InnerText;
                 chapter.Author = author;
+                chapter.Nikaya = "Khuddaka";
+                chapter.Book = "Dhammapada";
 
                 var verses = document.DocumentNode.SelectNodes("//div[contains(@class, 'verse')]").Descendants("p");
                 foreach(var verse in verses)
