@@ -1,4 +1,5 @@
 using MongoDB.Driver;
+using Tripitaka.Loader.Model;
 
 namespace Tripitaka.Loader.Repository
 {
