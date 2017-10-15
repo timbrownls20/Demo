@@ -8,7 +8,8 @@
             "taskName": "build",
             "args": [
                 //"${workspaceRoot}/PaliCanon.Loader/PaliCanon.Loader.csproj"
-                "${workspaceRoot}/PaliCanon.Api/PaliCanon.Api.csproj"
+                //"${workspaceRoot}/PaliCanon.Api/PaliCanon.Api.csproj"
+                "${workspaceRoot}/PaliCanon.sln"
             ],
             "isBuildCommand": true,
             "problemMatcher": "$msCompile"
