@@ -9,7 +9,7 @@
         "type": "coreclr",
         "request": "launch",
         "preLaunchTask": "build",
-        "program": "${workspaceRoot}/bin/Debug/netcoreapp2.0/PaliCanon.Api.dll",
+        "program": "${workspaceRoot}/PaliCanon.Api/bin/Debug/netcoreapp2.0/PaliCanon.Api.dll",
         "args": [],
         "cwd": "${workspaceRoot}",
         "stopAtEntry": false,
