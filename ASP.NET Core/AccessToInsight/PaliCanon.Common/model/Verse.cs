@@ -1,6 +1,6 @@
 using MongoDB.Bson;
 
-namespace PaliCanon.Loader.Model
+namespace PaliCanon.Common.Model
 {
     public class Verse 
     {

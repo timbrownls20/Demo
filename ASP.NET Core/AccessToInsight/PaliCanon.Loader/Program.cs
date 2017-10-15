@@ -1,7 +1,7 @@
 ﻿using System;
-using PaliCanon.Loader.Model;
 using PaliCanon.Loader.Provider;
-using PaliCanon.Loader.Repository;
+using PaliCanon.Common;
+using PaliCanon.Common.Repository;
 
 namespace PaliCanon.Loader
 {

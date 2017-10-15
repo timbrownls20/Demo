@@ -1,7 +1,7 @@
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace PaliCanon.Loader.Extensions 
+namespace PaliCanon.Common.Extensions 
 {
 
     public static class StringExtensions

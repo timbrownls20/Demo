@@ -1,12 +1,12 @@
 using System.Text.RegularExpressions;
 using System.Linq;
 using HtmlAgilityPack;
-using MongoDB.Driver;
-using PaliCanon.Loader.Model;
 using System.IO;
-using PaliCanon.Loader.Extensions;
+using MongoDB.Driver;
 using System;
-using PaliCanon.Loader.Repository;
+using PaliCanon.Common.Repository;
+using PaliCanon.Common.Extensions;
+using PaliCanon.Common.Model;
 
 namespace PaliCanon.Loader.Provider
 {

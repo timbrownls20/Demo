@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using MongoDB.Bson;
 
-namespace PaliCanon.Loader.Model
+namespace PaliCanon.Common.Model
 {
     public class Chapter 
     {

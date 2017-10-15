@@ -1,6 +1,6 @@
 
 
-namespace PaliCanon.Loader.Repository
+namespace PaliCanon.Common.Repository
 {
     public interface IRepository<T>
     {

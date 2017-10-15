@@ -1,7 +1,7 @@
 using MongoDB.Driver;
-using PaliCanon.Loader.Model;
+using PaliCanon.Common.Model;
 
-namespace PaliCanon.Loader.Repository
+namespace PaliCanon.Common.Repository
 {
     public class ChapterRepository: IRepository<Chapter>
     {
