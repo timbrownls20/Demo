@@ -2,13 +2,13 @@ using System.Text.RegularExpressions;
 using System.Linq;
 using HtmlAgilityPack;
 using MongoDB.Driver;
-using Tripitaka.Loader.Model;
+using PaliCanon.Loader.Model;
 using System.IO;
-using Tripitaka.Loader.Extensions;
+using PaliCanon.Loader.Extensions;
 using System;
-using Tripitaka.Loader.Repository;
+using PaliCanon.Loader.Repository;
 
-namespace Tripitaka.Loader.Provider
+namespace PaliCanon.Loader.Provider
 {
 
     internal class DhammapadaProvider: IProvider

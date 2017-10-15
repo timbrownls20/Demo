@@ -1,7 +1,7 @@
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace Tripitaka.Loader.Extensions 
+namespace PaliCanon.Loader.Extensions 
 {
 
     public static class StringExtensions

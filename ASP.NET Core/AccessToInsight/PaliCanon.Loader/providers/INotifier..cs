@@ -1,6 +1,6 @@
 using System;
 
-namespace Tripitaka.Loader.Provider
+namespace PaliCanon.Loader.Provider
 {
     interface INotifier
     {

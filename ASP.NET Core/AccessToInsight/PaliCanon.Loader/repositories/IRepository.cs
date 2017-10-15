@@ -1,6 +1,6 @@
 
 
-namespace Tripitaka.Loader.Repository
+namespace PaliCanon.Loader.Repository
 {
     public interface IRepository<T>
     {

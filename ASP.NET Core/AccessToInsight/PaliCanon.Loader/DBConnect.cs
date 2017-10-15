@@ -2,7 +2,7 @@
 
 using MongoDB.Driver;
 
-namespace Tripitaka.Loader
+namespace PaliCanon.Loader
 {
     internal class DBConnect
 {
@@ -11,8 +11,8 @@ namespace Tripitaka.Loader
     public IMongoDatabase Connect()
     {
         var client = new MongoClient(MONGODB_CONNECTION);
-        client.DropDatabase("Tripitaka");   //.. temp measure to always start from fresh for now
-        return client.GetDatabase("Tripitaka");        
+        client.DropDatabase("PaliCanon");   //.. temp measure to always start from fresh for now
+        return client.GetDatabase("PaliCanon");        
     }
 }
 }

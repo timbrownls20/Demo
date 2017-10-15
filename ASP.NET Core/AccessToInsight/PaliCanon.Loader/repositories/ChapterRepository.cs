@@ -1,7 +1,7 @@
 using MongoDB.Driver;
-using Tripitaka.Loader.Model;
+using PaliCanon.Loader.Model;
 
-namespace Tripitaka.Loader.Repository
+namespace PaliCanon.Loader.Repository
 {
     public class ChapterRepository: IRepository<Chapter>
     {
