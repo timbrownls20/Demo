@@ -17,7 +17,11 @@ namespace PaliCanon.Common.Model
         public string Book { get; set; }
 
         public string Title { get; set; }
+
+        public int ChapterNumber { get; set; }
+
         public string Author { get; set; }
+        
         public List<Verse> Verses { get; set; }
     }
 

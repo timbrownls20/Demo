@@ -34,6 +34,7 @@ namespace PaliCanon.Loader.Provider
             
             var links = index.DocumentNode.SelectNodes("//span[contains(@class, 'sutta_trans')]").Descendants("a");
 
+            int chapterNumber = 1;
             foreach(var link in links)
             {
                 var chapterHref = Path.Combine(SITEBASE, link.Attributes["href"].Value).ToApplicationPath();
@@ -48,12 +49,14 @@ namespace PaliCanon.Loader.Provider
 
                     HtmlDocument chapterPage = new HtmlDocument(); 
                     chapterPage.Load(chapterHref);
-                    GetChapter(chapterPage, author);
+                    GetChapter(chapterPage, author, chapterNumber);
+
+                    chapterNumber++;
                 }
             }
         }
 
-         public void GetChapter(HtmlDocument document, string author){
+         public void GetChapter(HtmlDocument document, string author, int chapterNumber){
                 
             
             var titleNode = document.DocumentNode.SelectNodes("//title").FirstOrDefault();  
@@ -65,6 +68,7 @@ namespace PaliCanon.Loader.Provider
                 chapter.Author = author;
                 chapter.Nikaya = "Khuddaka";
                 chapter.Book = "Dhammapada";
+                chapter.ChapterNumber = chapterNumber;
 
                 var verses = document.DocumentNode.SelectNodes("//div[contains(@class, 'verse')]").Descendants("p");
                 foreach(var verse in verses)
