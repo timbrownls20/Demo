@@ -69,11 +69,11 @@ namespace PaliCanon.Loader.Provider
                 var verses = document.DocumentNode.SelectNodes("//div[contains(@class, 'verse')]").Descendants("p");
                 foreach(var verse in verses)
                 {
-                    //string text = verse.InnerText;
                     var verseNumberString = verse.Descendants("b").FirstOrDefault().InnerText;
                     if (int.TryParse(Regex.Match(verseNumberString, @"\d+").Value, out var verseNumber))
                     {
-                        var verseText = verse.ChildNodes.Last().InnerText?.Trim();
+                        var verseNodes = verse.ChildNodes.Skip(1).Select(x => x.InnerText).ToArray();
+                        var verseText = string.Join("", verseNodes);
                         chapter.Verses.Add(new Verse{ VerseNumber = verseNumber, Text = verseText});
                     }
         
