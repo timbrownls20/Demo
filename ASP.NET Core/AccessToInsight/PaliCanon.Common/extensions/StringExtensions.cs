@@ -14,6 +14,14 @@ namespace PaliCanon.Common.Extensions
                 return Path.Combine(appRoot, fileName);
             }
 
+            public static string Clean(this string text)
+            {
+                //.. remove reference notation i.e. [5]
+                Regex referenceNotation = new Regex(@"\[\d+\]");
+                string cleanedText = referenceNotation.Replace(text, "");
+                return cleanedText;
+            }
+
     }
 
 }

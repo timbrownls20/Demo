@@ -8,6 +8,7 @@ using PaliCanon.Common.Repository;
 using PaliCanon.Common.Extensions;
 using PaliCanon.Common.Model;
 
+
 namespace PaliCanon.Loader.Provider
 {
 
@@ -42,7 +43,6 @@ namespace PaliCanon.Loader.Provider
                 if(Regex.IsMatch(chapterHref, @"[\S\s]*\d[\S\s]budd[\S\s]*"))
                 { 
 
-                    
                     var message = $"loading {chapterHref}";
                     if(OnNotify != null) OnNotify(this, new NotifyEventArgs(message));
 
@@ -72,7 +72,7 @@ namespace PaliCanon.Loader.Provider
                     var verseNumberString = verse.Descendants("b").FirstOrDefault().InnerText;
                     if (int.TryParse(Regex.Match(verseNumberString, @"\d+").Value, out var verseNumber))
                     {
-                        var verseNodes = verse.ChildNodes.Skip(1).Select(x => x.InnerText).ToArray();
+                        var verseNodes = verse.ChildNodes.Skip(1).Select(x => x.InnerText.Clean()).ToArray();
                         var verseText = string.Join("", verseNodes);
                         chapter.Verses.Add(new Verse{ VerseNumber = verseNumber, Text = verseText});
                     }
