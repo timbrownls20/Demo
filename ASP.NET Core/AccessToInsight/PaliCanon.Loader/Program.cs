@@ -10,8 +10,10 @@ namespace PaliCanon.Loader
 
         public static void Main(string[] args)
         {   
-
-            var database = new DBConnect().Connect();
+            
+            var mongo = new DBConnect();
+            mongo.Drop();
+            var database = mongo.Connect();
             IProvider provider = new DhammapadaProvider(new ChapterRepository(database));
             provider.OnNotify += ConsoleNotify;
 

@@ -16,11 +16,11 @@ namespace PaliCanon.Loader.Provider
     {
 
         private const string SITEBASE = @"source\tipitaka\kn\dhp";
-        private IRepository<Chapter> chapterRepository;
+        private ChapterRepository chapterRepository;
       
         public event EventHandler<NotifyEventArgs> OnNotify;
 
-        public DhammapadaProvider(IRepository<Chapter> chapterRepository)
+        public DhammapadaProvider(ChapterRepository chapterRepository)
         {
             this.chapterRepository = chapterRepository;
         }
