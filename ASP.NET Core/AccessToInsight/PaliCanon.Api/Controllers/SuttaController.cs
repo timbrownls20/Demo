@@ -29,10 +29,10 @@ namespace PaliCanon.Api.Controllers
         }
 
         // GET api/values/5
-        [HttpGet("{bookCode}/{id}")]
-        public Chapter Get(string bookCode, int id)
+        [HttpGet("{bookCode}/{chapter}/{verse?}")]
+        public Chapter Get(string bookCode, int chapter, int? verse)
         {
-            return chapterRepository.Get(id, bookCode);        
+            return chapterRepository.Get(bookCode, chapter, verse);        
         }
 
     
