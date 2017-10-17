@@ -19,13 +19,13 @@ namespace PaliCanon.Common.Repository
             collection.InsertOne(record);
         }
 
-        public Chapter Get(int id)
+        public Chapter Get(int id, string bookCode)
         { 
              var collection = database.GetCollection<Chapter>(nameof(Chapter));
 
              var temp = collection.Find(_ => true).ToList();
 
-             var chapter = collection.AsQueryable<Chapter>().Where(x => x.ChapterNumber == id).SingleOrDefault();
+             var chapter = collection.AsQueryable<Chapter>().Where(x => x.ChapterNumber == id && x.BookCode == bookCode).SingleOrDefault();
              return chapter;
         }
     }

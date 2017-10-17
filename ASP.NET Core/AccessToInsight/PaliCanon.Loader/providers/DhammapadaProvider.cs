@@ -68,6 +68,7 @@ namespace PaliCanon.Loader.Provider
                 chapter.Author = author;
                 chapter.Nikaya = "Khuddaka";
                 chapter.Book = "Dhammapada";
+                chapter.BookCode = "dhp";
                 chapter.ChapterNumber = chapterNumber;
 
                 var verses = document.DocumentNode.SelectNodes("//div[contains(@class, 'verse')]").Descendants("p");

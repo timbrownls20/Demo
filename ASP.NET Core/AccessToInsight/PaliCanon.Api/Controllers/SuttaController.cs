@@ -10,7 +10,7 @@ using PaliCanon.Common.Repository;
 namespace PaliCanon.Api.Controllers
 {
     [Route("api/[controller]")]
-    public class ChapterController : Controller
+    public class SuttaController : Controller
     {
         // // GET api/values
         // [HttpGet]
@@ -21,7 +21,7 @@ namespace PaliCanon.Api.Controllers
 
         IChapterRepository chapterRepository;
 
-        public ChapterController()
+        public SuttaController()
         {
             //..TB TODO implement windsor
             var database = new DBConnect().Connect();
@@ -29,10 +29,10 @@ namespace PaliCanon.Api.Controllers
         }
 
         // GET api/values/5
-        [HttpGet("{id}")]
-        public Chapter Get(int id)
+        [HttpGet("{bookCode}/{id}")]
+        public Chapter Get(string bookCode, int id)
         {
-            return chapterRepository.Get(id);        
+            return chapterRepository.Get(id, bookCode);        
         }
 
     
