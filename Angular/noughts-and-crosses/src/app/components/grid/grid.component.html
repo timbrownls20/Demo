@@ -1,16 +1,7 @@
-<div class="grid ">
-<div class="row">
-  <div class="col-1 offset-4"></div>
-  <div class="col-1"></div>
-  <div class="col-1"></div>
-</div>
-<div class="row">
-  <div class="col-1 offset-4"></div>
-  <div class="col-1"></div>
-  <div class="col-1"></div>
-</div><div class="row">
-    <div class="col-1 offset-4"></div>
-    <div class="col-1"></div>
-    <div class="col-1"></div>
-  </div>
+  <div class="row">
+      <div class="offset-4 col-8 grid" >
+        <div class="row" *ngFor="let rowCount of [1,2,3]">
+            <app-cell *ngFor="let colCount of [1,2,3]">{{rowCount}}:{{colCount}}</app-cell>
+        </div>
+    </div>
 </div>
