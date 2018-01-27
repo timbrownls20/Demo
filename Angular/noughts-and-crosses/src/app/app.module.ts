@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { GridComponent } from './components/grid/grid.component';
 import { CellComponent } from './components/cell/cell.component';
 
+import { GameService } from './services/game.service';
+
 
 @NgModule({
   declarations: [
@@ -16,7 +18,7 @@ import { CellComponent } from './components/cell/cell.component';
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [GameService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

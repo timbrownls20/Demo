@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, Output, Input, EventEmitter } from '@angular/core';
 import { Cell, CellState } from '../../model/cell'
-
+import { GameService } from '../../services/game.service';
+ 
 @Component({
   selector: 'app-cell',
   templateUrl: './cell.component.html',
@@ -9,7 +10,7 @@ import { Cell, CellState } from '../../model/cell'
 })
 export class CellComponent implements OnInit {
 
-  constructor() { }
+  constructor(private gameService: GameService) { }
 
   @Output() toggle = new EventEmitter<any>();
   @Input() row: number;
@@ -18,18 +19,18 @@ export class CellComponent implements OnInit {
   model: Cell;
   className: string;
 
+  
+
   ngOnInit() {
     this.model = new Cell(this.row, this.column);
     this.className = `cell_position_${this.row}_${this.column}`;
   }
 
   clicked() {
-
-    console.log('clicked');
-
     this.toggle.emit();
 
-    this.model.nextState();
+    if(this.model.state === CellState.Empty)
+      this.model.state = this.gameService.nextTurn();
   }
 
 }
