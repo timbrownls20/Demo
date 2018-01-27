@@ -1,3 +1,8 @@
-<div class="col-md-4 cell" [class.cross] = "state === 'cross'" (click)="clicked()">
-   <ng-content></ng-content>
+<div class="col-md-4 cell" 
+                [class.nought] = 'model.state === 1'
+                [class.cross] = "model.state === 2" 
+                (click)="clicked()">
+   <!-- <ng-content></ng-content> -->
+   <div>{{model | json}}</div>
 </div>
+

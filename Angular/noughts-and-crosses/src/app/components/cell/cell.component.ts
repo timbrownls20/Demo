@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Output, Input, EventEmitter } from '@angular/core';
+import { Cell, CellState } from '../../model/cell'
 
 @Component({
   selector: 'app-cell',
@@ -11,10 +12,13 @@ export class CellComponent implements OnInit {
   constructor() { }
 
   @Output() toggle = new EventEmitter<any>();
+  @Input() row: number;
+  @Input() column: number;
 
-  state: string;
+  model: Cell;
 
   ngOnInit() {
+    this.model = new Cell(this.row, this.column);
   }
 
   clicked() {
@@ -22,7 +26,8 @@ export class CellComponent implements OnInit {
     console.log('clicked');
 
     this.toggle.emit();
-    this.state = "cross";
+
+    this.model.nextState();
   }
 
 }
