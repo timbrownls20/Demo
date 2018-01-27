@@ -7,7 +7,6 @@
 
 .nought
 {
-    /* background-color:red; */
     background-image: url('../../../assets/nought.jpg');
     background-repeat:no-repeat;
     background-position: center center;
@@ -16,7 +15,6 @@
 
 .cross
 {
-    /* background-color:blue;  */
     background-image: url('../../../assets/cross.jpg');
     background-repeat:no-repeat;
     background-position: center center; 

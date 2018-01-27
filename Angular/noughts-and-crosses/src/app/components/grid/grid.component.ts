@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { CellComponent } from '../cell/cell.component'
+import { CellComponent } from '../cell/cell.component';
+import { GameService } from '../../services/game.service';
+import { Game } from '../../model/game';
+import { Cell } from '../../model/cell';
 
 @Component({
   selector: 'app-grid',
@@ -8,9 +11,15 @@ import { CellComponent } from '../cell/cell.component'
 })
 export class GridComponent implements OnInit {
 
-  constructor() { }
+  constructor(private gameService: GameService) { }
+
+  model: Game;
 
   ngOnInit() {
+    this.model = this.gameService.model;
   }
 
+  pushState(state: Cell) {
+    this.gameService.model.state.push(state)
+  }
 }

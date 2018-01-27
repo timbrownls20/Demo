@@ -1,8 +1,14 @@
   <div class="row">
       <div class="offset-4 col-8 grid" >
         <div class="row" *ngFor="let rowCount of [1,2,3]">
-            <app-cell *ngFor="let columnCount of [1,2,3]" [row]='rowCount' [column]='columnCount'>
+            <app-cell *ngFor="let columnCount of [1,2,3]" 
+                        [row]='rowCount' 
+                        [column]='columnCount'
+                        (changeState)="pushState($event)">
             </app-cell>
         </div>
+    </div>
+    <div class="row">
+        {{model | json}}
     </div>
 </div>

@@ -12,7 +12,7 @@ export class CellComponent implements OnInit {
 
   constructor(private gameService: GameService) { }
 
-  @Output() toggle = new EventEmitter<any>();
+  @Output() changeState = new EventEmitter<Cell>();
   @Input() row: number;
   @Input() column: number;
 
@@ -27,10 +27,10 @@ export class CellComponent implements OnInit {
   }
 
   clicked() {
-    this.toggle.emit();
 
     if(this.model.state === CellState.Empty)
       this.model.state = this.gameService.nextTurn();
+      this.changeState.emit(this.model);
   }
 
 }
