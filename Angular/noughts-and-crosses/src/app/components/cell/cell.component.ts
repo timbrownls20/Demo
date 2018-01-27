@@ -16,9 +16,11 @@ export class CellComponent implements OnInit {
   @Input() column: number;
 
   model: Cell;
+  className: string;
 
   ngOnInit() {
     this.model = new Cell(this.row, this.column);
+    this.className = `cell_position_${this.row}_${this.column}`;
   }
 
   clicked() {

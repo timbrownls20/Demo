@@ -1,6 +1,5 @@
 .cell 
 {
-    border: 1px solid;
     height: 130px;
     width: 130px;
     cursor: pointer;
@@ -15,3 +14,22 @@
 {
     background-color:blue; 
 }
+
+.cell_position_1_2, .cell_position_3_2
+{
+    border-width: 0px 2px 0px 2px;
+    border-style: solid;
+}
+
+.cell_position_2_2
+{
+    border-width: 2px;
+    border-style: solid;
+}
+
+.cell_position_2_1, .cell_position_2_3
+{
+    border-width: 2px 0px 2px 0px;
+    border-style: solid;
+}
+
