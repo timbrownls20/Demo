@@ -10,11 +10,6 @@ export class Cell{
         this.state = CellState.Empty;
     }
 
-    // public nextState(): void{
-
-    //     if(this.state < 2)
-    //         this.state = this.state + 1;
-    // }
 }
 
 export enum CellState

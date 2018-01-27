@@ -7,12 +7,20 @@
 
 .nought
 {
-    background-color:red; 
+    /* background-color:red; */
+    background-image: url('../../../assets/nought.jpg');
+    background-repeat:no-repeat;
+    background-position: center center;
+    cursor: default;
 }
 
 .cross
 {
-    background-color:blue; 
+    /* background-color:blue;  */
+    background-image: url('../../../assets/cross.jpg');
+    background-repeat:no-repeat;
+    background-position: center center; 
+    cursor: default;
 }
 
 .cell_position_1_2, .cell_position_3_2
