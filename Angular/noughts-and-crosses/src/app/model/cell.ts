@@ -10,6 +10,10 @@ export class Cell{
         this.state = CellState.Empty;
     }
 
+    get index(): string{
+        return `${this.row}_${this.column}`;
+    }
+
 }
 
 export enum CellState
@@ -18,3 +22,14 @@ export enum CellState
     Nought = 1,
     Cross = 2
 }
+
+
+// export class GridPosition{
+//     row: number;
+//     column: number;
+
+//     constructor(row:number, column: number){
+//         this.row = row;
+//         this.column = column;
+//     }
+// }
