@@ -1,7 +1,9 @@
   <div class="row">
       <div class="offset-4 col-8 grid" >
         <div class="row" *ngFor="let rowCount of [1,2,3]">
-            <app-cell *ngFor="let colCount of [1,2,3]">{{rowCount}}:{{colCount}}</app-cell>
+            <app-cell *ngFor="let colCount of [1,2,3]" >
+                {{rowCount}}:{{colCount}}
+            </app-cell>
         </div>
     </div>
 </div>

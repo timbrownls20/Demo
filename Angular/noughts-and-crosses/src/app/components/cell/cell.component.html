@@ -1,3 +1,3 @@
-<div class="col-md-4 app-cell">
+<div class="col-md-4 cell" [class.cross] = "state === 'cross'" (click)="clicked()">
    <ng-content></ng-content>
 </div>

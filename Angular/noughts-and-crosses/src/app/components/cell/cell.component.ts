@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-cell',
@@ -10,7 +10,19 @@ export class CellComponent implements OnInit {
 
   constructor() { }
 
+  @Output() toggle = new EventEmitter<any>();
+
+  state: string;
+
   ngOnInit() {
+  }
+
+  clicked() {
+
+    console.log('clicked');
+
+    this.toggle.emit();
+    this.state = "cross";
   }
 
 }

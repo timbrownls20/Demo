@@ -1,7 +1,17 @@
-.app-cell 
+.cell 
 {
     border: 1px solid;
-    /* background-color:red; */
     height: 130px;
     width: 130px;
+    cursor: pointer;
+}
+
+.nought
+{
+    background-color:red; 
+}
+
+.cross
+{
+    background-color:blue; 
 }
