@@ -60,6 +60,11 @@ export class GameService {
 
       this.checkResultSet(resultSetDiagonal1);
       this.checkResultSet(resultSetDiagonal2);
+
+      debugger;
+
+      if(this.model.state.size === 9) 
+        this.model.result = GameResult.Draw;
   }
 
   private checkResultSet(resultSet: Cell[]): void{
