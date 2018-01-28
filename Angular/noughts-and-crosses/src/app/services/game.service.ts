@@ -65,14 +65,16 @@ export class GameService {
   private checkResultSet(resultSet: Cell[]): void{
 
     if(resultSet.length !== 3) return;
-      
-    if(resultSet[0].state === resultSet[1].state && resultSet[1].state === resultSet[2].state){
+    
+    let stateSet: Set<CellState> = new Set<CellState>();
+    for(let result of resultSet){
+      stateSet.add(result.state);  
+    }
 
-        if(resultSet[0].state === CellState.Cross)
-          this.model.result = GameResult.CrossesWin;
-        else
-          this.model.result = GameResult.NoughtsWin;
-      }
+    if(stateSet.has(CellState.Cross) && !stateSet.has(CellState.Nought))
+      this.model.result = GameResult.CrossesWin;
+    else if(stateSet.has(CellState.Nought) && !stateSet.has(CellState.Cross))
+      this.model.result = GameResult.NoughtsWin;
 
   }
 
