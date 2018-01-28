@@ -20,6 +20,9 @@ export class GridComponent implements OnInit {
   }
 
   pushState(state: Cell) {
+
+    debugger;
+
     this.gameService.model.state.set(state.index, state);
     this.gameService.updateGameResult();
   }

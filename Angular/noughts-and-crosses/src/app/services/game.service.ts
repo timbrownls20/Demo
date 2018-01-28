@@ -34,21 +34,21 @@ export class GameService {
         let resultSetRow: Cell[] = new Array<Cell>();
         let resultSetColumn: Cell[] = new Array<Cell>();
         
-        let diagonal1Cell:Cell = this.model.state[new Cell(i, i).index];
+        let diagonal1Cell:Cell = this.model.state.get(new Cell(i, i).index);
         if(diagonal1Cell !== undefined)
           resultSetDiagonal1.push(diagonal1Cell);
 
-        let diagonal2Cell:Cell = this.model.state[new Cell(i, 4-i).index];
+        let diagonal2Cell:Cell = this.model.state.get(new Cell(i, 4-i).index);
           if(diagonal2Cell !== undefined)
             resultSetDiagonal2.push(diagonal2Cell);
 
         for(let j of gridDimension){
           
-          let rowCell:Cell = this.model.state[new Cell(i, j).index];
+          let rowCell:Cell = this.model.state.get(new Cell(i, j).index);
           if(rowCell !== undefined)
             resultSetRow.push(rowCell);
 
-          let columnCell:Cell = this.model.state[new Cell(j, i).index];
+          let columnCell:Cell = this.model.state.get(new Cell(j, i).index);
           if(columnCell !== undefined)
             resultSetColumn.push(columnCell);
         }
@@ -60,8 +60,6 @@ export class GameService {
 
       this.checkResultSet(resultSetDiagonal1);
       this.checkResultSet(resultSetDiagonal2);
-
-      debugger;
 
       if(this.model.state.size === 9) 
         this.model.result = GameResult.Draw;

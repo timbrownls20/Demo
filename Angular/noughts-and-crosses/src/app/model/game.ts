@@ -16,9 +16,15 @@ export class Game {
 
     get resultDisplay(): string{
 
+        debugger;
+
         switch(this.result){
             case GameResult.InProgress:
-                return "";
+                //return "";
+                if(this.currentTurn === CellState.Nought)
+                    return "Cross's Turn";
+                else
+                    return "Noughts Turn";
             case GameResult.CrossesWin:
                 return "Crosses Win";
             case GameResult.NoughtsWin:
