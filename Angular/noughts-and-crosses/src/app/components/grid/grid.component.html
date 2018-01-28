@@ -1,5 +1,5 @@
 <div id="grid">
-    <div class="row" id="gameResult">{{model.resultDisplay}}</div>
+    <div id="gameResult"><h4>{{model.resultDisplay}}</h4></div>
     <div class="row">
         <div class="offset-4 col-8 grid" >
             <div class="row" *ngFor="let rowCount of [1,2,3]">
@@ -12,7 +12,7 @@
         </div>
     
     </div>
-    <div class="row">
+    <!-- <div class="row">
         {{model | json}}
-    </div>
+    </div> -->
 </div>

@@ -18,7 +18,7 @@ export class Game {
 
         switch(this.result){
             case GameResult.InProgress:
-                return "In Progress";
+                return "";
             case GameResult.CrossesWin:
                 return "Crosses Win";
             case GameResult.NoughtsWin:
