@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Game, GameResult } from '../model/game';
+import { Game, GameState } from '../model/game';
 import { CellState, Cell } from '../model/cell';
 
 @Injectable()
@@ -12,14 +12,16 @@ export class GameService {
   }
 
   
-  nextTurn(): CellState {
-    if(this.model.currentTurn === CellState.Nought){
-        this.model.currentTurn = CellState.Cross;
+  nextTurn(): GameState {
+    
+    if(this.model.result === GameState.CrossesTurn){
+        this.model.result = GameState.NoughtsTurn;
     }
-    else{
-        this.model.currentTurn = CellState.Nought;
+    else  if(this.model.result === GameState.NoughtsTurn){
+        this.model.result = GameState.CrossesTurn;
     }
-    return this.model.currentTurn;
+
+    return this.model.result;
   }
 
   updateGameResult(){
@@ -62,7 +64,7 @@ export class GameService {
       this.checkResultSet(resultSetDiagonal2);
 
       if(this.model.state.size === 9) 
-        this.model.result = GameResult.Draw;
+        this.model.result = GameState.Draw;
   }
 
   private checkResultSet(resultSet: Cell[]): void{
@@ -75,9 +77,9 @@ export class GameService {
     }
 
     if(stateSet.has(CellState.Cross) && !stateSet.has(CellState.Nought))
-      this.model.result = GameResult.CrossesWin;
+      this.model.result = GameState.CrossesWin;
     else if(stateSet.has(CellState.Nought) && !stateSet.has(CellState.Cross))
-      this.model.result = GameResult.NoughtsWin;
+      this.model.result = GameState.NoughtsWin;
 
   }
 

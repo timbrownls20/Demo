@@ -1,16 +1,13 @@
 import { Cell, CellState } from './cell';
 
 export class Game {
-
-    currentTurn: CellState;
-  
+    
     state: Map<string, Cell>;
 
-    result: GameResult;
+    result: GameState;
 
     constructor(){
-        this.currentTurn = CellState.Nought;
-        this.result = GameResult.InProgress;
+        this.result = GameState.NoughtsTurn;
         this.state = new Map<string, Cell>();
     }
 
@@ -19,17 +16,15 @@ export class Game {
         debugger;
 
         switch(this.result){
-            case GameResult.InProgress:
-                //return "";
-                if(this.currentTurn === CellState.Nought)
-                    return "Cross's Turn";
-                else
-                    return "Noughts Turn";
-            case GameResult.CrossesWin:
+            case GameState.NoughtsTurn:
+                return "Cross's Turn";
+            case GameState.CrossesTurn:
+                return "Nought's Turn";
+            case GameState.CrossesWin:
                 return "Crosses Win";
-            case GameResult.NoughtsWin:
+            case GameState.NoughtsWin:
                 return "Noughts Win";
-            case GameResult.Draw:
+            case GameState.Draw:
                 return "Draw";
        }
 
@@ -37,11 +32,12 @@ export class Game {
 
 }
 
-export enum GameResult {
-    InProgress = 1,
-    NoughtsWin = 2,
-    CrossesWin = 3,
-    Draw = 4
+export enum GameState {
+    NoughtsTurn = 1,
+    CrossesTurn = 2,
+    NoughtsWin = 3,
+    CrossesWin = 4,
+    Draw = 5
 }
 
 
