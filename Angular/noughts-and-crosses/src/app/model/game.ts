@@ -4,27 +4,25 @@ export class Game {
     
     state: Map<string, Cell>;
 
-    result: GameState;
+    currentTurn: GameTurn;
 
     constructor(){
-        this.result = GameState.NoughtsTurn;
+        this.currentTurn = GameTurn.NoughtsTurn;
         this.state = new Map<string, Cell>();
     }
 
     get resultDisplay(): string{
 
-        debugger;
-
-        switch(this.result){
-            case GameState.NoughtsTurn:
+        switch(this.currentTurn){
+            case GameTurn.NoughtsTurn:
                 return "Cross's Turn";
-            case GameState.CrossesTurn:
+            case GameTurn.CrossesTurn:
                 return "Nought's Turn";
-            case GameState.CrossesWin:
+            case GameTurn.CrossesWin:
                 return "Crosses Win";
-            case GameState.NoughtsWin:
+            case GameTurn.NoughtsWin:
                 return "Noughts Win";
-            case GameState.Draw:
+            case GameTurn.Draw:
                 return "Draw";
        }
 
@@ -32,7 +30,7 @@ export class Game {
 
 }
 
-export enum GameState {
+export enum GameTurn {
     NoughtsTurn = 1,
     CrossesTurn = 2,
     NoughtsWin = 3,

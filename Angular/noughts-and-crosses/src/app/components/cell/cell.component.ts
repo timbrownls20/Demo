@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, Output, Input, EventEmitter } from '@angular/core';
 import { Cell, CellState } from '../../model/cell'
-import { GameState } from '../../model/game'
+import { GameTurn } from '../../model/game'
 import { GameService } from '../../services/game.service';
  
 @Component({
@@ -31,11 +31,11 @@ export class CellComponent implements OnInit {
 
     if(this.model.state === CellState.Empty)
     {
-      var nextTurn: GameState = this.gameService.nextTurn();
+      var nextTurn: GameTurn = this.gameService.nextTurn();
 
-      if(nextTurn === GameState.NoughtsTurn)
+      if(nextTurn === GameTurn.NoughtsTurn)
         this.model.state = CellState.Nought;
-      else if(nextTurn === GameState.CrossesTurn)
+      else if(nextTurn === GameTurn.CrossesTurn)
         this.model.state = CellState.Cross;
       
       if(this.model.state === CellState.Nought || this.model.state === CellState.Cross)
