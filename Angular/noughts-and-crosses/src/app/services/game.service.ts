@@ -9,6 +9,14 @@ export class GameService {
 
   constructor() { 
     this.model = new Game();
+
+    for(let i = 1; i <= 3; i++){
+      for(let j = 1; j <= 3; j++){
+        let cell: Cell = new Cell(i, j);
+        this.model.state.set(cell.index, cell);
+      }    
+    }
+
   }
 
   
@@ -63,8 +71,16 @@ export class GameService {
       this.checkResultSet(resultSetDiagonal1);
       this.checkResultSet(resultSetDiagonal2);
 
-      if(this.model.state.size === 9) 
-        this.model.currentTurn = GameTurn.Draw;
+      
+      let isDraw: boolean = true;
+      for (var entry of Array.from(this.model.state)) {
+          if(entry[1].state === CellState.Empty){
+            isDraw = false;
+          }
+      }
+
+      if(isDraw) this.model.currentTurn = GameTurn.Draw;
+
   }
 
   private checkResultSet(resultSet: Cell[]): void{
@@ -76,9 +92,9 @@ export class GameService {
       stateSet.add(result.state);  
     }
 
-    if(stateSet.has(CellState.Cross) && !stateSet.has(CellState.Nought))
+    if(stateSet.has(CellState.Cross) && !stateSet.has(CellState.Nought) && !stateSet.has(CellState.Empty))
       this.model.currentTurn = GameTurn.CrossesWin;
-    else if(stateSet.has(CellState.Nought) && !stateSet.has(CellState.Cross))
+    else if(stateSet.has(CellState.Nought) && !stateSet.has(CellState.Cross) && !stateSet.has(CellState.Empty))
       this.model.currentTurn = GameTurn.NoughtsWin;
 
     if(this.model.isWon){
