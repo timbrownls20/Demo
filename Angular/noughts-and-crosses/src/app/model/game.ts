@@ -25,9 +25,11 @@ export class Game {
             case GameTurn.Draw:
                 return "Draw";
        }
-
     }
 
+    get isWon(): boolean {
+        return this.currentTurn === GameTurn.CrossesWin || this.currentTurn === GameTurn.NoughtsWin;
+    }
 }
 
 export enum GameTurn {

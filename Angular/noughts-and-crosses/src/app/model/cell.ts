@@ -3,11 +3,13 @@ export class Cell{
     row: number;
     column: number;
     state: CellState
+    winningLine: boolean
 
     constructor(row:number, column: number){
         this.row = row;
         this.column = column;
         this.state = CellState.Empty;
+        this.winningLine = false;
     }
 
     get index(): string{
@@ -23,13 +25,3 @@ export enum CellState
     Cross = 2
 }
 
-
-// export class GridPosition{
-//     row: number;
-//     column: number;
-
-//     constructor(row:number, column: number){
-//         this.row = row;
-//         this.column = column;
-//     }
-// }

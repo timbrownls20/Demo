@@ -15,15 +15,18 @@ export class GridComponent implements OnInit {
 
   model: Game;
 
+  output: [string, Cell][]
+
   ngOnInit() {
     this.model = this.gameService.model;
   }
 
   pushState(state: Cell) {
 
-    debugger;
-
     this.gameService.model.state.set(state.index, state);
     this.gameService.updateGameResult();
+
+    this.output = Array.from(this.model.state);
+
   }
 }

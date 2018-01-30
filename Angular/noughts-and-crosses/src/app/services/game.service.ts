@@ -81,6 +81,11 @@ export class GameService {
     else if(stateSet.has(CellState.Nought) && !stateSet.has(CellState.Cross))
       this.model.currentTurn = GameTurn.NoughtsWin;
 
+    if(this.model.isWon){
+      for(let result of resultSet){
+        result.winningLine = true;
+      }
+    }
   }
 
 
