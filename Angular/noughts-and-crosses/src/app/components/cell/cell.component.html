@@ -4,6 +4,7 @@
                 [class.cross] = "model.state === 2 && model.winningLine === false" 
                 [class.nought-win] = 'model.state === 1 && model.winningLine === true'
                 [class.cross-win] = 'model.state === 2 && model.winningLine === true'
+                [class.game-end] = 'isWon'
                 (click)="clicked()">
 </div>
 

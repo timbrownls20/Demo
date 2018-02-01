@@ -5,13 +5,14 @@
             <div class="row" *ngFor="let rowCount of [1,2,3]">
                 <app-cell *ngFor="let columnCount of [1,2,3]" 
                             [model] = 'getCell(rowCount, columnCount)'
+                            [isWon] = 'model.isWon'
                             (changeState)="pushState($event)">
                 </app-cell>
             </div>
         </div>
     
     </div>
-    <div class="row">
+    <!-- <div class="row">
         {{output | json}}
-    </div>
+    </div> -->
 </div>

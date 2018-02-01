@@ -15,6 +15,7 @@ export class CellComponent implements OnInit {
 
   @Output() changeState = new EventEmitter<Cell>();
   @Input() model: Cell;
+  @Input() isWon: string;
 
   className: string;
 

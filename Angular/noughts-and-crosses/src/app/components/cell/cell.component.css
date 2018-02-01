@@ -55,3 +55,6 @@
     border-style: solid;
 }
 
+.game-end{
+    cursor: default;
+}
