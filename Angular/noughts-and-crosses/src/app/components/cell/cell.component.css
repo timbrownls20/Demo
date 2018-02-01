@@ -21,6 +21,22 @@
     cursor: default;
 }
 
+.nought-win
+{
+    background-image: url('../../../assets/nought_win.jpg');
+    background-repeat:no-repeat;
+    background-position: center center;
+    cursor: default;
+}
+
+.cross-win
+{
+    background-image: url('../../../assets/cross_win.jpg');
+    background-repeat:no-repeat;
+    background-position: center center; 
+    cursor: default;
+}
+
 .cell_position_1_2, .cell_position_3_2
 {
     border-width: 0px 2px 0px 2px;

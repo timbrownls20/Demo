@@ -4,8 +4,7 @@
         <div class="offset-4 col-8 grid" >
             <div class="row" *ngFor="let rowCount of [1,2,3]">
                 <app-cell *ngFor="let columnCount of [1,2,3]" 
-                            [row]='rowCount' 
-                            [column]='columnCount'
+                            [model] = 'getCell(rowCount, columnCount)'
                             (changeState)="pushState($event)">
                 </app-cell>
             </div>

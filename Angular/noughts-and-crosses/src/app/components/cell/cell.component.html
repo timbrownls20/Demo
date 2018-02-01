@@ -1,7 +1,9 @@
 <div [ngClass]="className" 
                 [class.cell] = 'true'
-                [class.nought] = 'model.state === 1'
-                [class.cross] = "model.state === 2" 
+                [class.nought] = 'model.state === 1 && model.winningLine === false'
+                [class.cross] = "model.state === 2 && model.winningLine === false" 
+                [class.nought-win] = 'model.state === 1 && model.winningLine === true'
+                [class.cross-win] = 'model.state === 2 && model.winningLine === true'
                 (click)="clicked()">
 </div>
 

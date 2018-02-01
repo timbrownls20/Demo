@@ -63,27 +63,31 @@ export class GameService {
             resultSetColumn.push(columnCell);
         }
 
-        this.checkResultSet(resultSetRow);
-        this.checkResultSet(resultSetColumn);
+        this.checkWinningLine(resultSetRow);
+        this.checkWinningLine(resultSetColumn);
 
       }
 
-      this.checkResultSet(resultSetDiagonal1);
-      this.checkResultSet(resultSetDiagonal2);
-
-      
-      let isDraw: boolean = true;
-      for (var entry of Array.from(this.model.state)) {
-          if(entry[1].state === CellState.Empty){
-            isDraw = false;
-          }
-      }
-
-      if(isDraw) this.model.currentTurn = GameTurn.Draw;
+      this.checkWinningLine(resultSetDiagonal1);
+      this.checkWinningLine(resultSetDiagonal2);
+    
+      if(this.checkForDraw()) this.model.currentTurn = GameTurn.Draw;
 
   }
 
-  private checkResultSet(resultSet: Cell[]): void{
+  private checkForDraw(): boolean{
+    
+    let isDraw: boolean = true;
+    for (var entry of Array.from(this.model.state)) {
+        if(entry[1].state === CellState.Empty){
+          isDraw = false;
+        }
+    }
+    return isDraw;
+
+  }
+
+  private checkWinningLine(resultSet: Cell[]): void{
 
     if(resultSet.length !== 3) return;
     
@@ -92,12 +96,17 @@ export class GameService {
       stateSet.add(result.state);  
     }
 
-    if(stateSet.has(CellState.Cross) && !stateSet.has(CellState.Nought) && !stateSet.has(CellState.Empty))
+    let winningLine = false;
+    if(stateSet.has(CellState.Cross) && !stateSet.has(CellState.Nought) && !stateSet.has(CellState.Empty)){
       this.model.currentTurn = GameTurn.CrossesWin;
-    else if(stateSet.has(CellState.Nought) && !stateSet.has(CellState.Cross) && !stateSet.has(CellState.Empty))
+      winningLine = true;
+    }
+    else if(stateSet.has(CellState.Nought) && !stateSet.has(CellState.Cross) && !stateSet.has(CellState.Empty)){
       this.model.currentTurn = GameTurn.NoughtsWin;
-
-    if(this.model.isWon){
+      winningLine = true;
+    }
+     
+    if(winningLine){
       for(let result of resultSet){
         result.winningLine = true;
       }

@@ -14,21 +14,16 @@ export class CellComponent implements OnInit {
   constructor(private gameService: GameService) { }
 
   @Output() changeState = new EventEmitter<Cell>();
-  @Input() row: number;
-  @Input() column: number;
+  @Input() model: Cell;
 
-  model: Cell;
   className: string;
 
-  
-
   ngOnInit() {
-    this.model = new Cell(this.row, this.column);
-    this.className = `cell_position_${this.row}_${this.column}`;
+    this.className = `cell_position_${this.model.row}_${this.model.column}`;
   }
 
   clicked() {
-
+    
     if(this.model.state === CellState.Empty)
     {
       var nextTurn: GameTurn = this.gameService.nextTurn();

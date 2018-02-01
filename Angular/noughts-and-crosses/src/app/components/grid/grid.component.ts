@@ -29,4 +29,11 @@ export class GridComponent implements OnInit {
     this.output = Array.from(this.model.state);
 
   }
+
+  getCell(row: number, column: number): Cell {
+
+    let cell: Cell = new Cell(row, column);
+    let returnValue = this.model.state.get(cell.index);
+    return returnValue;
+  }
 }
