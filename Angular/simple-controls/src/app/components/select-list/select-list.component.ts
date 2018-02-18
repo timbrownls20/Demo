@@ -15,7 +15,7 @@ export class SelectListComponent implements OnInit {
   @Input() SelectedItem: string;
 
   ngOnInit() {
-
+  
   }
 
 }
