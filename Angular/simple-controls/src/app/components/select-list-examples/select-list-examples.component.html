@@ -1,6 +1,15 @@
 <div class="jumbotron"><h2>Select List</h2></div>
-<div><app-select-list [Items]="model.Items" [SelectedItem]="1"></app-select-list></div>
-<div><app-select-list [Items]="model.Items" [SelectedItem]="2"></app-select-list></div>
-<div><app-select-list [Items]="model.Items" [SelectedItem]="3"></app-select-list></div>
+
+
+<h5>Selected Value</h5>
+<form #form="ngForm">
+<fieldset class="mt-3"><app-select-list [Items]="model.Countries" name="Country1" ngModel></app-select-list></fieldset>
+<fieldset class="mt-3"><app-select-list [Items]="model.Countries" name="Country2"></app-select-list></fieldset>
+<fieldset class="mt-3"><app-select-list [Items]="model.Countries" name="Country3"></app-select-list></fieldset>
+</form>
+<hr />
+<pre>
+    {{model | json}}
+</pre>
 
 

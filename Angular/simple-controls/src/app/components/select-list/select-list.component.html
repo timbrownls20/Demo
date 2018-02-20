@@ -1,3 +1,9 @@
-<select>
-  <option *ngFor="let item of Items" [value]="item.value" [selected]="SelectedItem === item.value">{{item.description}}</option>
+<select (change)="change($event)">
+  <option *ngFor="let item of Items" 
+          [value]="item.value" 
+          [selected]="SelectedItem === item.value"          
+          >{{item.description}}</option>
 </select>
+<div>
+  {{SelectedItem }}
+</div>
