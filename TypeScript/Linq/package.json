@@ -2,10 +2,22 @@
   "name": "typescript.linq",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jasmine": "^2.8.8",
+    "jasmine": "^3.1.0",
+    "jasmine-ts": "^0.2.1",
+    "typescript": "^2.9.1"
+  },
+  "files": [
+    "index.d.ts"
+  ],
+  "dependencies": {
+    "express": "^4.16.3"
+  }
 }
