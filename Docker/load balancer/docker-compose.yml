@@ -1,0 +1,50 @@
+version: '3.2'
+
+services:
+  # db:
+    # image: microsoft/mssql-server-windows-developer
+    # ports:
+      # - "49401:1433"
+    # environment:
+      # - sa_password=Medisight12345
+      # - ACCEPT_EULA=Y      
+    # networks:
+      # vpcbr:
+        # ipv4_address: 10.5.0.5
+    # container_name: sqlexpressstandalone_db_1
+
+  app:
+    #image: dockersamples/dotnet-album-viewer
+    build:
+      context: ./site1
+      dockerfile: ../Dockerfile
+    ports:
+      - "49250:80"
+    # environment:
+      # - "Data:Provider=MySQL"
+      # - "Data:ConnectionString=Server=db;Port=4000;Database=AlbumViewer;User=root;SslMode=None"      
+    # depends_on:
+      # - db
+
+  app:
+    #image: dockersamples/dotnet-album-viewer
+    build:
+      context: ./site2
+      dockerfile: ../Dockerfile
+    ports:
+      - "49251:80"      
+
+
+networks:
+  default:
+    external:
+      name: nat
+
+# networks:
+  # vpcbr:
+    # driver: nat
+    # ipam:
+     # config:
+       # - subnet: 10.5.0.0/16       
+ 
+      

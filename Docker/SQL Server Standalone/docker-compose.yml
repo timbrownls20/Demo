@@ -1,0 +1,31 @@
+version: '3.2'
+
+services:
+  db:
+    image: microsoft/mssql-server-windows-developer
+    # stdin_open: true # docker run -i
+    # tty: true        # docker run -t
+    ports:
+      - "49401:1433"
+    environment:
+      - sa_password=Secret12345
+      - ACCEPT_EULA=Y      
+    # networks:
+      # vpcbr:
+        # ipv4_address: 10.5.0.5
+    container_name: sqlserver_db1
+    
+
+networks:
+  default:
+    external:
+      name: nat
+
+# networks:
+  # vpcbr:
+    # driver: nat
+    # ipam:
+     # config:
+       # - subnet: 10.5.0.0/16       
+ 
+      
