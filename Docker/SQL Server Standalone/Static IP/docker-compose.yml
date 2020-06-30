@@ -1,0 +1,23 @@
+version: '3.2'
+
+services:
+  db:
+    image: microsoft/mssql-server-windows-developer
+    ports:
+      - "49401:1433"
+    environment:
+      - sa_password=Secret12345
+      - ACCEPT_EULA=Y      
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.5
+    container_name: sqlserver_db1
+
+networks:
+  vpcbr:
+    driver: nat
+    ipam:
+     config:
+       - subnet: 10.5.0.0/16       
+ 
+      
