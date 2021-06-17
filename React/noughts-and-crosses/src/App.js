@@ -63,14 +63,12 @@ const PlayAgain  =(props) => {
   return <button onClick={props.startNewGame}>Play Again</button>
 }
 
-const Game = (props) => {
-
-  console.log(props);
+const useGameState = (startingPlayer, timeLimit) => {
 
   const [grid, setGrid] = useState([[],[],[]]);
-  const [player, setPlayer] = useState('X');
-  const [gameState, setGameState] = useState({InProgress: true, Display:'Next Turn "X"'});
-  const [secondsLeft, setSecondsLeft] = useState(10);
+  const [player, setPlayer] = useState(startingPlayer);
+  const [gameState, setGameState] = useState({InProgress: true, Display:`Next Turn "${startingPlayer}"`});
+  const [secondsLeft, setSecondsLeft] = useState(timeLimit);
 
   useEffect(() =>{
 
@@ -114,13 +112,13 @@ const Game = (props) => {
 
   const updateGameState = (nextTurn) => {
     
-    if(hasWon('X')){
+    if(GameCalculator.hasWon(grid, 'X')){
       setGameState({InProgress: false, Display:'"X" has won'});
     }
-    else if(hasWon('O')){
+    else if(GameCalculator.hasWon(grid, 'O')){
       setGameState({InProgress: false, Display:'"O" has won'});
     }
-    else if(isDrawn()){
+    else if(GameCalculator.isDrawn(grid)){
       setGameState({InProgress: false, Display:'Draw'});
     }
     else {
@@ -128,38 +126,19 @@ const Game = (props) => {
     }
   }
 
-  const isDrawn = () => {
-
-    let output = grid.flat().length === 9;
-    console.log(`isDrawn ${output}`);
-
-    return output;
+  return {
+    grid,
+    gameState,
+    secondsLeft,
+    recordTurn
   }
 
-  const hasWon = (player) => {
+}
 
-    console.log(grid);
-    let won = false; 
+const Game = (props) => {
 
-    for(let i = 0; i < 3; i++){
-
-      let rowMatched = utils.range(0, 2).reduce((acc, row) => acc && grid[i][row] === player, true);
-      let columnMatched = utils.range(0, 2).reduce((acc, column) => acc && grid[column][i] === player, true);
-
-      won = won || rowMatched || columnMatched;
-    }
-
-    let diag1Matched = (grid[0][0] === player && grid[1][1] === player && grid[2][2] === player);
-    let diag2Matched = (grid[0][2] === player && grid[1][1] === player && grid[2][0] === player);
-
-    won = won || diag1Matched || diag2Matched;
-
-    console.log(`won ${won}`)
-
-    return won;
-
-  }
-
+  const {grid, gameState, secondsLeft, recordTurn} = useGameState('O', 20);
+ 
   return (
     <div className="game">
       <div>
@@ -185,6 +164,41 @@ function App() {
 
   const [gameId, setGameId] = useState(1);
   return <Game key={gameId} startNewGame={() => setGameId(gameId + 1)} />   
+}
+
+const GameCalculator = {
+
+  isDrawn: (grid) => {
+
+    let output = grid.flat().length === 9;
+    console.log(`isDrawn ${output}`);
+
+    return output;
+  },
+
+  hasWon : (grid, player) => {
+
+    console.log(grid);
+    let won = false; 
+
+    for(let i = 0; i < 3; i++){
+
+      let rowMatched = utils.range(0, 2).reduce((acc, row) => acc && grid[i][row] === player, true);
+      let columnMatched = utils.range(0, 2).reduce((acc, column) => acc && grid[column][i] === player, true);
+
+      won = won || rowMatched || columnMatched;
+    }
+
+    let diag1Matched = (grid[0][0] === player && grid[1][1] === player && grid[2][2] === player);
+    let diag2Matched = (grid[0][2] === player && grid[1][1] === player && grid[2][0] === player);
+
+    won = won || diag1Matched || diag2Matched;
+
+    console.log(`won ${won}`)
+
+    return won;
+
+  }
 }
 
 const utils = {
