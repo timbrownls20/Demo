@@ -1,12 +1,11 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import BodyPart from "./bodypart";
-import { bodyPartData } from "../data/data";
 
-const BodyPartList = () => {
+const BodyPartList = ({placeholder, data}) => {
   return (
     <div className="d-flex flex-wrap">
-      {bodyPartData.map((element, index) => {
+      {data.map((element, index) => {
         return (
           <Draggable
             draggableId={element.id.toString()}
@@ -25,6 +24,7 @@ const BodyPartList = () => {
           </Draggable>
         );
       })}
+      {placeholder}
     </div>
   );
 };
