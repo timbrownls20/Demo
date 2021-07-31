@@ -1,27 +1,32 @@
 import React from "react";
-import BodyPart from "./bodypart";
-import { bodyPartData } from "../../public/data/data";
+import { DragDropContext } from "react-beautiful-dnd";
+import { Droppable } from "react-beautiful-dnd";
+import BodyPartList from "./bodypartlist";
 
 const App = () => {
   return (
     <div className="container-fluid">
       <h1>Workout Planner</h1>
       <hr />
-      <div className="row">
-        <div className="d-flex flex-wrap col-5 drop">
-          {
-            bodyPartData.map((element) => {
-              return (
-                <BodyPart key={element.id}>
-                  {element.name}
-              </BodyPart>
-              )
-            })
-          }
-          
+
+      <DragDropContext
+        onDragEnd={() => {
+          console.log("ondragend");
+        }}
+      >
+        <div className="row">
+          <Droppable droppableId="source">
+            {(provided) => (
+              <div ref={provided.innerRef} {...provided.droppableProps}>
+                <BodyPartList>
+                  {provided.placeholder}
+                </BodyPartList>
+              </div>
+            )}
+          </Droppable>
+          <div className="col-5 drag">Drop</div>
         </div>
-        <div className="col-5 drag">Drop</div>
-      </div>
+      </DragDropContext>
     </div>
   );
 };
