@@ -1,11 +1,11 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import BodyPart from "./bodypart";
-import { bodyPartData } from "../../public/data/data";
+import { bodyPartData } from "../data/data";
 
 const BodyPartList = () => {
   return (
-    <div className="d-flex flex-wrap col-5 drop">
+    <div className="d-flex flex-wrap">
       {bodyPartData.map((element, index) => {
         return (
           <Draggable

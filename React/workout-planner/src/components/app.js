@@ -17,7 +17,7 @@ const App = () => {
         <div className="row">
           <Droppable droppableId="source">
             {(provided) => (
-              <div ref={provided.innerRef} {...provided.droppableProps}>
+              <div className="col-5 drop" ref={provided.innerRef} {...provided.droppableProps}>
                 <BodyPartList>
                   {provided.placeholder}
                 </BodyPartList>

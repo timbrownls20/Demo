@@ -33,14 +33,18 @@ const bodyPartData = [
   },
   {
     id: 9,
-    name: "gutes and hamstrings",
+    name: "gutes",
   },
   {
     id: 10,
-    name: "quads",
+    name: "hamstrings",
   },
   {
     id: 11,
+    name: "quads",
+  },
+  {
+    id: 12,
     name: "calves",
   }
 ];
