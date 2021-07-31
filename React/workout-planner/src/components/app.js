@@ -11,6 +11,8 @@ const App = () => {
 
   const onDragEnd = (result) => {
 
+    if(!result.destination) return;
+
     console.log(JSON.stringify(result));
 
     let selectedBodyPartsChanged = [...selectedBodyParts];
