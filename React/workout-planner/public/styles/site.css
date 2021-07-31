@@ -1,0 +1,31 @@
+.drag {
+
+    height: 600px;
+    margin: 1em;
+    padding: 1em;
+    border-radius: 2em;
+    border: 1px solid black;
+
+}
+
+.drop {
+    height: 600px;
+    margin: 1em;
+    padding: 1em;
+    border-radius: 2em;
+    border: 1px solid black;
+
+}
+
+.draggable {
+    margin: 0.5em;
+    /* width: 12em; */
+    background-color: silver;
+    cursor: pointer;
+    text-align: center;
+}
+
+.dragging {
+    opacity: 0.1;
+}
+
