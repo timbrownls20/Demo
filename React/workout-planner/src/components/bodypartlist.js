@@ -2,9 +2,15 @@ import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import BodyPart from "./bodypart";
 
-const BodyPartList = ({placeholder, data}) => {
+const BodyPartList = ({ provided, data, isDraggingOver }) => {
   return (
-    <div className="d-flex flex-wrap">
+    <div
+      className={
+        "col-5 droppable d-flex flex-wrap " + (isDraggingOver ? "dragover" : "")
+      }
+      ref={provided.innerRef}
+      {...provided.droppableProps}
+    >
       {data.map((element, index) => {
         return (
           <Draggable
@@ -19,12 +25,12 @@ const BodyPartList = ({placeholder, data}) => {
                 {...provided.dragHandleProps}
               >
                 <BodyPart text={element.name}></BodyPart>
-               </div>
+              </div>
             )}
           </Draggable>
         );
       })}
-      {placeholder}
+      {provided.placeholder}
     </div>
   );
 };

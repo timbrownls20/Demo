@@ -1,26 +1,24 @@
-.drag {
+.droppable {
     min-height: 600px; 
     margin: 1em;
     padding: 1em;
     border-radius: 2em;
-    border: 1px solid black;
-
-}
-
-.drop {
-    min-height: 600px;
-    margin: 1em;
-    padding: 1em;
-    border-radius: 2em;
-    border: 1px solid black;
+    background: paleturquoise;
+    
+    /* border: 1px solid black; */
 
 }
 
 .draggable {
     margin: 0.5em;
-    background-color: silver;
+    background-color: white;
     cursor: pointer;
     text-align: center;
 }
 
+
+.dragover {
+    background: cornflowerblue;
+    transition: ease-in 0.5s;
+}
 
