@@ -18,15 +18,15 @@ const App = () => {
     let selectedBodyPartsChanged = [...selectedBodyParts];
     let availableBodyPartsChanged = [...availableBodyParts];
 
-    var bodyPart = bodyPartData.find((element) => element.id == result.draggableId);  
+    var bodyPart = bodyPartData.find((element) => element.id === parseInt(result.draggableId));  
 
     if(result.source.droppableId === "source" && result.destination.droppableId === "target"){
       selectedBodyPartsChanged.push(bodyPart);
-      availableBodyPartsChanged = availableBodyPartsChanged.filter((element) => element.id != result.draggableId ); 
+      availableBodyPartsChanged = availableBodyPartsChanged.filter((element) => element.id !== parseInt(result.draggableId)); 
     }
     else if(result.source.droppableId === "target" && result.destination.droppableId === "source"){
       availableBodyPartsChanged.push(bodyPart);
-      selectedBodyPartsChanged = selectedBodyPartsChanged.filter((element) => element.id != result.draggableId ); 
+      selectedBodyPartsChanged = selectedBodyPartsChanged.filter((element) => element.id !== parseInt(result.draggableId)); 
     }
 
     setSelectedBodyParts(selectedBodyPartsChanged);
