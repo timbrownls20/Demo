@@ -1,17 +1,16 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 
-const BodyPart = ({ text }) => {
+const BodyPart = ({ provided, text }) => {
   return (
-
-          <div className="card draggable" >
-            <img
-              className="card-img"
-              src={`/images/placeholder150.png`}
-              alt="placeholder"
-            ></img>
-            {text}
-          </div>
+    <div className="card draggable"
+    ref={provided.innerRef}
+    {...provided.draggableProps}
+    {...provided.dragHandleProps}>
+      <div className="card-body">
+      {text}
+      </div>
+    </div>
   );
 };
 

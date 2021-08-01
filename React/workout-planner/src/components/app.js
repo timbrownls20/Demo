@@ -1,8 +1,8 @@
 import React from "react";
-import Exercise from "./exercise";
+import ExerciseList from "./exerciselist";
 
 const App = () => {
-  return <Exercise></Exercise>  
+  return <ExerciseList></ExerciseList>  
 };
 
 export default App;
