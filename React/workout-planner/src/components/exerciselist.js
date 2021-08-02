@@ -3,18 +3,28 @@ import { DragDropContext } from "react-beautiful-dnd";
 import { Droppable } from "react-beautiful-dnd";
 import BodyPartList from "./bodypartlist";
 import { bodyPartData, exerciseData } from "../data/initialData";
-import { inspect } from 'util'
 
 const ExerciseList = () => {
-  const [exercise, setExercise] = useState(exerciseData[0]);
-  const [availableBodyParts, setAvailableBodyParts] = useState(bodyPartData);
-  const [selectedBodyParts, setSelectedBodyParts] = useState([]);
+  const [exerciseList, setExerciseList] = useState(exerciseData);
+  const [selectedExerciseId, setSelectedExerciseId] = useState(
+    exerciseData[0].id
+  );
+
+  function selectedExercise() {
+    return exerciseList.find((e) => e.id === selectedExerciseId);
+  }
+
+  function availableBodyPartsForSelection() {
+    let exercise = selectedExercise();
+    return bodyPartData.filter((e) => {
+      return !exercise.bodyParts.find((bp) => bp.id === e.id);
+    });
+  }
 
   const onDragEnd = (result) => {
     if (!result.destination) return;
 
-    let selectedBodyPartsChanged = [...selectedBodyParts];
-    let availableBodyPartsChanged = [...availableBodyParts];
+    let exerciseNew = { ...selectedExercise() };
 
     var bodyPart = bodyPartData.find(
       (element) => element.id === parseInt(result.draggableId)
@@ -24,34 +34,26 @@ const ExerciseList = () => {
       result.source.droppableId === "source" &&
       result.destination.droppableId === "target"
     ) {
-      selectedBodyPartsChanged.push(bodyPart);
-      availableBodyPartsChanged = availableBodyPartsChanged.filter(
-        (element) => element.id !== parseInt(result.draggableId)
-      );
+      exerciseNew.bodyParts.push(bodyPart);
     } else if (
       result.source.droppableId === "target" &&
       result.destination.droppableId === "source"
     ) {
-      availableBodyPartsChanged.push(bodyPart);
-      selectedBodyPartsChanged = selectedBodyPartsChanged.filter(
+      exerciseNew.bodyParts = exerciseNew.bodyParts.filter(
         (element) => element.id !== parseInt(result.draggableId)
       );
     }
 
-    setSelectedBodyParts(selectedBodyPartsChanged);
-    setAvailableBodyParts(availableBodyPartsChanged);
+    let exerciseListNew = exerciseList.map((e) => {
+      return e.id === exerciseNew.id ? exerciseNew : e;
+    });
+
+    setExerciseList(exerciseListNew);
   };
 
   const selectExercise = (e) => {
-
-    let selectedExercise = exerciseData.find((element) => element.id === parseInt(e.target.id));
-    setExercise(selectedExercise);
-
-    console.log(inspect(selectedExercise));
-    setSelectedBodyParts(selectedExercise.bodyParts)
-    setAvailableBodyParts(bodyPartData)
-
-  }
+    setSelectedExerciseId(parseInt(e.target.id));
+  };
 
   return (
     <div className="container-fluid">
@@ -59,11 +61,21 @@ const ExerciseList = () => {
       <hr />
 
       <div className="row">
-        <div className="col-4">
+        <div className="col-3">
           <ul className="list-group exercise-list">
             {exerciseData.map((element) => {
               return (
-                <li className={"list-group-item" + (exercise.id === element.id ? " exercise-selected" : "")} id={element.id} key={element.id} onClick={selectExercise}>
+                <li
+                  className={
+                    "list-group-item" +
+                    (selectedExerciseId === element.id
+                      ? " exercise-selected"
+                      : "")
+                  }
+                  id={element.id}
+                  key={element.id}
+                  onClick={selectExercise}
+                >
                   {element.name}
                 </li>
               );
@@ -77,7 +89,7 @@ const ExerciseList = () => {
               <BodyPartList
                 isDraggingOver={snapshot.isDraggingOver}
                 provided={provided}
-                data={availableBodyParts}
+                data={availableBodyPartsForSelection()}
               ></BodyPartList>
             )}
           </Droppable>
@@ -86,11 +98,13 @@ const ExerciseList = () => {
               <BodyPartList
                 isDraggingOver={snapshot.isDraggingOver}
                 provided={provided}
-                data={selectedBodyParts}
+                data={selectedExercise().bodyParts}
               ></BodyPartList>
             )}
           </Droppable>
         </DragDropContext>
+        <hr />
+        <code>{JSON.stringify(exerciseList)}</code>
       </div>
     </div>
   );

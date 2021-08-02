@@ -99,6 +99,14 @@ const bodyPartData = [
   {
     id: 12,
     name: "calves",
+  },
+  {
+    id: 13,
+    name: "cardio",
+  },
+  {
+    id: 14,
+    name: "priming",
   }
 ];
 
