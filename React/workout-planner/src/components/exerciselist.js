@@ -3,6 +3,7 @@ import { DragDropContext } from "react-beautiful-dnd";
 import { Droppable } from "react-beautiful-dnd";
 import BodyPartList from "./bodypartlist";
 import { bodyPartData, exerciseData } from "../data/initialData";
+import config from "../config/config";
 
 const ExerciseList = () => {
   const [exerciseList, setExerciseList] = useState(exerciseData);
@@ -103,8 +104,10 @@ const ExerciseList = () => {
             )}
           </Droppable>
         </DragDropContext>
-        <hr />
-        <code>{JSON.stringify(exerciseList)}</code>
+        {
+          config.Debug ? <><hr /><code>{JSON.stringify(exerciseList)}</code></> :null
+        }
+        
       </div>
     </div>
   );
