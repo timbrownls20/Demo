@@ -47,13 +47,6 @@
     opacity: 0.8;
 }
 
-/* .modal-hide
-{
-
-    background-color: rgba(169, 169, 169, 0);
-    transition: background-color 1000ms linear;
-} */
-
 .modal{
     display: block;
     visibility: hidden;
@@ -77,16 +70,3 @@
     transition: opacity 0.5s ease-in;
 }
 
-
-/* .modal-hide
-{
-    visibility:hidden;
-    background-color: rgba(169, 169, 169, 0.8);
-    transition: background-color 1000ms linear;
-} */
-/* 
-.modal-show:hover
-{
-    background-color: rgba(169, 169, 169, 0.5);
-    transition: background-color 1000ms linear;
-} */

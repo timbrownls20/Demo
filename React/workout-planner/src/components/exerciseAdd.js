@@ -4,6 +4,13 @@ const ExerciseAdd = ({ show, hide, add }) => {
 
   const [name, setName] = useState("");
 
+  const addName = () => {
+    if(name){
+      add(name);
+      setName('');
+    }
+  }
+
   return (
     <div
       className={"modal" + (show ? " modal-show" : "")}
@@ -33,11 +40,7 @@ const ExerciseAdd = ({ show, hide, add }) => {
             </form>
           </div>
           <div className="modal-footer">
-            <button type="button" className="btn btn-primary" onClick={e => {
-              //console.log(inspect(e)); 
-              add(name);
-              setName('');
-            }}>
+            <button type="button" className="btn btn-primary" onClick={addName}>
               Add
             </button>
             <button
