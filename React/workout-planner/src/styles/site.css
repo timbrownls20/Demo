@@ -40,3 +40,53 @@
     background: skyblue;
     cursor: pointer;
 }
+
+.exercises-toolbar div {
+    margin: 0 1em;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+/* .modal-hide
+{
+
+    background-color: rgba(169, 169, 169, 0);
+    transition: background-color 1000ms linear;
+} */
+
+.modal{
+    display: block;
+    visibility: hidden;
+}
+
+.modal-show
+{
+    visibility:visible;
+    background-color: rgba(169, 169, 169, 0.8);
+    transition: background-color 0.5s ease-in;
+}
+
+.modal-content 
+{
+    opacity: 0;
+}
+
+.modal-show .modal-content 
+{
+    opacity: 1;
+    transition: opacity 0.5s ease-in;
+}
+
+
+/* .modal-hide
+{
+    visibility:hidden;
+    background-color: rgba(169, 169, 169, 0.8);
+    transition: background-color 1000ms linear;
+} */
+/* 
+.modal-show:hover
+{
+    background-color: rgba(169, 169, 169, 0.5);
+    transition: background-color 1000ms linear;
+} */

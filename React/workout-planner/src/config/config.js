@@ -1,5 +1,5 @@
-const Config = {
+const config = {
     Debug: false
 }
 
-export default Config;
+export default config;
