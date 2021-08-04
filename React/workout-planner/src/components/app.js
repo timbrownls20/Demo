@@ -1,5 +1,5 @@
 import React from "react";
-import ExerciseList from "./exerciselist";
+import ExerciseList from "./exerciseList";
 
 const App = () => {
   return <ExerciseList></ExerciseList>  

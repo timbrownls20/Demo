@@ -7,13 +7,14 @@ import BodyPartList from "./bodypartlist";
 import ExerciseAdd from "./exerciseAdd";
 import { bodyPartData, exerciseData } from "../data/initialData";
 import config from "../config/config";
+import { FormState } from "../config/enums";
 
 const ExerciseList = () => {
   const [exerciseList, setExerciseList] = useState(exerciseData);
   const [selectedExerciseId, setSelectedExerciseId] = useState(
     exerciseData[0].id
   );
-  const [addingExercise, setAddingExercise] = useState(false);
+  const [addingExercise, setAddingExercise] = useState(FormState.Undefined);
 
   const selectedExercise = () =>
     exerciseList.find((e) => e.id === selectedExerciseId);
@@ -28,11 +29,18 @@ const ExerciseList = () => {
   }
 
   const addExercise = (name) => {
-
     let newExerciseList = [...exerciseList, {id: exerciseList.length + 1, name:name, bodyParts:[]}];
     setExerciseList(newExerciseList);
-    setAddingExercise(false);
+    setAddingExercise(FormState.Undefined);
+  }
 
+  const editExercise = (id, name) => {
+    let exerciseListNew = exerciseList.map(element => {
+      return element.id === id ? {...element, name: name } : element;
+    })
+
+    setExerciseList(exerciseListNew);
+    setAddingExercise(FormState.Undefined);
   }
 
   const onDragEnd = (result) => {
@@ -78,7 +86,7 @@ const ExerciseList = () => {
         <div className="row">
           <div className="col-12 d-flex exercises-toolbar">
             <div>
-              <FontAwesomeIcon icon={faPlusCircle} size="2x" onClick={() => setAddingExercise(true)} />
+              <FontAwesomeIcon icon={faPlusCircle} size="2x" onClick={() => setAddingExercise(FormState.New)} />
             </div>
           </div>
         </div>
@@ -98,6 +106,7 @@ const ExerciseList = () => {
                     id={element.id}
                     key={element.id}
                     onClick={selectExercise}
+                    onDoubleClick={() => setAddingExercise(FormState.Edit)}
                   >
                     {element.name}
                   </li>
@@ -128,13 +137,15 @@ const ExerciseList = () => {
           </DragDropContext>
           {config.Debug ? (
             <>
+              <hr/>
+              <code>{JSON.stringify(selectedExercise())}</code>
               <hr />
               <code>{JSON.stringify(exerciseList)}</code>
             </>
           ) : null}
         </div>
       </div>
-      <ExerciseAdd show={addingExercise} hide={() => setAddingExercise(false)} add={addExercise}></ExerciseAdd>
+      <ExerciseAdd formState={addingExercise} hide={() => setAddingExercise(FormState.Undefined)} add={addExercise} edit={editExercise} exercise={selectedExercise()}></ExerciseAdd>
     </>
   );
 };

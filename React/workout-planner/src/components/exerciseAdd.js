@@ -1,26 +1,40 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
+import { FormState } from "../config/enums";
 
-const ExerciseAdd = ({ show, hide, add }) => {
+const ExerciseAdd = ({ formState, hide, add, edit, exercise }) => {
 
-  const [name, setName] = useState("");
+  const [name, setName] = useState(FormState.Edit ? exercise.name : "");
 
-  const addName = () => {
-    if(name){
+  useEffect(() => {
+    if(formState === FormState.New){
+      setName("")
+    }
+    else{
+      setName(exercise.name)
+    }
+  }, [exercise, formState]);
+
+  const save = () => {
+    if(formState === FormState.New && exercise){
       add(name);
+      setName('');
+    }
+    else if (formState === FormState.Edit && exercise){
+      edit(exercise.id, name);
       setName('');
     }
   }
 
   return (
     <div
-      className={"modal" + (show ? " modal-show" : "")}
+      className={"modal" + (formState !== FormState.Undefined ? " modal-show" : "")}
       tabIndex="-1"
       role="dialog"
     >
       <div className="modal-dialog" role="document">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">Add Exercise</h5>
+            <h5 className="modal-title">{formState === FormState.New ? "Add Exercise" : "Edit Exercise"}</h5>
             <button
               type="button"
               className="close"
@@ -35,13 +49,13 @@ const ExerciseAdd = ({ show, hide, add }) => {
             <form>
               <div className="form-group">
             <div className="form-text text-muted mb-2">Name</div>
-            <input type="text" className="form-control" placeholder="enter exercise name" required onChange={e => setName(e.target.value)} value={name}></input>
+            <input type="text" className="form-control" placeholder="enter exercise name" onChange={e => setName(e.target.value)}  required value={name}></input>
             </div>
             </form>
           </div>
           <div className="modal-footer">
-            <button type="button" className="btn btn-primary" onClick={addName}>
-              Add
+            <button type="button" className="btn btn-primary" onClick={save}>
+            {formState === FormState.New ? "Add" : "Save"}
             </button>
             <button
               type="button"
