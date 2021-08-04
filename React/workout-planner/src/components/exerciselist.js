@@ -3,7 +3,7 @@ import { DragDropContext } from "react-beautiful-dnd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { Droppable } from "react-beautiful-dnd";
-import BodyPartList from "./bodypartlist";
+import BodyPartList from "./bodypartList";
 import ExerciseAdd from "./exerciseAdd";
 import { bodyPartData, exerciseData } from "../data/initialData";
 import config from "../config/config";
