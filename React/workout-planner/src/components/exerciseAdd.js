@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { FormState } from "../config/enums";
 
-const ExerciseAdd = ({ formState, hide, add, edit, exercise }) => {
+const ExerciseAdd = ({ formState, hide, add, edit, remove, exercise }) => {
 
   const [name, setName] = useState(FormState.Edit ? exercise.name : "");
 
@@ -57,6 +57,13 @@ const ExerciseAdd = ({ formState, hide, add, edit, exercise }) => {
             <button type="button" className="btn btn-primary" onClick={save}>
             {formState === FormState.New ? "Add" : "Save"}
             </button>
+            {
+              formState === FormState.Edit ? 
+                <button type="button" className="btn btn-primary" onClick={remove}>
+                  Delete
+              </button>
+              : null
+            }
             <button
               type="button"
               className="btn btn-secondary"

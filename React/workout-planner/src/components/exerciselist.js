@@ -43,6 +43,16 @@ const ExerciseList = () => {
     setAddingExercise(FormState.Undefined);
   }
 
+  const removeExercise = () => {
+    let exerciseListFiltered = exerciseList.filter(element => {
+      return element.id !== selectedExerciseId ? element : null;
+    })
+
+    setSelectedExerciseId(exerciseListFiltered[0].id);
+    setExerciseList(exerciseListFiltered);
+    setAddingExercise(FormState.Undefined);
+  }
+
   const onDragEnd = (result) => {
     if (!result.destination) return;
 
@@ -145,7 +155,7 @@ const ExerciseList = () => {
           ) : null}
         </div>
       </div>
-      <ExerciseAdd formState={addingExercise} hide={() => setAddingExercise(FormState.Undefined)} add={addExercise} edit={editExercise} exercise={selectedExercise()}></ExerciseAdd>
+      <ExerciseAdd formState={addingExercise} hide={() => setAddingExercise(FormState.Undefined)} add={addExercise} edit={editExercise} remove={removeExercise} exercise={selectedExercise()}></ExerciseAdd>
     </>
   );
 };
