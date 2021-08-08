@@ -1,28 +1,10 @@
+.demo-text
+{
+    width:20em;
+}
+
 .modal-launch
 {
     width:25em;
     border-radius: 10px;
-}
-
-.modal{
-    display: block;
-    visibility: hidden;
-}
-
-.modal-show
-{
-    visibility:visible;
-    background-color: rgba(169, 169, 169, 0.8);
-    transition: background-color 0.2s linear;
-}
-
-.modal-content 
-{
-    opacity: 0; 
-}
-
-.modal-show .modal-content 
-{
-    opacity: 1; 
-    transition: 0.2s linear; 
 }
