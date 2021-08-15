@@ -14,13 +14,12 @@ const ExerciseList = () => {
   const [selectedExerciseId, setSelectedExerciseId] = useState(exerciseData[0].id);
   const [formState, setFormState] = useState(FormState.Undefined);
 
-  const selectedExercise = () =>
-    exerciseList.find((e) => e.id === selectedExerciseId);
+  const selectedExercise = () => exerciseList.find(e => e.id === selectedExerciseId);
 
   function availableBodyPartsForSelection() {
     let exercise = selectedExercise();
     return bodyPartData.filter((e) => {
-      return !exercise.bodyParts.find((bp) => bp.id === e.id);
+      return !exercise.bodyParts.find(bp => bp.id === e.id);
     });
   }
 
@@ -45,34 +44,47 @@ const ExerciseList = () => {
     setExerciseList(exerciseListFiltered);
   }
 
-  const onDragEnd = (result) => {
-    if (!result.destination) return;
+  const addBodyPartToExercise = (bodyPartId) => {
+
 
     let exerciseNew = { ...selectedExercise() };
 
     var bodyPart = bodyPartData.find(
-      (element) => element.id === parseInt(result.draggableId)
+      element => element.id === parseInt(bodyPartId)
     );
 
-    if (
-      result.source.droppableId === "source" &&
-      result.destination.droppableId === "target"
-    ) {
-      exerciseNew.bodyParts.push(bodyPart);
-    } else if (
-      result.source.droppableId === "target" &&
-      result.destination.droppableId === "source"
-    ) {
-      exerciseNew.bodyParts = exerciseNew.bodyParts.filter(
-        (element) => element.id !== parseInt(result.draggableId)
-      );
-    }
+    exerciseNew.bodyParts.push(bodyPart);
 
-    let exerciseListNew = exerciseList.map((e) => {
-      return e.id === exerciseNew.id ? exerciseNew : e;
-    });
+    let exerciseListNew = exerciseList.map(e => e.id === exerciseNew.id ? exerciseNew : e);
 
     setExerciseList(exerciseListNew);
+
+  }
+
+  const removeBodyPartFromExercise = (bodyPartId) => {
+
+    let exerciseNew = { ...selectedExercise() };
+
+    exerciseNew.bodyParts = exerciseNew.bodyParts.filter(
+      element => element.id !== parseInt(bodyPartId)
+    );
+
+    let exerciseListNew = exerciseList.map(e => e.id === exerciseNew.id ? exerciseNew : e);
+
+    setExerciseList(exerciseListNew);
+
+  }
+
+  const onDragEnd = (result) => {
+    if (!result.destination) return;
+
+    if (result.source.droppableId === "source" &&  result.destination.droppableId === "target") {
+      addBodyPartToExercise(result.draggableId);
+    } 
+    else if (result.source.droppableId === "target" && result.destination.droppableId === "source") 
+    { 
+      removeBodyPartFromExercise(result.draggableId)
+    }
   };
 
   return (
