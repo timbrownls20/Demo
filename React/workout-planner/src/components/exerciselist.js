@@ -11,15 +11,11 @@ import { FormState } from "../config/enums";
 
 const ExerciseList = () => {
   const [exerciseList, setExerciseList] = useState(exerciseData);
-  const [selectedExerciseId, setSelectedExerciseId] = useState(
-    exerciseData[0].id
-  );
+  const [selectedExerciseId, setSelectedExerciseId] = useState(exerciseData[0].id);
   const [formState, setFormState] = useState(FormState.Undefined);
 
   const selectedExercise = () =>
     exerciseList.find((e) => e.id === selectedExerciseId);
-
-  const selectExercise = (e) => setSelectedExerciseId(parseInt(e.target.id));
 
   function availableBodyPartsForSelection() {
     let exercise = selectedExercise();
@@ -31,16 +27,13 @@ const ExerciseList = () => {
   const addExercise = (name) => {
     let newExerciseList = [...exerciseList, {id: exerciseList.length + 1, name:name, bodyParts:[]}];
     setExerciseList(newExerciseList);
-    setFormState(FormState.Undefined);
   }
 
   const editExercise = (id, name) => {
     let exerciseListNew = exerciseList.map(element => {
       return element.id === id ? {...element, name: name } : element;
     })
-
     setExerciseList(exerciseListNew);
-    setFormState(FormState.Undefined);
   }
 
   const removeExercise = () => {
@@ -50,7 +43,6 @@ const ExerciseList = () => {
 
     setSelectedExerciseId(exerciseListFiltered[0].id);
     setExerciseList(exerciseListFiltered);
-    setFormState(FormState.Undefined);
   }
 
   const onDragEnd = (result) => {
@@ -96,7 +88,7 @@ const ExerciseList = () => {
         <div className="row">
           <div className="col-12 d-flex exercises-toolbar">
             <div>
-              <FontAwesomeIcon icon={faPlusCircle} size="2x" onClick={() => formState(FormState.New)} />
+              <FontAwesomeIcon icon={faPlusCircle} size="2x" onClick={() => setFormState(FormState.New)} />
             </div>
           </div>
         </div>
@@ -115,7 +107,7 @@ const ExerciseList = () => {
                     }
                     id={element.id}
                     key={element.id}
-                    onClick={selectExercise}
+                    onClick={(e) => setSelectedExerciseId(parseInt(e.target.id))}
                     onDoubleClick={() => setFormState(FormState.Edit)}
                   >
                     {element.name}
@@ -155,7 +147,20 @@ const ExerciseList = () => {
           ) : null}
         </div>
       </div>
-      <ExerciseAdd formState={formState} hide={() => setFormState(FormState.Undefined)} add={addExercise} edit={editExercise} remove={removeExercise} exercise={selectedExercise()}></ExerciseAdd>
+      <ExerciseAdd formState={formState} hide={() => setFormState(FormState.Undefined)} 
+          add={(name) => {
+            addExercise(name);
+            setFormState(FormState.Undefined);
+          }} 
+          edit={(id, name) => {
+            editExercise(id, name);
+            setFormState(FormState.Undefined);
+          }} 
+          remove={() => {
+            removeExercise();
+            setFormState(FormState.Undefined);
+          }} 
+          exercise={selectedExercise()}></ExerciseAdd>
     </>
   );
 };
