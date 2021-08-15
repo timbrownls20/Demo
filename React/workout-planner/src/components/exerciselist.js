@@ -14,7 +14,7 @@ const ExerciseList = () => {
   const [selectedExerciseId, setSelectedExerciseId] = useState(
     exerciseData[0].id
   );
-  const [addingExercise, setAddingExercise] = useState(FormState.Undefined);
+  const [formState, setFormState] = useState(FormState.Undefined);
 
   const selectedExercise = () =>
     exerciseList.find((e) => e.id === selectedExerciseId);
@@ -31,7 +31,7 @@ const ExerciseList = () => {
   const addExercise = (name) => {
     let newExerciseList = [...exerciseList, {id: exerciseList.length + 1, name:name, bodyParts:[]}];
     setExerciseList(newExerciseList);
-    setAddingExercise(FormState.Undefined);
+    setFormState(FormState.Undefined);
   }
 
   const editExercise = (id, name) => {
@@ -40,7 +40,7 @@ const ExerciseList = () => {
     })
 
     setExerciseList(exerciseListNew);
-    setAddingExercise(FormState.Undefined);
+    setFormState(FormState.Undefined);
   }
 
   const removeExercise = () => {
@@ -50,7 +50,7 @@ const ExerciseList = () => {
 
     setSelectedExerciseId(exerciseListFiltered[0].id);
     setExerciseList(exerciseListFiltered);
-    setAddingExercise(FormState.Undefined);
+    setFormState(FormState.Undefined);
   }
 
   const onDragEnd = (result) => {
@@ -96,7 +96,7 @@ const ExerciseList = () => {
         <div className="row">
           <div className="col-12 d-flex exercises-toolbar">
             <div>
-              <FontAwesomeIcon icon={faPlusCircle} size="2x" onClick={() => setAddingExercise(FormState.New)} />
+              <FontAwesomeIcon icon={faPlusCircle} size="2x" onClick={() => formState(FormState.New)} />
             </div>
           </div>
         </div>
@@ -116,7 +116,7 @@ const ExerciseList = () => {
                     id={element.id}
                     key={element.id}
                     onClick={selectExercise}
-                    onDoubleClick={() => setAddingExercise(FormState.Edit)}
+                    onDoubleClick={() => setFormState(FormState.Edit)}
                   >
                     {element.name}
                   </li>
@@ -155,7 +155,7 @@ const ExerciseList = () => {
           ) : null}
         </div>
       </div>
-      <ExerciseAdd formState={addingExercise} hide={() => setAddingExercise(FormState.Undefined)} add={addExercise} edit={editExercise} remove={removeExercise} exercise={selectedExercise()}></ExerciseAdd>
+      <ExerciseAdd formState={formState} hide={() => setFormState(FormState.Undefined)} add={addExercise} edit={editExercise} remove={removeExercise} exercise={selectedExercise()}></ExerciseAdd>
     </>
   );
 };
