@@ -4,7 +4,6 @@ import exerciseListReducer from "../reducers/exerciseListReducer";
 import Action from "../enums/actions";
 
 const useExerciseData = () => {
-
   const [selectedExerciseId, setSelectedExerciseId] = useState(
     exerciseData[0].id
   );
@@ -15,50 +14,49 @@ const useExerciseData = () => {
   );
 
   const selectedExercise = () =>
-    exerciseList.find(e => e.id === selectedExerciseId);
+    exerciseList.find((e) => e.id === selectedExerciseId);
 
   const availableBodyPartsForSelection = () => {
     let exercise = selectedExercise();
-    return bodyPartData.filter(e => {
-      return !exercise.bodyParts.find(bp => bp.id === e.id);
+    return bodyPartData.filter((e) => {
+      return !exercise.bodyParts.find((bp) => bp.id === e.id);
     });
-  }
+  };
 
   const addExercise = (name) => {
     dispatch({ type: Action.ADD_EXERCISE, value: name });
-  }
+  };
 
   const editExercise = (id, name) => {
     dispatch({ type: Action.EDIT_EXERCISE, value: { id, name } });
-  }
+  };
 
-  const removeExercise = (id) =>{
+  const removeExercise = (id) => {
     dispatch({ type: Action.REMOVE_EXERCISE, value: id });
     setSelectedExerciseId(exerciseList[0].id);
-  }
+  };
 
   const addBodyPart = (bodyPartId, exerciseId) => {
     dispatch({
-        type: Action.ADD_BODYPART,
-        value: {
-          bodyPartId: bodyPartId,
-          exerciseId: exerciseId,
-        },
-      });
-  }
+      type: Action.ADD_BODYPART,
+      value: {
+        bodyPartId: bodyPartId,
+        exerciseId: exerciseId,
+      },
+    });
+  };
 
   const removeBodyPart = (bodyPartId, exerciseId) => {
-
     console.log(`exerciseId ${exerciseId}`);
 
     dispatch({
-        type: Action.REMOVE_BODYPART,
-        value: {
-            bodyPartId: bodyPartId,
-            exerciseId: exerciseId,
-        },
-      });
-  }
+      type: Action.REMOVE_BODYPART,
+      value: {
+        bodyPartId: bodyPartId,
+        exerciseId: exerciseId,
+      },
+    });
+  };
   return {
     selectedExerciseId,
     setSelectedExerciseId,

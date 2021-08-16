@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
@@ -6,7 +6,7 @@ import BodyPartList from "./bodypartList";
 import ExerciseAdd from "./exerciseAdd";
 import config from "../config/config";
 import { FormState } from "../enums/enums";
-import useExerciseData from "../hooks/useExerciseData";
+import { ExerciseDataContext } from "../config/exerciseDataContext";
 
 const ExerciseList = () => {
   const [formState, setFormState] = useState(FormState.Undefined);
@@ -21,7 +21,7 @@ const ExerciseList = () => {
     addBodyPart,
     removeBodyPart,
     availableBodyPartsForSelection,
-  } = useExerciseData();
+  } = useContext(ExerciseDataContext);
 
   const onDragEnd = (result) => {
     if (!result.destination) return;
