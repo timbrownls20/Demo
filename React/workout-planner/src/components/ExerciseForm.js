@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { FormState } from "../enums/enums";
 
-const ExerciseAdd = ({ formState, hide, add, edit, remove, exercise }) => {
+const ExerciseForm = ({ formState, hide, add, edit, remove, exercise }) => {
 
   const [name, setName] = useState(FormState.Edit ? exercise.name : "");
 
@@ -79,4 +79,4 @@ const ExerciseAdd = ({ formState, hide, add, edit, remove, exercise }) => {
   );
 };
 
-export default ExerciseAdd;
+export default ExerciseForm;

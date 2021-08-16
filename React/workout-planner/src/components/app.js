@@ -1,6 +1,6 @@
 import React from "react";
-import ExerciseList from "./exerciseList";
-import { ExerciseDataProvider } from "../config/exerciseDataContext";
+import ExerciseList from "./ExerciseList";
+import { ExerciseDataProvider } from "../config/ExerciseDataContext";
 
 const App = () => {
   return (

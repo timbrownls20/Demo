@@ -2,11 +2,11 @@ import React, { useState, useContext } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
-import BodyPartList from "./bodypartList";
-import ExerciseAdd from "./exerciseAdd";
+import BodyPartList from "./BodypartList";
+import ExerciseAdd from "./ExerciseForm";
 import config from "../config/config";
 import { FormState } from "../enums/enums";
-import { ExerciseDataContext } from "../config/exerciseDataContext";
+import { ExerciseDataContext } from "../config/ExerciseDataContext";
 
 const ExerciseList = () => {
   const [formState, setFormState] = useState(FormState.Undefined);
