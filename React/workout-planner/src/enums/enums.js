@@ -4,4 +4,4 @@ const FormState ={
     Edit:2
 }
 
-export {FormState}
+export { FormState }

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { FormState } from "../config/enums";
+import { FormState } from "../enums/enums";
 
 const ExerciseAdd = ({ formState, hide, add, edit, remove, exercise }) => {
 

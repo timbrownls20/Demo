@@ -1,89 +1,63 @@
-import React, { useState } from "react";
-import { DragDropContext } from "react-beautiful-dnd";
+import React, { useState, useReducer } from "react";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
-import { Droppable } from "react-beautiful-dnd";
 import BodyPartList from "./bodypartList";
 import ExerciseAdd from "./exerciseAdd";
 import { bodyPartData, exerciseData } from "../data/initialData";
 import config from "../config/config";
-import { FormState } from "../config/enums";
+import {FormState} from "../enums/enums";
+import Action from "../enums/actions";
+import exerciseListReducer from "../reducers/exerciseListReducer";
 
 const ExerciseList = () => {
-  const [exerciseList, setExerciseList] = useState(exerciseData);
-  const [selectedExerciseId, setSelectedExerciseId] = useState(exerciseData[0].id);
+  const [selectedExerciseId, setSelectedExerciseId] = useState(
+    exerciseData[0].id
+  );
+
+  const [exerciseList, dispatch] = useReducer(
+    exerciseListReducer,
+    exerciseData
+  );
   const [formState, setFormState] = useState(FormState.Undefined);
 
-  const selectedExercise = () => exerciseList.find(e => e.id === selectedExerciseId);
+  const selectedExercise = () =>
+    exerciseList.find((e) => e.id === selectedExerciseId);
 
   function availableBodyPartsForSelection() {
     let exercise = selectedExercise();
     return bodyPartData.filter((e) => {
-      return !exercise.bodyParts.find(bp => bp.id === e.id);
+      return !exercise.bodyParts.find((bp) => bp.id === e.id);
     });
-  }
-
-  const addExercise = (name) => {
-    let newExerciseList = [...exerciseList, {id: exerciseList.length + 1, name:name, bodyParts:[]}];
-    setExerciseList(newExerciseList);
-  }
-
-  const editExercise = (id, name) => {
-    let exerciseListNew = exerciseList.map(element => {
-      return element.id === id ? {...element, name: name } : element;
-    })
-    setExerciseList(exerciseListNew);
-  }
-
-  const removeExercise = () => {
-    let exerciseListFiltered = exerciseList.filter(element => {
-      return element.id !== selectedExerciseId ? element : null;
-    })
-
-    setSelectedExerciseId(exerciseListFiltered[0].id);
-    setExerciseList(exerciseListFiltered);
-  }
-
-  const addBodyPartToExercise = (bodyPartId) => {
-
-
-    let exerciseNew = { ...selectedExercise() };
-
-    var bodyPart = bodyPartData.find(
-      element => element.id === parseInt(bodyPartId)
-    );
-
-    exerciseNew.bodyParts.push(bodyPart);
-
-    let exerciseListNew = exerciseList.map(e => e.id === exerciseNew.id ? exerciseNew : e);
-
-    setExerciseList(exerciseListNew);
-
-  }
-
-  const removeBodyPartFromExercise = (bodyPartId) => {
-
-    let exerciseNew = { ...selectedExercise() };
-
-    exerciseNew.bodyParts = exerciseNew.bodyParts.filter(
-      element => element.id !== parseInt(bodyPartId)
-    );
-
-    let exerciseListNew = exerciseList.map(e => e.id === exerciseNew.id ? exerciseNew : e);
-
-    setExerciseList(exerciseListNew);
-
   }
 
   const onDragEnd = (result) => {
     if (!result.destination) return;
 
-    if (result.source.droppableId === "source" &&  result.destination.droppableId === "target") {
-      addBodyPartToExercise(result.draggableId);
-    } 
-    else if (result.source.droppableId === "target" && result.destination.droppableId === "source") 
-    { 
-      removeBodyPartFromExercise(result.draggableId)
+    if (
+      result.source.droppableId === "source" &&
+      result.destination.droppableId === "target"
+    ) {
+      console.log("dispatch add");
+      dispatch({
+        type: Action.ADD_BODYPART,
+        value: {
+          bodyPartId: result.draggableId,
+          exerciseId: selectedExerciseId,
+        },
+      });
+    } else if (
+      result.source.droppableId === "target" &&
+      result.destination.droppableId === "source"
+    ) {
+      console.log("dispatch remove");
+      dispatch({
+        type: Action.REMOVE_BODYPART,
+        value: {
+          bodyPartId: result.draggableId,
+          exerciseId: selectedExerciseId,
+        },
+      });
     }
   };
 
@@ -100,7 +74,11 @@ const ExerciseList = () => {
         <div className="row">
           <div className="col-12 d-flex exercises-toolbar">
             <div>
-              <FontAwesomeIcon icon={faPlusCircle} size="2x" onClick={() => setFormState(FormState.New)} />
+              <FontAwesomeIcon
+                icon={faPlusCircle}
+                size="2x"
+                onClick={() => setFormState(FormState.New)}
+              />
             </div>
           </div>
         </div>
@@ -119,7 +97,9 @@ const ExerciseList = () => {
                     }
                     id={element.id}
                     key={element.id}
-                    onClick={(e) => setSelectedExerciseId(parseInt(e.target.id))}
+                    onClick={(e) =>
+                      setSelectedExerciseId(parseInt(e.target.id))
+                    }
                     onDoubleClick={() => setFormState(FormState.Edit)}
                   >
                     {element.name}
@@ -151,7 +131,7 @@ const ExerciseList = () => {
           </DragDropContext>
           {config.Debug ? (
             <>
-              <hr/>
+              <hr />
               <code>{JSON.stringify(selectedExercise())}</code>
               <hr />
               <code>{JSON.stringify(exerciseList)}</code>
@@ -159,20 +139,24 @@ const ExerciseList = () => {
           ) : null}
         </div>
       </div>
-      <ExerciseAdd formState={formState} hide={() => setFormState(FormState.Undefined)} 
-          add={(name) => {
-            addExercise(name);
-            setFormState(FormState.Undefined);
-          }} 
-          edit={(id, name) => {
-            editExercise(id, name);
-            setFormState(FormState.Undefined);
-          }} 
-          remove={() => {
-            removeExercise();
-            setFormState(FormState.Undefined);
-          }} 
-          exercise={selectedExercise()}></ExerciseAdd>
+      <ExerciseAdd
+        formState={formState}
+        hide={() => setFormState(FormState.Undefined)}
+        add={(name) => {
+          dispatch({ type: Action.ADD_EXERCISE, value: name });
+          setFormState(FormState.Undefined);
+        }}
+        edit={(id, name) => {
+          dispatch({ type: Action.EDIT_EXERCISE, value: { id, name } });
+          setFormState(FormState.Undefined);
+        }}
+        remove={() => {
+          dispatch({ type: Action.REMOVE_EXERCISE, value: selectedExerciseId });
+          setSelectedExerciseId(exerciseList[0].id);
+          setFormState(FormState.Undefined);
+        }}
+        exercise={selectedExercise()}
+      ></ExerciseAdd>
     </>
   );
 };
