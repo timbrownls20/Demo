@@ -3,7 +3,7 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import BodyPartList from "./BodypartList";
-import ExerciseAdd from "./ExerciseForm";
+import ExerciseForm from "./ExerciseForm";
 import config from "../config/config";
 import { FormState } from "../enums/enums";
 import { ExerciseDataContext } from "../config/ExerciseDataContext";
@@ -117,7 +117,7 @@ const ExerciseList = () => {
           ) : null}
         </div>
       </div>
-      <ExerciseAdd
+      <ExerciseForm
         formState={formState}
         hide={() => setFormState(FormState.Undefined)}
         add={(name) => {
@@ -136,7 +136,7 @@ const ExerciseList = () => {
           setFormState(FormState.Undefined);
         }}
         exercise={selectedExercise()}
-      ></ExerciseAdd>
+      ></ExerciseForm>
     </>
   );
 };
