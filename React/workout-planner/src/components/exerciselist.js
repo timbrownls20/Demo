@@ -1,35 +1,27 @@
-import React, { useState, useReducer } from "react";
+import React, { useState } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import BodyPartList from "./bodypartList";
 import ExerciseAdd from "./exerciseAdd";
-import { bodyPartData, exerciseData } from "../data/initialData";
 import config from "../config/config";
-import {FormState} from "../enums/enums";
-import Action from "../enums/actions";
-import exerciseListReducer from "../reducers/exerciseListReducer";
+import { FormState } from "../enums/enums";
+import useExerciseData from "../hooks/useExerciseData";
 
 const ExerciseList = () => {
-  const [selectedExerciseId, setSelectedExerciseId] = useState(
-    exerciseData[0].id
-  );
-
-  const [exerciseList, dispatch] = useReducer(
-    exerciseListReducer,
-    exerciseData
-  );
   const [formState, setFormState] = useState(FormState.Undefined);
-
-  const selectedExercise = () =>
-    exerciseList.find((e) => e.id === selectedExerciseId);
-
-  function availableBodyPartsForSelection() {
-    let exercise = selectedExercise();
-    return bodyPartData.filter((e) => {
-      return !exercise.bodyParts.find((bp) => bp.id === e.id);
-    });
-  }
+  const {
+    selectedExerciseId,
+    setSelectedExerciseId,
+    selectedExercise,
+    exerciseList,
+    addExercise,
+    editExercise,
+    removeExercise,
+    addBodyPart,
+    removeBodyPart,
+    availableBodyPartsForSelection,
+  } = useExerciseData();
 
   const onDragEnd = (result) => {
     if (!result.destination) return;
@@ -38,26 +30,12 @@ const ExerciseList = () => {
       result.source.droppableId === "source" &&
       result.destination.droppableId === "target"
     ) {
-      console.log("dispatch add");
-      dispatch({
-        type: Action.ADD_BODYPART,
-        value: {
-          bodyPartId: result.draggableId,
-          exerciseId: selectedExerciseId,
-        },
-      });
+      addBodyPart(result.draggableId, selectedExerciseId);
     } else if (
       result.source.droppableId === "target" &&
       result.destination.droppableId === "source"
     ) {
-      console.log("dispatch remove");
-      dispatch({
-        type: Action.REMOVE_BODYPART,
-        value: {
-          bodyPartId: result.draggableId,
-          exerciseId: selectedExerciseId,
-        },
-      });
+      removeBodyPart(result.draggableId, selectedExerciseId);
     }
   };
 
@@ -143,16 +121,18 @@ const ExerciseList = () => {
         formState={formState}
         hide={() => setFormState(FormState.Undefined)}
         add={(name) => {
-          dispatch({ type: Action.ADD_EXERCISE, value: name });
+          addExercise(name);
+
           setFormState(FormState.Undefined);
         }}
         edit={(id, name) => {
-          dispatch({ type: Action.EDIT_EXERCISE, value: { id, name } });
+          editExercise(id, name);
+
           setFormState(FormState.Undefined);
         }}
         remove={() => {
-          dispatch({ type: Action.REMOVE_EXERCISE, value: selectedExerciseId });
-          setSelectedExerciseId(exerciseList[0].id);
+          removeExercise(selectedExerciseId);
+
           setFormState(FormState.Undefined);
         }}
         exercise={selectedExercise()}
