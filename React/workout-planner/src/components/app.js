@@ -1,5 +1,5 @@
 import React from "react";
-import ExerciseList from "./ExerciseList";
+import ExerciseList from "./ExerciseManager";
 import { ExerciseDataProvider } from "../config/ExerciseDataContext";
 import { FormStateProvider } from "../config/FormStateContext";
 
