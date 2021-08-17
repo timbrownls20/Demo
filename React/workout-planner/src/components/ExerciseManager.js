@@ -2,20 +2,19 @@ import React, { useContext } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
-import config from "../config/config";
 import { FormState } from "../enums/enums";
 import { ExerciseDataContext } from "../config/ExerciseDataContext";
 import { FormStateContext } from "../config/FormStateContext";
 import BodyPartList from "./BodyPartList";
 import ExerciseForm from "./ExerciseForm";
 import ExerciseList from "./ExerciseList";
+import DebugPanel from "./DebugPanel";
 
 const ExerciseManager = () => {
   const { setFormState } = useContext(FormStateContext);
   const {
     selectedExerciseId,
     selectedExercise,
-    exerciseList,
     addBodyPart,
     removeBodyPart,
     availableBodyPartsForSelection,
@@ -78,14 +77,16 @@ const ExerciseManager = () => {
               )}
             </Droppable>
           </DragDropContext>
-          {config.Debug ? (
+
+          {/* {config.Debug ? (
             <>
               <hr />
               <code>{JSON.stringify(selectedExercise())}</code>
               <hr />
               <code>{JSON.stringify(exerciseList)}</code>
             </>
-          ) : null}
+          ) : null} */}
+          <DebugPanel></DebugPanel>
         </div>
       </div>
       <ExerciseForm></ExerciseForm>
