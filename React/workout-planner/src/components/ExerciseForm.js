@@ -14,29 +14,29 @@ const ExerciseForm = () => {
   } = useContext(ExerciseDataContext);
 
   const exercise = selectedExercise();
-  const [name, setName] = useState(FormState.Edit ? exercise.name : "");
+  const [name, setName] = useState(FormState.EDIT ? exercise.name : "");
 
   const hide = () => {
-    setFormState(FormState.Undefined);
+    setFormState(FormState.UNDEFINED);
   };
 
   const add = (name) => {
     addExercise(name);
-    setFormState(FormState.Undefined);
+    setFormState(FormState.UNDEFINED);
   };
 
   const edit = (id, name) => {
     editExercise(id, name);
-    setFormState(FormState.Undefined);
+    setFormState(FormState.UNDEFINED);
   };
 
   const remove = () => {
     removeExercise(selectedExerciseId);
-    setFormState(FormState.Undefined);
+    setFormState(FormState.UNDEFINED);
   };
 
   useEffect(() => {
-    if (formState === FormState.New) {
+    if (formState === FormState.NEW) {
       setName("");
     } else {
       setName(exercise.name);
@@ -44,10 +44,10 @@ const ExerciseForm = () => {
   }, [exercise, formState]);
 
   const save = () => {
-    if (formState === FormState.New && exercise) {
+    if (formState === FormState.NEW && exercise) {
       add(name);
       setName("");
-    } else if (formState === FormState.Edit && exercise) {
+    } else if (formState === FormState.EDIT && exercise) {
       edit(exercise.id, name);
       setName("");
     }
@@ -56,7 +56,7 @@ const ExerciseForm = () => {
   return (
     <div
       className={
-        "modal" + (formState !== FormState.Undefined ? " modal-show" : "")
+        "modal" + (formState !== FormState.UNDEFINED ? " modal-show" : "")
       }
       tabIndex="-1"
       role="dialog"
@@ -94,9 +94,9 @@ const ExerciseForm = () => {
           </div>
           <div className="modal-footer">
             <button type="button" className="btn btn-primary" onClick={save}>
-              {formState === FormState.New ? "Add" : "Save"}
+              {formState === FormState.NEW ? "Add" : "Save"}
             </button>
-            {formState === FormState.Edit ? (
+            {formState === FormState.EDIT ? (
               <button
                 type="button"
                 className="btn btn-primary"

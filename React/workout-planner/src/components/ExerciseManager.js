@@ -49,7 +49,7 @@ const ExerciseManager = () => {
               <FontAwesomeIcon
                 icon={faPlusCircle}
                 size="2x"
-                onClick={() => setFormState(FormState.New)}
+                onClick={() => setFormState(FormState.NEW)}
               />
             </div>
           </div>
@@ -77,15 +77,6 @@ const ExerciseManager = () => {
               )}
             </Droppable>
           </DragDropContext>
-
-          {/* {config.Debug ? (
-            <>
-              <hr />
-              <code>{JSON.stringify(selectedExercise())}</code>
-              <hr />
-              <code>{JSON.stringify(exerciseList)}</code>
-            </>
-          ) : null} */}
           <DebugPanel></DebugPanel>
         </div>
       </div>

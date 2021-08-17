@@ -1,7 +1,7 @@
 const FormState ={
-    Undefined:0,
-    New :1,
-    Edit:2
+    UNDEFINED:0,
+    NEW :1,
+    EDIT:2
 }
 
-export { FormState }
+export {FormState};
