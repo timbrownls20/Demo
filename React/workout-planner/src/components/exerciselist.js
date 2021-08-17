@@ -9,29 +9,26 @@ const ExerciseList = () => {
     useContext(ExerciseDataContext);
 
   return (
-      <div className="col-3">
-        <ul className="list-group exercise-list">
-          {exerciseList.map((element) => {
-            return (
-              <li
-                className={
-                  "list-group-item" +
-                  (selectedExerciseId === element.id
-                    ? " exercise-selected"
-                    : "")
-                }
-                id={element.id}
-                key={element.id}
-                onClick={(e) => setSelectedExerciseId(parseInt(e.target.id))}
-                onDoubleClick={() => setFormState(FormState.Edit)}
-              >
-                {element.name}
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    
+    <div className="col-3">
+      <ul className="list-group exercise-list">
+        {exerciseList.map((element) => {
+          return (
+            <li
+              className={
+                "list-group-item" +
+                (selectedExerciseId === element.id ? " exercise-selected" : "")
+              }
+              id={element.id}
+              key={element.id}
+              onClick={(e) => setSelectedExerciseId(parseInt(e.target.id))}
+              onDoubleClick={() => setFormState(FormState.Edit)}
+            >
+              {element.name}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 };
 

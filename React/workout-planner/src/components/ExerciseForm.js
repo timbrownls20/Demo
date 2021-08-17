@@ -1,9 +1,41 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import { FormState } from "../enums/enums";
+import { FormStateContext } from "../config/FormStateContext";
+import { ExerciseDataContext } from "../config/ExerciseDataContext";
 
-const ExerciseForm = ({ formState, hide, add, edit, remove, exercise }) => {
+const ExerciseForm = () => {
 
+  const { formState, setFormState } = useContext(FormStateContext);
+  const {
+    selectedExerciseId,
+    selectedExercise,
+    addExercise,
+    editExercise,
+    removeExercise,
+  } = useContext(ExerciseDataContext);
+
+  const exercise = selectedExercise();
   const [name, setName] = useState(FormState.Edit ? exercise.name : "");
+
+
+  const hide = () => {
+    setFormState(FormState.Undefined);
+  }
+
+  const add = (name) => {
+    addExercise(name);
+    setFormState(FormState.Undefined);
+  }
+
+  const edit = (id, name)  => {
+    editExercise(id, name);
+      setFormState(FormState.Undefined);
+  }
+
+  const remove = () => {
+    removeExercise(selectedExerciseId);
+    setFormState(FormState.Undefined);
+  }
 
   useEffect(() => {
     if(formState === FormState.New){

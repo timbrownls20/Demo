@@ -11,14 +11,11 @@ import ExerciseForm from "./ExerciseForm";
 import ExerciseList from "./ExerciseList";
 
 const ExerciseManager = () => {
-  const { formState, setFormState } = useContext(FormStateContext);
+  const { setFormState } = useContext(FormStateContext);
   const {
     selectedExerciseId,
     selectedExercise,
     exerciseList,
-    addExercise,
-    editExercise,
-    removeExercise,
     addBodyPart,
     removeBodyPart,
     availableBodyPartsForSelection,
@@ -91,23 +88,7 @@ const ExerciseManager = () => {
           ) : null}
         </div>
       </div>
-      <ExerciseForm
-        formState={formState}
-        hide={() => setFormState(FormState.Undefined)}
-        add={(name) => {
-          addExercise(name);
-          setFormState(FormState.Undefined);
-        }}
-        edit={(id, name) => {
-          editExercise(id, name);
-          setFormState(FormState.Undefined);
-        }}
-        remove={() => {
-          removeExercise(selectedExerciseId);
-          setFormState(FormState.Undefined);
-        }}
-        exercise={selectedExercise()}
-      ></ExerciseForm>
+      <ExerciseForm></ExerciseForm>
     </>
   );
 };
