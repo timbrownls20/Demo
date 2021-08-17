@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
-import BodyPartList from "./BodypartList";
+import BodyPartList from "./BodyPartList";
 import ExerciseForm from "./ExerciseForm";
 import config from "../config/config";
 import { FormState } from "../enums/enums";
@@ -122,17 +122,14 @@ const ExerciseList = () => {
         hide={() => setFormState(FormState.Undefined)}
         add={(name) => {
           addExercise(name);
-
           setFormState(FormState.Undefined);
         }}
         edit={(id, name) => {
           editExercise(id, name);
-
           setFormState(FormState.Undefined);
         }}
         remove={() => {
           removeExercise(selectedExerciseId);
-
           setFormState(FormState.Undefined);
         }}
         exercise={selectedExercise()}

@@ -1,6 +1,6 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
-import BodyPart from "./Bodypart";
+import BodyPart from "./BodyPart";
 
 const BodyPartList = ({ provided, data, isDraggingOver }) => {
   return (
