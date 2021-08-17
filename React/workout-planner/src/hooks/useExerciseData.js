@@ -4,6 +4,16 @@ import exerciseListReducer from "../reducers/exerciseListReducer";
 import Action from "../enums/actions";
 
 const useExerciseData = () => {
+  exerciseData.sort((a, b) => {
+    if (a.name > b.name) {
+      return 1;
+    } else if (a.name < b.name) {
+      return -1;
+    } else {
+      return 0;
+    }
+  });
+
   const [selectedExerciseId, setSelectedExerciseId] = useState(
     exerciseData[0].id
   );

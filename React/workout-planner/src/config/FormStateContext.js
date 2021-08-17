@@ -4,7 +4,7 @@ import { FormState } from "../enums/enums";
 export const FormStateContext = React.createContext();
 
 export const FormStateProvider = ({ children }) => {
-  const [formState, setFormState] = useState(FormState.Undefined);
+  const [formState, setFormState] = useState(FormState.UNDEFINED);
 
   const provider = {
     formState,
