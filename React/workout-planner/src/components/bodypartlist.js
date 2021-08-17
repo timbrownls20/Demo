@@ -19,7 +19,7 @@ const BodyPartList = ({ provided, data, isDraggingOver }) => {
             key={element.id}
             index={index}
           >
-            {(provided) => (
+            {provided => (
               <div>
                 <BodyPart text={element.name} provided={provided}></BodyPart>
               </div>

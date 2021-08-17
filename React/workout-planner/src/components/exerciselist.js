@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
@@ -7,9 +7,10 @@ import ExerciseForm from "./ExerciseForm";
 import config from "../config/config";
 import { FormState } from "../enums/enums";
 import { ExerciseDataContext } from "../config/ExerciseDataContext";
+import { FormStateContext } from "../config/FormStateContext";
 
 const ExerciseList = () => {
-  const [formState, setFormState] = useState(FormState.Undefined);
+  const { formState, setFormState } = useContext(FormStateContext);
   const {
     selectedExerciseId,
     setSelectedExerciseId,
@@ -26,15 +27,12 @@ const ExerciseList = () => {
   const onDragEnd = (result) => {
     if (!result.destination) return;
 
-    if (
-      result.source.droppableId === "source" &&
-      result.destination.droppableId === "target"
-    ) {
+    let draggedFrom = result.source.droppableId;
+    let draggedTo = result.destination.droppableId;
+
+    if (draggedFrom === "source" && draggedTo === "target") {
       addBodyPart(result.draggableId, selectedExerciseId);
-    } else if (
-      result.source.droppableId === "target" &&
-      result.destination.droppableId === "source"
-    ) {
+    } else if (draggedFrom === "target" && draggedTo === "source") {
       removeBodyPart(result.draggableId, selectedExerciseId);
     }
   };
