@@ -1,13 +1,15 @@
 import React from 'react';
 import './App.css';
-import Shape from './components/Shape'
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import Quote from './components/Quote';
 
 function App() {
   return (
     <div className="App">
-      <Shape />
+      <Quote />
     </div>
   );
 }
 
 export default App;
+
