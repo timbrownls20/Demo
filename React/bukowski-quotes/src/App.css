@@ -21,7 +21,6 @@ body, html, #root{
 
 .quote
 {
-  /* background-color: grey; */
   transition: opacity ease-in-out 2s;
   max-width: 35%;
   padding: 3em;
@@ -61,21 +60,27 @@ pre
 }
 
 @media (max-width: 319px) { 
-  .quote {
+  .quote 
+  {
+    background-color: grey; 
     font-size:small;
     max-width:75%;
   } 
 }
 
 @media (min-width:320px ) and (max-width: 480px) { 
-  .quote {
+  .quote 
+  {
+    background-color: grey; 
     font-size:medium;
     max-width:75%;
   } 
 }
 
 @media (min-width:481px ) and (max-width: 768px) { 
-  .quote {
+  .quote 
+  {
+    background-color: grey; 
     font-size:medium;
     max-width:75%;
   } 

@@ -8,11 +8,16 @@ enum Phase {
     HideQuote = 9
 }
 
+async function sleep(msec:number) {
+    return new Promise(resolve => setTimeout(resolve, msec));
+}
+
 const Quote = () => {
 
     const [quote, setQuote]: [string, Function] = useState('');
     const [quoteVisible, setQuoteVisible]: [boolean, Function] = useState(false);
     const quoteVisibleRef: React.MutableRefObject<boolean> = useRef(false);
+    const quoteNumberRef: React.MutableRefObject<number> = useRef(config.quoteNumber !== null ? config.quoteNumber - 1 : 0);
    
     const showQuote = (show: boolean)=> {
         quoteVisibleRef.current = show;    
@@ -21,21 +26,23 @@ const Quote = () => {
 
     useEffect(() => {
    
+        const getQuote = async (callback:(quote:string) => void): Promise<void> => {
+
+            await sleep(750);
+
+            if(config.quoteNumber === null){
+                quoteNumberRef.current = quoteNumberRef.current < BukowskiQuotes.length - 1 ? quoteNumberRef.current + 1 : 0;
+            }
+            callback(BukowskiQuotes[quoteNumberRef.current]);
+        }
+
         let count: number = 0;
-        let quoteNumber: number = config.quoteNumber !== null ? config.quoteNumber - 1 : 0;
-        setQuote(BukowskiQuotes[quoteNumber])
         
         setInterval(() => {
-            count = count + 1;
             let phase = count % 10 + 1;
 
             if(phase === Phase.GetQuote){
-
-                if(config.quoteNumber === null){
-                    quoteNumber = quoteNumber < BukowskiQuotes.length - 1 ? quoteNumber + 1 : 0;
-                }
-                                
-                setQuote(BukowskiQuotes[quoteNumber])
+                getQuote(quote => setQuote(quote));
             }
             else if(phase === Phase.ShowQuote){
                 showQuote(true)
@@ -43,6 +50,8 @@ const Quote = () => {
             else if(phase === Phase.HideQuote) {
                 showQuote(false)
             }
+            count = count + 1;
+          
         } ,config.interval);
     }, []);
 
