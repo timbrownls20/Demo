@@ -1,11 +1,9 @@
 interface IConfig {
-    interval:number,
-    quoteNumber:number | null
+    interval:number
 }
 
 const config:IConfig = {
-    interval: 1500,
-    quoteNumber:null
+    interval: 1500
 }
 
 export default config;

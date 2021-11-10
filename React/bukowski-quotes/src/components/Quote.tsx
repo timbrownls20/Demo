@@ -5,7 +5,8 @@ import BukowskiQuotes from '../data/Bukowski'
 enum Phase {
     GetQuote = 1,
     ShowQuote = 2,
-    HideQuote = 9
+    QuoteVisible = 3,
+    HideQuote = 10
 }
 
 async function sleep(msec:number) {
@@ -14,10 +15,10 @@ async function sleep(msec:number) {
 
 const Quote = () => {
 
-    const [quote, setQuote]: [string, Function] = useState('');
-    const [quoteVisible, setQuoteVisible]: [boolean, Function] = useState(false);
+    const [quote, setQuote]: [string, Function] = useState(BukowskiQuotes[0]);
+    const [quoteVisible, setQuoteVisible]: [boolean, Function] = useState(true);
     const quoteVisibleRef: React.MutableRefObject<boolean> = useRef(false);
-    const quoteNumberRef: React.MutableRefObject<number> = useRef(config.quoteNumber !== null ? config.quoteNumber - 1 : 0);
+    const quoteNumberRef: React.MutableRefObject<number> = useRef(0);
    
     const showQuote = (show: boolean)=> {
         quoteVisibleRef.current = show;    
@@ -28,15 +29,14 @@ const Quote = () => {
    
         const getQuote = async (callback:(quote:string) => void): Promise<void> => {
 
+            //.. simulating API call
             await sleep(750);
 
-            if(config.quoteNumber === null){
-                quoteNumberRef.current = quoteNumberRef.current < BukowskiQuotes.length - 1 ? quoteNumberRef.current + 1 : 0;
-            }
+            quoteNumberRef.current = quoteNumberRef.current < BukowskiQuotes.length - 1 ? quoteNumberRef.current + 1 : 0;
             callback(BukowskiQuotes[quoteNumberRef.current]);
         }
 
-        let count: number = 0;
+        let count: number = Phase.QuoteVisible;
         
         setInterval(() => {
             let phase = count % 10 + 1;
