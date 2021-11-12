@@ -14,19 +14,19 @@ const environments: Array<IConfig> =
 [
     {
         env: development_env,
-        api : "dev api"
+        api : "http://127.0.0.1:3010"
     },
     {
         env: qa_env,
-        api : "qa api"
+        api : "http://127.0.0.1:3011"
     },
     {
         env: regression_env,
-        api : "regression api"
+        api : "http://127.0.0.1:3012"
     },
     {
         env: production_env,
-        api : "production api"
+        api : "http://127.0.0.1:3013"
     }
 ];
 

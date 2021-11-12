@@ -1,15 +1,17 @@
-const http = require('http');
+const express = require('express');
+const cors = require('cors');
 const config = require('./config');
 
-const hostname = config.hostname;
-const port = config.port;
+const server = express();
+server.use(cors());
 
-const server = http.createServer((req, res) => {
+server.get('/', (req, res) => {
+
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/json')
     res.end(config.message);
 });
 
-server.listen(port, hostname, () => {
-    console.log(`server running at ${hostname}:${port}`);
+server.listen(config.port, config.hostname, () => {
+    console.log(`server running at ${config.hostname}:${config.port}`);
 });

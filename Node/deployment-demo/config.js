@@ -9,25 +9,25 @@ const environments =
     {
         env: development_env,
         hostname: "127.0.0.1",
-        port: "3000",
+        port: "3010",
         message: 'node is development'
     },
     {
         env: qa_env,
         hostname: "127.0.0.1",
-        port: "3001",
+        port: "3011",
         message: 'node is qa'
     },
     {
         env: regression_env,
         hostname: "127.0.0.1",
-        port: "3002",
+        port: "3012",
         message: 'node is regression'
     },
     {
         env: production_env,
         hostname: "127.0.0.1",
-        port: "3003",
+        port: "3013",
         message: 'node is production'
     }
 ];
