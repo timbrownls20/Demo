@@ -4,8 +4,6 @@ import config from './config';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
 
-//https://create-react-app.dev/docs/adding-custom-environment-variables/
-
 function App() {
 
   const [message, setMessage] = useState('pending');
