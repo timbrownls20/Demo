@@ -6,7 +6,7 @@ import Word from "./components/Word";
 function App(): JSX.Element {
   return (
     <div className="App container">
-      <h3>Hangman</h3>
+      <h3 className="pt-4">Spellings</h3>
       <Word />
     </div>
   );

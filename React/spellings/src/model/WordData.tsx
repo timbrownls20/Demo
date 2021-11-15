@@ -1,10 +1,10 @@
 class Word {
   private _frequency?: number;
-  private _tags?: Array<string>;
   
+  public tags?: Array<string>;
   public word?: string;
   public score?: number;
-  public definitions?: Array<string>;
+  public defs?: Array<string>;
 
   //   constructor(
   //     public word: string | null = null,
@@ -13,13 +13,13 @@ class Word {
   //     public defs: Array<string> | null = null
   constructor({ word, score, tags, defs }: { word?: string, score?: number, tags?: Array<string>, defs?: Array<string> }) {
     
-    this._tags = tags;
+    this.tags = tags;
     this.score = score;
     this.word = word;
-    this.definitions = defs;
+    this.defs = defs;
 
-    this._frequency = this._tags
-      ? this._tags.reduce((acc, curr) => {
+    this._frequency = this.tags
+      ? this.tags.reduce((acc, curr) => {
           const arr = curr.split(":");
           if (arr.length == 2 && arr[0] == "f") {
             acc = Number.parseFloat(arr[1]);

@@ -9,7 +9,7 @@ describe("word constructor", () => {
         expect(word.word).toBe("dummy");
         expect(word.score).toBe(101);
         expect(word.frequency).toBe(10);
-        expect(word.definitions).toBeDefined();
+        expect(word.defs).toBeDefined();
     });
 
     test('correct population of empty object', () => {
@@ -18,7 +18,7 @@ describe("word constructor", () => {
         expect(word.word).toBeUndefined();
         expect(word.score).toBeUndefined();
         expect(word.frequency).toBeUndefined();
-        expect(word.definitions).toBeUndefined();
+        expect(word.defs).toBeUndefined();
     });
 });
 
