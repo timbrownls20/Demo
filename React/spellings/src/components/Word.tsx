@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
+import Filter from 'bad-words'
 import _ from 'lodash';
 import WordData from '../model/WordData'
 
@@ -16,6 +17,7 @@ const Word = (): JSX.Element => {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [word, setWord]: [WordData, any] = useState({} as WordData);
+    const filter = new Filter();
 
     useEffect(() => {
 
@@ -34,8 +36,7 @@ const Word = (): JSX.Element => {
              let words: Array<WordData> = res.data.map(e => new WordData(e));
             words = words.filter(e => e.defs && e.frequency && e.frequency >= frequencyLower && e.frequency <= frequencyUpper);
        
-            //.. recurse through until get a word. Some combinations are rare so don't use them
-            console.log(JSON.stringify(words))
+            //console.log(JSON.stringify(words))
             if(words.length === 0){
                 getWord();
             } 
