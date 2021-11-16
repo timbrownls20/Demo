@@ -76,7 +76,7 @@ const Word = (): JSX.Element => {
 
   return (
     <div className="p-4">
-      {words.length > 5 ? (
+      {words.length === spellingListLength ? (
         <ul>
           {words?.map((e, index) => (
             <li key={index}>{e?.word ? e.word : null}</li>
