@@ -3,15 +3,15 @@ import axios from "axios";
 import Filter from "bad-words";
 import _ from "lodash";
 import WordData from "../model/WordData";
-import { LetterFrequency, FrequencyType } from "../utils/LetterFrequency";
+import { LetterFrequency, FrequencyType } from "../services/LetterFrequency";
 
 //https://en.wikipedia.org/wiki/Letter_frequency
 
 const Word = (): JSX.Element => {
-  const apiBatchSize = 10;
+  const apiBatchSize = 500;
   const minWordLength = 5;
   const maxWordLength = 8;
-  const spellingListLength = 20;
+  const spellingListLength = 10;
   const frequencyLower = 100.0;
   const frequencyUpper = 500.0;
   const history: React.MutableRefObject<string[]> = useRef(new Array<string>())
@@ -21,7 +21,6 @@ const Word = (): JSX.Element => {
   const badWords = new Filter();
 
   const letterFrequency = new LetterFrequency(FrequencyType.Dictionary);
-  //console.log(letterFrequency)
   
   useEffect(() => {
     async function getWord(): Promise<WordData> {
@@ -77,9 +76,9 @@ const Word = (): JSX.Element => {
   return (
     <div className="p-4">
       {words.length === spellingListLength ? (
-        <ul>
+        <ul className="list-group">
           {words?.map((e, index) => (
-            <li key={index}>{e?.word ? e.word : null}</li>
+            <li className="list-group-item" key={index}>{e?.word ? e.word : null}</li>
           ))}
         </ul>
       ) : (
