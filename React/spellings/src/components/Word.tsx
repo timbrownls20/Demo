@@ -1,41 +1,47 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import Filter from "bad-words";
 import _ from "lodash";
 import WordData from "../model/WordData";
+import { LetterFrequency, FrequencyType } from "../utils/LetterFrequency";
 
-//https://www.npmjs.com/package/bad-words
-//https://www.datamuse.com/api/
-//..api call https://api.datamuse.com/words?sp=t???&max=1000
-//https://api.datamuse.com/words?sp=t???&max=100&md=df
+//https://en.wikipedia.org/wiki/Letter_frequency
 
 const Word = (): JSX.Element => {
   const apiBatchSize = 10;
-  const minWordLength = 4;
+  const minWordLength = 5;
   const maxWordLength = 8;
-  const spellingListLength = 10;
+  const spellingListLength = 20;
+  const frequencyLower = 100.0;
+  const frequencyUpper = 500.0;
+  const history: React.MutableRefObject<string[]> = useRef(new Array<string>())
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [words, setWords]: [Array<WordData>, any] = useState([]);
   const badWords = new Filter();
 
+  const letterFrequency = new LetterFrequency(FrequencyType.Dictionary);
+  //console.log(letterFrequency)
+  
   useEffect(() => {
     async function getWord(): Promise<WordData> {
-      const randomLetter: string = String.fromCharCode(_.random(25) + 97);
+      
+      //  const randomLetter: string = String.fromCharCode(_.random(25) + 97);
+      const randomLetter: string = letterFrequency.random();
+
       const randomWordTemplate: string =
         randomLetter +
         _.repeat("?", _.random(minWordLength - 1, maxWordLength - 1));
       const api = `https://api.datamuse.com/words?sp=${randomWordTemplate}&max=${apiBatchSize}&md=df`;
-      const frequencyLower = 500.0;
-      const frequencyUpper = 10000.0;
-
+      
       console.log(api);
 
       const res = await axios.get(api);
-      let words: Array<WordData> = res.data.map(
+      let words: Array<WordData> = res.data.map (
         (e: WordData) => new WordData(e)
       );
       words = words.filter((e) => !badWords.isProfane(e));
+      words = words.filter((e) => e.word && e.word?.indexOf(' ') === -1);
       words = words.filter(
         (e) =>
           e.defs &&
@@ -54,12 +60,13 @@ const Word = (): JSX.Element => {
 
       while (spellings.length < spellingListLength) {
         const word = await getWord();
-        if (!spellings.includes(word)) {
+        if (word.word && !history.current.includes(word.word)) {
           spellings.push(word);
+          history.current.push(word.word);
         }
       }
 
-      return spellings;
+      return _.sortBy(spellings, (o => o.word));
     }
 
     getWords()

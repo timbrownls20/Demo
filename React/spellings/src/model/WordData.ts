@@ -6,11 +6,6 @@ class Word {
   public score?: number;
   public defs?: Array<string>;
 
-  //   constructor(
-  //     public word: string | null = null,
-  //     public score: number | null = null,
-  //     public tags: Array<string> | null = null,
-  //     public defs: Array<string> | null = null
   constructor({ word, score, tags, defs }: { word?: string, score?: number, tags?: Array<string>, defs?: Array<string> }) {
     
     this.tags = tags;
