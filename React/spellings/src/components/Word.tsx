@@ -4,17 +4,24 @@ import Filter from "bad-words";
 import _ from "lodash";
 import WordData from "../model/WordData";
 import { LetterFrequency, FrequencyType } from "../services/LetterFrequency";
+import {Config , IConfig} from '../config'
 
 //https://en.wikipedia.org/wiki/Letter_frequency
 
-const Word = (): JSX.Element => {
-  const apiBatchSize = 500;
+interface IWordProps {
+  config? : IConfig | undefined
+}
+
+const Word = ({config = undefined} : IWordProps) : JSX.Element => {  
+
   const minWordLength = 5;
   const maxWordLength = 8;
   const spellingListLength = 10;
   const frequencyLower = 100.0;
   const frequencyUpper = 500.0;
   const history: React.MutableRefObject<string[]> = useRef(new Array<string>())
+  const { apiBatchSize }: IConfig = config || new Config();
+
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [words, setWords]: [Array<WordData>, any] = useState([]);
