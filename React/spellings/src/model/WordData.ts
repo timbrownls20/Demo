@@ -1,13 +1,19 @@
+interface IWordProps {
+  word?: string;
+  score?: number;
+  tags?: Array<string>;
+  defs?: Array<string>;
+}
+
 class Word {
   private _frequency?: number;
-  
+
   public tags?: Array<string>;
   public word?: string;
   public score?: number;
   public defs?: Array<string>;
 
-  constructor({ word, score, tags, defs }: { word?: string, score?: number, tags?: Array<string>, defs?: Array<string> }) {
-    
+  constructor({ word, score, tags, defs }: IWordProps) {
     this.tags = tags;
     this.score = score;
     this.word = word;
