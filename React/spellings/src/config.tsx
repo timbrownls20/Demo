@@ -7,7 +7,7 @@ export interface IConfig {
 }
 
 export const Config: IConfig = {
-  apiBatchSize: 500,
+  apiBatchSize: 1000,
   maxTrys: 10,
   spellingListLength: 10,
   frequencyLower: 100.0,

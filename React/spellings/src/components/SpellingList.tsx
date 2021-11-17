@@ -1,26 +1,33 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState, useRef } from "react";
 import Filter from "bad-words";
 import _ from "lodash";
 import WordData from "../model/WordData";
-import { Config , IConfig} from '../config'
+import { Config } from '../config'
 import {DataMuseApi, IDataMuseApi} from '../services/DataMuseApi'
 
 //https://en.wikipedia.org/wiki/Letter_frequency
+//https://github.com/aruljohn/popular-baby-names
 
-interface IWordProps {
-  config? : IConfig | undefined,
-  api? : IDataMuseApi | undefined
-}
-
-const SpellingList = ({ api } : IWordProps) : JSX.Element => {  
+const SpellingList = () : JSX.Element => {  
 
   const history: React.MutableRefObject<string[]> = useRef(new Array<string>())
-  api = (api || new DataMuseApi(Config));
+  const foundWordCountRef: React.MutableRefObject<number> = useRef(0)
+  const api = new DataMuseApi(Config);
   
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [words, setWords]: [Array<WordData>, any] = useState([]);
+  const [foundWordCount, setFoundWordCount]: [number, any] = useState(0);
   const badWords = new Filter();
   
+  const getWaitMessage = (wordCount: number) : string => {
+    if (wordCount == 0)
+      return "please wait";
+    else if (wordCount == 1) 
+      return `${foundWordCount} word found`;
+    else
+      return `${foundWordCount} words found`;
+  }
+
   useEffect(() => {
     async function getWord(attempt: number): Promise<WordData> {
     
@@ -42,6 +49,11 @@ const SpellingList = ({ api } : IWordProps) : JSX.Element => {
       if (words.length === 0) {
         return getWord(++attempt);
       }
+
+      setFoundWordCount(++foundWordCountRef.current);
+
+      console.log(foundWordCount);
+
       return words[_.random(words.length - 1)];
     }
 
@@ -73,7 +85,7 @@ const SpellingList = ({ api } : IWordProps) : JSX.Element => {
           ))}
         </ul>
       ) : (
-        "please wait"
+        getWaitMessage(foundWordCount)
       )}
     </div>
   );
