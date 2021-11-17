@@ -5,22 +5,27 @@ import { LetterFrequency, FrequencyType } from "../services/LetterFrequency";
 import { IConfig } from "../config";
 
 export interface IDataMuseApi {
-    GetRandomWord(): Promise<Array<WordData>>;  
+  GetRandomWord(): Promise<Array<WordData>>;
 }
 
 export class DataMuseApi implements IDataMuseApi {
-  constructor(public config: IConfig) {}
+  constructor(
+    public config: IConfig,
+    public wordLengthLower: number,
+    public wordLengthUpper: number
+  ) {}
 
   public async GetRandomWord(): Promise<Array<WordData>> {
-    const minWordLength = 5;
-    const maxWordLength = 8;
     const letterFrequency = new LetterFrequency(FrequencyType.Dictionary);
 
     const randomLetter: string = letterFrequency.random();
 
     const randomWordTemplate: string =
       randomLetter +
-      _.repeat("?", _.random(minWordLength - 1, maxWordLength - 1));
+      _.repeat(
+        "?",
+        _.random(this.wordLengthLower - 1, this.wordLengthUpper - 1)
+      );
     const api = `https://api.datamuse.com/words?sp=${randomWordTemplate}&max=${this.config.apiBatchSize}&md=df`;
 
     console.log(api);
@@ -33,6 +38,3 @@ export class DataMuseApi implements IDataMuseApi {
     return words;
   }
 }
-
-
-

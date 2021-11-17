@@ -1,15 +1,15 @@
+import { DifficultyLevel } from "./model/SpellingDifficulty";
+
 export interface IConfig {
   apiBatchSize: number;
   maxTrys: number;
   spellingListLength: number;
-  frequencyLower: number;
-  frequencyUpper: number;
+  difficulty: DifficultyLevel;
 }
 
 export const Config: IConfig = {
-  apiBatchSize: 1000,
+  apiBatchSize: 100,
   maxTrys: 10,
   spellingListLength: 10,
-  frequencyLower: 100.0,
-  frequencyUpper: 500.0,
+  difficulty: DifficultyLevel.Hard,
 };

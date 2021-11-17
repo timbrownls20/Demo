@@ -3,47 +3,50 @@ import React, { useEffect, useState, useRef } from "react";
 import Filter from "bad-words";
 import _ from "lodash";
 import WordData from "../model/WordData";
-import { Config } from '../config'
-import {DataMuseApi, IDataMuseApi} from '../services/DataMuseApi'
+import { Config } from "../config";
+import { DataMuseApi, IDataMuseApi } from "../services/DataMuseApi";
+import { SpellingDifficulty } from "../model/SpellingDifficulty";
 
 //https://en.wikipedia.org/wiki/Letter_frequency
 //https://github.com/aruljohn/popular-baby-names
 
-const SpellingList = () : JSX.Element => {  
+const SpellingList = (): JSX.Element => {
+  const spellingDifficulty = new SpellingDifficulty();
+  const wordSetting = spellingDifficulty.getWordSettings(Config.difficulty);
 
-  const history: React.MutableRefObject<string[]> = useRef(new Array<string>())
-  const foundWordCountRef: React.MutableRefObject<number> = useRef(0)
-  const api = new DataMuseApi(Config);
-  
+  const history: React.MutableRefObject<string[]> = useRef(new Array<string>());
+  const foundWordCountRef: React.MutableRefObject<number> = useRef(0);
+  const api = new DataMuseApi(
+    Config,
+    wordSetting.wordLengthLower,
+    wordSetting.wordLengthUpper
+  );
+
   const [words, setWords]: [Array<WordData>, any] = useState([]);
   const [foundWordCount, setFoundWordCount]: [number, any] = useState(0);
   const badWords = new Filter();
-  
-  const getWaitMessage = (wordCount: number) : string => {
-    if (wordCount == 0)
-      return "please wait";
-    else if (wordCount == 1) 
-      return `${foundWordCount} word found`;
-    else
-      return `${foundWordCount} words found`;
-  }
+
+  const getWaitMessage = (wordCount: number): string => {
+    if (wordCount == 0) return "please wait";
+    else if (wordCount == 1) return `${foundWordCount} word found`;
+    else return `${foundWordCount} words found`;
+  };
 
   useEffect(() => {
     async function getWord(attempt: number): Promise<WordData> {
-    
-      if(attempt > Config.maxTrys){
+      if (attempt > Config.maxTrys) {
         throw new Error("word not found");
       }
 
       let words: Array<WordData> = await (api as IDataMuseApi).GetRandomWord();
       words = words.filter((e) => !badWords.isProfane(e));
-      words = words.filter((e) => e.word && e.word?.indexOf(' ') === -1);
+      words = words.filter((e) => e.word && e.word?.indexOf(" ") === -1);
       words = words.filter(
         (e) =>
           e.defs &&
           e.frequency &&
-          e.frequency >= Config.frequencyLower &&
-          e.frequency <= Config.frequencyUpper
+          e.frequency >= wordSetting.frequencyLower &&
+          e.frequency <= wordSetting.frequencyUpper
       );
 
       if (words.length === 0) {
@@ -51,9 +54,6 @@ const SpellingList = () : JSX.Element => {
       }
 
       setFoundWordCount(++foundWordCountRef.current);
-
-      console.log(foundWordCount);
-
       return words[_.random(words.length - 1)];
     }
 
@@ -68,7 +68,7 @@ const SpellingList = () : JSX.Element => {
         }
       }
 
-      return _.sortBy(spellings, (o => o.word));
+      return _.sortBy(spellings, (o) => o.word);
     }
 
     getWords()
@@ -81,7 +81,9 @@ const SpellingList = () : JSX.Element => {
       {words.length === Config.spellingListLength ? (
         <ul className="list-group">
           {words?.map((e, index) => (
-            <li className="list-group-item" key={index}>{e?.word ? e.word : null}</li>
+            <li className="list-group-item" key={index}>
+              {e?.word ? e.word : null}
+            </li>
           ))}
         </ul>
       ) : (
