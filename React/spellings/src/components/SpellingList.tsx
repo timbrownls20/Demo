@@ -39,7 +39,7 @@ const SpellingList = (): JSX.Element => {
       }
 
       let words: Array<WordData> = await (api as IDataMuseApi).GetRandomWord();
-      words = words.filter((e) => !badWords.isProfane(e));
+      words = words.filter((e) => !badWords.isProfane(e.word));
       words = words.filter((e) => e.word && e.word?.indexOf(" ") === -1);
       words = words.filter(
         (e) =>

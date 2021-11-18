@@ -24,11 +24,11 @@ class SpellingDifficulty {
 
     constructor() {
         this._wordSettings = [
-            new WordSetting(DifficultyLevel.VeryEasy, 500, 10000, 3, 5),
-            new WordSetting(DifficultyLevel.Easy, 200, 500, 4, 6),
-            new WordSetting(DifficultyLevel.Moderate, 1, 200, 5, 8),
-            new WordSetting(DifficultyLevel.Hard, 0.1, 1, 7, 10),
-            new WordSetting(DifficultyLevel.VeryHard, 0, 0.1, 11, 50)
+            new WordSetting(DifficultyLevel.VeryEasy, 600, 10000, 3, 5),
+            new WordSetting(DifficultyLevel.Easy, 300, 600, 4, 6),
+            new WordSetting(DifficultyLevel.Moderate, 5, 300, 5, 8),
+            new WordSetting(DifficultyLevel.Hard, 0.05, 5, 7, 10),
+            new WordSetting(DifficultyLevel.VeryHard, 0, 0.05, 10, 16)
         ]
     } 
 
