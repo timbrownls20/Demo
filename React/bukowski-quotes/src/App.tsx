@@ -1,7 +1,7 @@
-import React from 'react';
-import './App.css';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
-import Quote from './components/Quote';
+import React from "react";
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Quote from "./components/Quote";
 
 function App() {
   return (
@@ -12,4 +12,3 @@ function App() {
 }
 
 export default App;
-

@@ -1,7 +1,6 @@
 import React, {useEffect, useState, useRef} from 'react';
 import config from '../config';
 import BukowskiQuotes from '../data/Bukowski'
-import Background from '../assets/images/background.jpg';
 
 enum Phase {
     GetQuote = 1,
@@ -15,10 +14,6 @@ async function sleep(msec:number) {
 }
 
 const Quote = () => {
-
-    const style: React.CSSProperties = {
-        backgroundImage: `url(${Background})`
-    }
 
     const [quote, setQuote]: [string, Function] = useState(BukowskiQuotes[0]);
     const [quoteVisible, setQuoteVisible]: [boolean, Function] = useState(true);
@@ -60,7 +55,7 @@ const Quote = () => {
         } ,config.interval);
     }, []);
 
-return <div className="d-flex flex-column justify-content-between align-items-end quote-background" style={style}>
+return <div className="d-flex flex-column justify-content-between align-items-end quote-background">
             <div className="heading d-flex justify-content-end">
                 <small>Bukowski</small>
             </div>
