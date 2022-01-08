@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { WaitFor } from "./Wait";
 import styles from "./Quote.module.css";
 
 enum Phase {
@@ -8,23 +9,30 @@ enum Phase {
   HideQuote = 10,
 }
 
-async function sleep(msec: number) {
-  return new Promise((resolve) => setTimeout(resolve, msec));
+export interface IDataItem {
+  id: number,
+  text: string
+}
+
+export interface IDataLoader {
+  first:() => IDataItem; 
+  next: (lastItem: number) => IDataItem;
 }
 
 interface IQuoteProp {
   interval: number,
-  data: Array<string>
+  dataLoader: IDataLoader
 }
 
-//.. TODO account for empty data
+const Quote = ({interval, dataLoader } : IQuoteProp) => {
 
-const Quote = ({interval, data } : IQuoteProp) => {
-  const [quote, setQuote]: [string, Function] = useState(data[0]);
-  const [quoteVisible, setQuoteVisible]: [boolean, Function] = useState(true);
-  const quoteVisibleRef: React.MutableRefObject<boolean> = useRef(false);
-  const quoteNumberRef: React.MutableRefObject<number> = useRef(0);
-  const [phase, setPhase]: [number, Function] = useState(Phase.QuoteVisible);
+  const firstItem = dataLoader.first();
+
+  const [quote, setQuote] = useState<string>(firstItem.text);
+  const [quoteVisible, setQuoteVisible] = useState<boolean>(true);
+  const quoteVisibleRef = useRef<boolean>(false);
+  const quoteNumberRef = useRef<number>(firstItem.id);
+  const [phase, setPhase] = useState<Phase>(Phase.QuoteVisible);
 
   const showQuote = (show: boolean) => {
     quoteVisibleRef.current = show;
@@ -37,13 +45,11 @@ const Quote = ({interval, data } : IQuoteProp) => {
     ): Promise<void> => {
       
       //half way through the phase
-      await sleep(interval/2);
+      await WaitFor(interval/2);
 
-      quoteNumberRef.current =
-        quoteNumberRef.current < data.length - 1
-          ? quoteNumberRef.current + 1
-          : 0;
-      callback(data[quoteNumberRef.current]);
+      const nextItem = dataLoader.next(0);
+      quoteNumberRef.current = nextItem.id;
+      callback(nextItem.text);
     };
 
     let count: number = phase;
