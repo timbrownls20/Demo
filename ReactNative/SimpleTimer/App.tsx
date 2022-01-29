@@ -14,12 +14,24 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
   const [count, setCount] = useState(0);
+  const [timerOn, setTimerOn] = useState(true);
 
   useEffect(() => {
-    setInterval(() => {
-      setCount(prev => prev + 1);
-    }, 1000);
-  }, []);
+    console.log(`timer on ${timerOn}`);
+
+    let handler: NodeJS.Timer;
+
+    if (timerOn) {
+      handler = setInterval(() => {
+        setCount(prev => prev + 1);
+      }, 1000);
+    }
+
+    return () => {
+      clearInterval(handler);
+      console.log('unmount');
+    };
+  }, [timerOn]);
 
   const styles = StyleSheet.create({
     topContainer: {
@@ -58,7 +70,12 @@ const App = () => {
         contentInsetAdjustmentBehavior="automatic"
         style={styles.scrollViewStyle}
         contentContainerStyle={styles.contentControllerStyle}>
-        <View style={styles.topContainer}>
+        <View
+          style={styles.topContainer}
+          onTouchStart={() => {
+            console.log('touch');
+            setTimerOn(!timerOn);
+          }}>
           <View style={styles.timerContainer}>
             <Text style={styles.timer}>{count}</Text>
           </View>
