@@ -1,3 +1,0 @@
-1. Combine start and stop buttons
-2. Use MvvmCross
-3. Create meditation timer project
