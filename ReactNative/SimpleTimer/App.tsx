@@ -84,11 +84,11 @@ const App = () => {
               Math.abs(touchY - e.nativeEvent.pageY) > 20 ||
               Math.abs(touchX - e.nativeEvent.pageX) > 20
             ) {
-              console.log('Swiped');
+              //swiped
               setCount(0);
               setTimerOn(false);
             } else {
-              console.log('Touched');
+              //touched
               setTimerOn(!timerOn);
             }
           }}>
