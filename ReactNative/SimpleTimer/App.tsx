@@ -16,6 +16,9 @@ const App = () => {
   const [count, setCount] = useState(0);
   const [timerOn, setTimerOn] = useState(true);
 
+  let touchY: number;
+  let touchX: number;
+
   useEffect(() => {
     console.log(`timer on ${timerOn}`);
 
@@ -72,9 +75,22 @@ const App = () => {
         contentContainerStyle={styles.contentControllerStyle}>
         <View
           style={styles.topContainer}
-          onTouchStart={() => {
-            console.log('touch');
-            setTimerOn(!timerOn);
+          onTouchStart={e => {
+            touchX = e.nativeEvent.pageX;
+            touchY = e.nativeEvent.pageY;
+          }}
+          onTouchEnd={e => {
+            if (
+              Math.abs(touchY - e.nativeEvent.pageY) > 20 ||
+              Math.abs(touchX - e.nativeEvent.pageX) > 20
+            ) {
+              console.log('Swiped');
+              setCount(0);
+              setTimerOn(false);
+            } else {
+              console.log('Touched');
+              setTimerOn(!timerOn);
+            }
           }}>
           <View style={styles.timerContainer}>
             <Text style={styles.timer}>{count}</Text>
