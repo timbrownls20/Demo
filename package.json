@@ -1,0 +1,20 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "Simple programs and scripts for demonstation purposes Often just demo apps I am playing with or to illustrate blog articles For more details see www.codebuckets.com",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timbrownls20/Demo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/timbrownls20/Demo/issues"
+  },
+  "homepage": "https://github.com/timbrownls20/Demo#readme"
+}
