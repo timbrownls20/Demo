@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "link": "npm link news && npm link weather",
+    "link": "npm link news weather travel",
     "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -1,10 +1,11 @@
-const News = () => {
+const Travel = () => {
   const data = [
-    "All Good",
-    "Everyone's Awesome",
-    "No Worries",
-    "No Dramas",
-    "Too Easy",
+    "Easy Breezy",
+    "Smooth Going",
+    "Feeling Fine",
+    "Happy Days",
+    "Steady Away",
+    "Open Road"
   ];
 
   const Today = () => {
@@ -15,4 +16,4 @@ const News = () => {
   return { Today };
 };
 
-module.exports = News;
+module.exports = Travel;
