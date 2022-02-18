@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "link": "npm link news weather travel",
+    "link:project": "cd ../brisbane-news && npm link && cd ../brisbane-travel && npm link && cd ../brisbane-weather && npm link && cd ../master-project && npm link brisbane-news brisbane-travel brisbane-weather",
     "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
