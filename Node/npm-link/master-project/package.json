@@ -12,6 +12,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "brisbane-news": "^0.0.1",
+    "brisbane-travel": "^0.0.1",
+    "brisbane-weather": "^0.0.1",
     "express": "^4.17.2"
   },
   "devDependencies": {

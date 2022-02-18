@@ -1,6 +1,6 @@
 {
-  "name": "weather",
-  "version": "1.0.0",
+  "name": "brisbane-weather",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {

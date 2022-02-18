@@ -1,7 +1,7 @@
 const express = require("express");
-const News = require("news");
-const Travel = require("travel");
-const Weather = require("weather");
+const News = require("brisbane-news");
+const Travel = require("brisbane-travel");
+const Weather = require("brisbane-weather");
 
 const app = express();
 const port = 3000;
